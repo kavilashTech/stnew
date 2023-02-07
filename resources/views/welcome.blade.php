@@ -16,12 +16,10 @@
                               <div class="candidate_revew_select">
                                 <select class="selectpicker w100 show-tick">
                                   <option value="0">Location</option>
-                                  <option value="9">Bangalore</option>
-                                  <option value="10">- R R Nagar</option>
-                                  <option value="11">Chennai</option>
-                                  <option value="1">- Kilpauk</option>
-                                  <option value="13">- Annanagar</option>
-                                  <option value="12">Chennai</option>
+
+                                  @foreach($locationdata as $location)
+                                <option value="{{$location->id}}">{{$location->name}}</option>
+                                @endforeach
                                 </select>
                               </div>
                             </div>
@@ -34,10 +32,9 @@
                                     class="selectpicker w100 show-tick"
                                   >
                                     <option value="0">Area</option>
-                                    <option value="9">Area 1</option>
-                                    <option value="9">Area 2</option>
-                                    <option value="9">Area 3</option>
-                                    <option value="9">Area 4</option>
+                                    @foreach($areadata as $area)
+                                    <option value="{{$area->name}}">{{$area->name}}</option>
+                                    @endforeach
                                   </select>
                                 </div>
                               </div>
@@ -50,10 +47,10 @@
                                 class="selectpicker w100 show-tick"
                               >
                                 <option value="0">Property Category</option>
-                                <option value="1">Hostel</option>
-                                <option value="7">Paying Guest</option>
-                                <option value="8">Guest House</option>
-                                <option value="9">Service Apartment</option>
+                                @foreach($propertycategory as $category)
+                                <option value="{{$category->id}}">{{$category->categoryname}}</option>
+                                @endforeach
+
                               </select>
                             </div>
                           </div>
@@ -162,21 +159,31 @@
       <!-- Feature Properties -->
       <section id="feature-property" class="feature-property pt-4">
         <div class="container">
+
+        @foreach($propertycategory as $category)
           <div class="row py-3">
             <div class="col-lg-12">
               <div class="main-title mb40">
-                <h2>Hostel</h2>
+
+              @if($category->categoryname)
+                        <h2>{{$category->categoryname}}</h2>
+                    @endif
                 <p>
                   Handpicked properties by our team..
 
-                  <a
-                    class="float-right"
-                    href="#"
+                  <a class="float-right" href="#"
                     >View All <span class="flaticon-next"></span
                   ></a>
                 </p>
               </div>
             </div>
+            @php
+                 $propertycategory = App\Models\Property :: where("status", "2")->where('category_id',$category->id)->get();
+            @endphp
+            @foreach($propertycategory as $property)
+            @php
+            $locationdata  = App\Models\Location :: find($property->location_id);
+            @endphp
             <div class="col-lg-12">
               <div class="feature_property_slider owl-theme owl-carousel">
                 <!-- new code (24-01-23) -->
@@ -185,13 +192,13 @@
                     <div class="mb-2 properti-thumb">
                       <a class="thumb-image" href="#">
                         <div class="thumb_img bg_img_placeholder feature_property_bg_image_overlay pt-0">
-                          <img src="{{url('images/menhostel3-600.jpg')}}" class="img-fluid">
+                          <img src="{{url($property->feature_image)}}" class="img-fluid">
                         </div>
                       </a>
                       <div class="properti-number d-flex align-items-center justify-content-center"><span>8</span></div>
                     </div>
                     <div class="properti-content">
-                      <div class="properti-title">Rich's Home</div>
+                      <div class="properti-title">{{$property->property_title}}</div>
                       <div class="properti-location d-flex">
                         <div class="rate d-flex mr-2 align-items-center">
                           <i class="fa fa-star" aria-hidden="true"></i>
@@ -201,97 +208,7 @@
                           <i class="fa fa-star-half" aria-hidden="true"></i>
                         </div>
                         <div class="location">
-                          <a href="#"><i class="fa fa-map-marker mr-1" aria-hidden="true"></i><span>Noida, New Delhi and NCR</span></a>
-                        </div>
-                      </div>
-                      <div class="properti-price">
-                        INR 1,758.33
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div class="item">
-                  <div class="properti_city properti-slider">
-                    <div class="mb-2 properti-thumb">
-                      <a class="thumb-image" href="#">
-                        <div class="thumb_img bg_img_placeholder feature_property_bg_image_overlay pt-0">
-                          <img src="{{url('images/menhostel3-600.jpg')}}" class="img-fluid">
-                        </div>
-                      </a>
-                      <div class="properti-number d-flex align-items-center justify-content-center"><span>8</span></div>
-                    </div>
-                    <div class="properti-content">
-                      <div class="properti-title">Rich's Home</div>
-                      <div class="properti-location d-flex">
-                        <div class="rate d-flex mr-2 align-items-center">
-                          <i class="fa fa-star" aria-hidden="true"></i>
-                          <i class="fa fa-star" aria-hidden="true"></i>
-                          <i class="fa fa-star" aria-hidden="true"></i>
-                          <i class="fa fa-star" aria-hidden="true"></i>
-                          <i class="fa fa-star-half" aria-hidden="true"></i>
-                        </div>
-                        <div class="location">
-                          <a href="#"><i class="fa fa-map-marker mr-1" aria-hidden="true"></i><span>Noida, New Delhi and NCR</span></a>
-                        </div>
-                      </div>
-                      <div class="properti-price">
-                        INR 1,758.33
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div class="item">
-                  <div class="properti_city properti-slider">
-                    <div class="mb-2 properti-thumb">
-                      <a class="thumb-image" href="#">
-                        <div class="thumb_img bg_img_placeholder feature_property_bg_image_overlay pt-0">
-                          <img src="{{url('images/menhostel3-600.jpg')}}" class="img-fluid">
-                        </div>
-                      </a>
-                      <div class="properti-number d-flex align-items-center justify-content-center"><span>8</span></div>
-                    </div>
-                    <div class="properti-content">
-                      <div class="properti-title">Rich's Home</div>
-                      <div class="properti-location d-flex">
-                        <div class="rate d-flex mr-2 align-items-center">
-                          <i class="fa fa-star" aria-hidden="true"></i>
-                          <i class="fa fa-star" aria-hidden="true"></i>
-                          <i class="fa fa-star" aria-hidden="true"></i>
-                          <i class="fa fa-star" aria-hidden="true"></i>
-                          <i class="fa fa-star-half" aria-hidden="true"></i>
-                        </div>
-                        <div class="location">
-                          <a href="#"><i class="fa fa-map-marker mr-1" aria-hidden="true"></i><span>Noida, New Delhi and NCR</span></a>
-                        </div>
-                      </div>
-                      <div class="properti-price">
-                        INR 1,758.33
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div class="item">
-                  <div class="properti_city properti-slider">
-                    <div class="mb-2 properti-thumb">
-                      <a class="thumb-image" href="#">
-                        <div class="thumb_img bg_img_placeholder feature_property_bg_image_overlay pt-0">
-                          <img src="{{url('images/menhostel3-600.jpg')}}" class="img-fluid">
-                        </div>
-                      </a>
-                      <div class="properti-number d-flex align-items-center justify-content-center"><span>8</span></div>
-                    </div>
-                    <div class="properti-content">
-                      <div class="properti-title">Lorem ipsum dolor sit amet consectetur adipisicing elit. Blanditiis, tenetur.</div>
-                      <div class="properti-location d-flex">
-                        <div class="rate d-flex mr-2 align-items-center">
-                          <i class="fa fa-star" aria-hidden="true"></i>
-                          <i class="fa fa-star" aria-hidden="true"></i>
-                          <i class="fa fa-star" aria-hidden="true"></i>
-                          <i class="fa fa-star" aria-hidden="true"></i>
-                          <i class="fa fa-star-half" aria-hidden="true"></i>
-                        </div>
-                        <div class="location">
-                          <a href="#"><i class="fa fa-map-marker mr-1" aria-hidden="true"></i><span>Noida, New Delhi and NCR</span></a>
+                          <a href="#"><i class="fa fa-map-marker mr-1" aria-hidden="true"></i><span>{{($locationdata) ? $locationdata->name : ''}}</span></a>
                         </div>
                       </div>
                       <div class="properti-price">
@@ -301,192 +218,12 @@
                   </div>
                 </div>
 
+
               </div>
             </div>
+            @endforeach
           </div>
-          <div class="row bg-light py-3">
-            <div class="col-lg-12">
-              <div class="main-title mb40">
-                <h2>Paying Guest</h2>
-                <p>
-                  Handpicked properties by our team..
-
-                  <a
-                    class="float-right"
-                    href="#"
-                    >View All <span class="flaticon-next"></span
-                  ></a>
-                </p>
-              </div>
-            </div>
-            <div class="col-lg-12">
-              <div class="feature_property_slider owl-theme owl-carousel">
-                <!-- new code (24-01-23) -->
-                <div class="item">
-                  <div class="properti_city properti-slider">
-                    <div class="mb-2 properti-thumb">
-                      <a class="thumb-image" href="#">
-                        <div class="thumb_img bg_img_placeholder feature_property_bg_image_overlay pt-0">
-                          <img src="{{url('images/menhostel3-600.jpg')}}" class="img-fluid">
-                        </div>
-                      </a>
-                      <div class="properti-number d-flex align-items-center justify-content-center"><span>8</span></div>
-                    </div>
-                    <div class="properti-content">
-                      <div class="properti-title">Rich's Home</div>
-                      <div class="properti-location d-flex">
-                        <div class="rate d-flex mr-2 align-items-center">
-                          <i class="fa fa-star" aria-hidden="true"></i>
-                          <i class="fa fa-star" aria-hidden="true"></i>
-                          <i class="fa fa-star" aria-hidden="true"></i>
-                          <i class="fa fa-star" aria-hidden="true"></i>
-                          <i class="fa fa-star-half" aria-hidden="true"></i>
-                        </div>
-                        <div class="location">
-                          <a href="#"><i class="fa fa-map-marker mr-1" aria-hidden="true"></i><span>Noida, New Delhi and NCR</span></a>
-                        </div>
-                      </div>
-                      <div class="properti-price">
-                        INR 1,758.33
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div class="item">
-                  <div class="properti_city properti-slider">
-                    <div class="mb-2 properti-thumb">
-                      <a class="thumb-image" href="#">
-                        <div class="thumb_img bg_img_placeholder feature_property_bg_image_overlay pt-0">
-                          <img src="{{url('images/menhostel3-600.jpg')}}" class="img-fluid">
-                        </div>
-                      </a>
-                      <div class="properti-number d-flex align-items-center justify-content-center"><span>8</span></div>
-                    </div>
-                    <div class="properti-content">
-                      <div class="properti-title">Rich's Home</div>
-                      <div class="properti-location d-flex">
-                        <div class="rate d-flex mr-2 align-items-center">
-                          <i class="fa fa-star" aria-hidden="true"></i>
-                          <i class="fa fa-star" aria-hidden="true"></i>
-                          <i class="fa fa-star" aria-hidden="true"></i>
-                          <i class="fa fa-star" aria-hidden="true"></i>
-                          <i class="fa fa-star-half" aria-hidden="true"></i>
-                        </div>
-                        <div class="location">
-                          <a href="#"><i class="fa fa-map-marker mr-1" aria-hidden="true"></i><span>Noida, New Delhi and NCR</span></a>
-                        </div>
-                      </div>
-                      <div class="properti-price">
-                        INR 1,758.33
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-              </div>
-            </div>
-          </div>
-          <div class="row py-3">
-            <div class="col-lg-12">
-              <div class="main-title mb40">
-                <h2>Guest House</h2>
-                <p>
-                  Handpicked properties by our team..
-
-                  <a
-                    class="float-right"
-                    href="#"
-                    >View All <span class="flaticon-next"></span
-                  ></a>
-                </p>
-              </div>
-            </div>
-            <div class="col-lg-12">
-              <div class="feature_property_slider owl-theme owl-carousel">
-                <!-- new code (24-01-23) -->
-                <div class="item">
-                  <div class="properti_city properti-slider">
-                    <div class="mb-2 properti-thumb">
-                      <a class="thumb-image" href="#">
-                        <div class="thumb_img bg_img_placeholder feature_property_bg_image_overlay pt-0">
-                          <img src="assets/images/menhostel3-600.jpg')}}" class="img-fluid">
-                        </div>
-                      </a>
-                      <div class="properti-number d-flex align-items-center justify-content-center"><span>8</span></div>
-                    </div>
-                    <div class="properti-content">
-                      <div class="properti-title">Rich's Home</div>
-                      <div class="properti-location d-flex">
-                        <div class="rate d-flex mr-2 align-items-center">
-                          <i class="fa fa-star" aria-hidden="true"></i>
-                          <i class="fa fa-star" aria-hidden="true"></i>
-                          <i class="fa fa-star" aria-hidden="true"></i>
-                          <i class="fa fa-star" aria-hidden="true"></i>
-                          <i class="fa fa-star-half" aria-hidden="true"></i>
-                        </div>
-                        <div class="location">
-                          <a href="#"><i class="fa fa-map-marker mr-1" aria-hidden="true"></i><span>Noida, New Delhi and NCR</span></a>
-                        </div>
-                      </div>
-                      <div class="properti-price">
-                        INR 1,758.33
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div class="item">
-                  <div class="properti_city properti-slider">
-                    <div class="mb-2 properti-thumb">
-                      <a class="thumb-image" href="#">
-                        <div class="thumb_img bg_img_placeholder feature_property_bg_image_overlay pt-0">
-                          <img src="{{url('images/menhostel3-600.jpg')}}" class="img-fluid">
-                        </div>
-                      </a>
-                      <div class="properti-number d-flex align-items-center justify-content-center"><span>8</span></div>
-                    </div>
-                    <div class="properti-content">
-                      <div class="properti-title">Rich's Home</div>
-                      <div class="properti-location d-flex">
-                        <div class="rate d-flex mr-2 align-items-center">
-                          <i class="fa fa-star" aria-hidden="true"></i>
-                          <i class="fa fa-star" aria-hidden="true"></i>
-                          <i class="fa fa-star" aria-hidden="true"></i>
-                          <i class="fa fa-star" aria-hidden="true"></i>
-                          <i class="fa fa-star-half" aria-hidden="true"></i>
-                        </div>
-                        <div class="location">
-                          <a href="#"><i class="fa fa-map-marker mr-1" aria-hidden="true"></i><span>Noida, New Delhi and NCR</span></a>
-                        </div>
-                      </div>
-                      <div class="properti-price">
-                        INR 1,758.33
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-              </div>
-            </div>
-          </div>
-          <div class="row py-3 bg-light">
-            <div class="col-lg-12">
-              <div class="main-title mb40">
-                <h2>Service Apartment</h2>
-                <p>
-                  Handpicked properties by our team..
-
-                  <a
-                    class="float-right"
-                    href="#"
-                    >View All <span class="flaticon-next"></span
-                  ></a>
-                </p>
-              </div>
-            </div>
-            <div class="col-lg-12">
-              <div class="feature_property_slider"></div>
-            </div>
-          </div>
+@endforeach
         </div>
       </section>
       <!-- testimonial section -->

@@ -1,6 +1,10 @@
 <?php
 
 namespace App\Http\Controllers;
+use App\Models\Property;
+use App\Models\Category;
+use App\Models\Area;
+use App\Models\Location;
 
 use Illuminate\Http\Request;
 
@@ -11,10 +15,10 @@ class HomeController extends Controller
      *
      * @return void
      */
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
+    // public function __construct()
+    // {
+    //     $this->middleware('auth');
+    // }
 
     /**
      * Show the application dashboard.
@@ -23,6 +27,13 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+
+
+        $propertycollection = Property::where('status', '2')->where('active', '1')->get();
+        $areadata = Area::where('status', '1')->get();
+        $locationdata = Location::where('status', '1')->get();
+        $propertycategory = Category::where('status', '1')->orderBy('sortorder', 'Asc')->get();
+
+        return view('welcome',compact('propertycategory','areadata','locationdata'));
     }
 }
