@@ -20,5 +20,6 @@ jobs:
         server: stayteller.com
         username: ${{ secrets.ftp_username }}
         password: ${{ secrets.ftp_password }}
-        server-dir: var/www/html/stayteller/
+        server-dir: /var/www/html/stayteller/
         protocol: ftps
+        security: loose
