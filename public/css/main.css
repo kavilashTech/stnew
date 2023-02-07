@@ -12,8 +12,8 @@
 
 /* button css */
 .btn-thm {
-  background-color: #ff5a5f;
-  border: 2px solid #ff5a5f;
+  background-color: #f9508d;
+  border: 2px solid #f9508d;
   border-radius: 5px;
   color: #ffffff;
   -webkit-transition: all 0.3s ease;
@@ -24,15 +24,15 @@
 .btn-thm:active,
 .btn-thm:focus {
   background-color: #ffffff;
-  border-color: #ff5a5f;
-  color: #ff5a5f;
+  border-color: #f9508d;
+  color: #f9508d;
 }
 /* header banner */
 .banner-content {
   position: absolute;
   top: 9px;
   min-width: 100px;
-  max-width: 600px;
+  max-width: 420px;
   background: #fff;
   display: flex;
   align-items: center;
@@ -408,7 +408,7 @@ header.header-nav ul.ace-responsive-menu li.add_listing a:hover {
   padding: 20px;
   position: absolute;
   z-index: 99;
-  top: 5%;
+  top: 9%;
   right: 100px;
   border-radius: 10px;
 }
