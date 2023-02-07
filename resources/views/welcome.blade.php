@@ -117,8 +117,14 @@
                 <div class="slider-banner owl-theme owl-carousel">
                   <div
                     class="slide slide-one"
+                    style="background-image:url({{asset('images/banner/1.jpg')}}); height: 620px;"
+                  >
+                    <div class="container"></div>
+                  </div>
+                  <div
+                    class="slide slide-one"
                     style="
-                      background-image:url({{asset('images/banner/4.jpg')}});
+                      background-image: url({{asset('images/banner/2.jpg')}});
                       height: 620px;
                     "
                   >
@@ -127,16 +133,7 @@
                   <div
                     class="slide slide-one"
                     style="
-                      background-image: url({{asset('images/banner/5.jpg')}});
-                      height: 620px;
-                    "
-                  >
-                    <div class="container"></div>
-                  </div>
-                  <div
-                    class="slide slide-one"
-                    style="
-                      background-image: url({{asset('images/banner/6.jpg')}});
+                      background-image: url({{asset('images/banner/3.jpg')}});
                       height: 620px;
                     "
                   >
@@ -232,7 +229,7 @@
           <div class="row justify-content-center">
             <div class="col-lg-12">
               <div class="main-title mb40 text-center">
-                <p class="testimonial-title">Testimonail</p>
+                <p class="testimonial-title">Testimonnial</p>
                 <h2>What Our Clients Say!</h2>
               </div>
             </div>
