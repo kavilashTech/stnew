@@ -6,6 +6,8 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\PropertyController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -23,6 +25,13 @@ Route::get('/', function () {
 });
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
+
+Route::controller(PropertyController::class)->group(function () {
+    //mobile app balnk page for webview
+    Route::get('/detail/{slug}', 'detail')->name('property.detail');
+
+
+});
 
 Auth::routes();
 

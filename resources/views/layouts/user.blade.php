@@ -485,6 +485,8 @@
     <script type="text/javascript" src="{{url('js/owl.carousel.min.js')}}"></script>
     <script type="text/javascript" src="{{url('js/main.js')}}"></script>
 
+    @yield('script')
+
 
 
 </body>
