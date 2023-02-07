@@ -180,13 +180,14 @@
             @php
                  $propertycategory = App\Models\Property :: where("status", "2")->where('category_id',$category->id)->get();
             @endphp
-            @foreach($propertycategory as $property)
-            @php
-            $locationdata  = App\Models\Location :: find($property->location_id);
-            @endphp
+
             <div class="col-lg-12">
               <div class="feature_property_slider owl-theme owl-carousel">
                 <!-- new code (24-01-23) -->
+                @foreach($propertycategory as $property)
+            @php
+            $locationdata  = App\Models\Location :: find($property->location_id);
+            @endphp
                 <div class="item">
                   <div class="properti_city properti-slider">
                     <div class="mb-2 properti-thumb">
@@ -217,11 +218,12 @@
                     </div>
                   </div>
                 </div>
+                @endforeach
 
 
               </div>
             </div>
-            @endforeach
+
           </div>
 @endforeach
         </div>
