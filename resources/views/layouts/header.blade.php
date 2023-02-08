@@ -40,33 +40,34 @@
               <li class="depth-0"><a target="" href="contact">Contact</a></li>
               <!--  -->
               <li class="list-inline-item list-inline-item add_listing dn-lg">
-                <a href="javascript:void(0)" class="btn">
+                <a href="javascript:void(0)" class="btn btn-thm">
                   <span class="dn-lg" data-toggle="modal" data-target="#login"
                     >Login</span
                   ></a
                 >
               </li>
               <li class="list-inline-item add_listing">
-                <a href="javascript:void(0)" class="btn">
+                <a href="javascript:void(0)" class="btn btn-thm">
                   <span
                     class="dn-lg"
                     data-toggle="modal"
-                    data-target="#owner-login"
-                    ><span class=""></span
-                    ><span class="dn-lg"> For Owners</span></span
-                  ></a
-                >
+                    data-target="#owner-login">
+                    <span class=""></span>
+                    <span class="dn-lg"> For Owners</span></span>
+                    
+                  </a>
               </li>
             </ul>
           </nav>
         </div>
         <!-- banner -->
         <div class="banner-content">
-          <h4 class="banner-title text-center mb-0 mr-5">
+          <!-- <h4 class="banner-title text-center mb-0 mr-5">
             Book Now And <br />
             Get Upto <span>Rs.750 Discount!</span>
           </h4>
-          <button class="btn btn-thm">Book Now!</button>
+          <button class="btn btn-thm">Book Now!</button> -->
+          <img src="{{url('images/banner/banner1.jpeg')}}" style='max-height:90px' alt=''>
         </div>
       </header>
  <!-- Main Header Nav For Mobile -->

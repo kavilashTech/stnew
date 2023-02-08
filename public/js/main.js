@@ -22,7 +22,7 @@
           var summary = $(summaries[i]);
           var next = summaries[i + 1];
           summary.scrollToFixed({
-              marginTop: $('.navbar-scrolltofixed').outerHeight(true) + 10,
+              marginTop: $('.navbar-scrolltofixed').outerHeight(true) + 30,
               limit: function() {
                   var limit = 0;
                   if (next) {
