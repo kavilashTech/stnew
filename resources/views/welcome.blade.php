@@ -168,7 +168,7 @@
                 <p>
                   Handpicked properties by our team..
 
-                  <a class="float-right" href="#"
+                  <a class="float-right" href="{{ route('property.page',$category->id)}}"
                     >View All <span class="flaticon-next"></span
                   ></a>
                 </p>

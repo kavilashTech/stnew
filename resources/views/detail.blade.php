@@ -1,4 +1,5 @@
 @extends('layouts.user')
+
 <link rel="stylesheet" href="{{url('css1/style.css')}}"/>
 <link rel="stylesheet" href="{{url('css1/aos.css')}}">
 <link rel="stylesheet" href="{{url('css1/magnific.css')}}">
@@ -15,7 +16,7 @@
             <div class="col-md-6 bor-right">
                 <div class="inner-box">
                     <a href="{{url('images/img1.jpg')}}" class="zoom" title="Hotel photo 1">
-                        <img data-src="{{url('images/img1.jpg')}}" class="img-fluid lazyload" alt="Gallery" />
+                        <img data-src="{{url('images/img1.jpg')}}" src="{{url('images/img1.jpg')}}" class="img-fluid lazyload" alt="Gallery" />
                     </a>
                 </div>
             </div>
@@ -24,7 +25,7 @@
                     <div class="col-md-12">
                         <div class="inner-box">
                             <a href="{{url('images/img2.jpg')}}" class="zoom" title="Hotel photo 2">
-                                <img data-src="{{url('images/img2.jpg')}}" class="img-fluid lazyload" alt="Gallery" />
+                                <img data-src="{{url('images/img2.jpg')}}" src="{{url('images/img2.jpg')}}" class="img-fluid lazyload" alt="Gallery" />
                             </a>
                         </div>
                     </div>
@@ -33,7 +34,7 @@
                     <div class="col-md-12">
                         <div class="inner-box">
                             <a href="{{url('images/img3.jpg')}}" class="zoom" title="Hotel photo 3">
-                                <img data-src="{{url('images/img3.jpg')}}" class="img-fluid lazyload" alt="Gallery" />
+                                <img data-src="{{url('images/img3.jpg')}}" src="{{url('images/img3.jpg')}}" class="img-fluid lazyload" alt="Gallery" />
                             </a>
                         </div>
                     </div>
@@ -44,7 +45,7 @@
                     <div class="col-md-12">
                         <div class="inner-box">
                             <a href="{{url('images/img4.jpg')}}" class="zoom" title="Hotel photo 4">
-                                <img data-src="{{url('images/img4.jpg')}}" class="img-fluid lazyload" alt="Gallery" />
+                                <img data-src="{{url('images/img4.jpg')}}" src="{{url('images/img4.jpg')}}" class="img-fluid lazyload" alt="Gallery" />
                             </a>
                         </div>
                     </div>
@@ -53,7 +54,7 @@
                     <div class="col-md-12">
                         <div class="inner-box">
                             <a href="{{url('images/img5.jpg')}}" class="zoom" title="Hotel photo 5">
-                                <img data-src="{{url('images/img5.jpg')}}" class="img-fluid lazyload" alt="Gallery" />
+                                <img data-src="{{url('images/img5.jpg')}}" src="{{url('images/img5.jpg')}}" class="img-fluid lazyload" alt="Gallery" />
                             </a>
                         </div>
                     </div>
@@ -146,7 +147,7 @@
                         <div class="row no-gutters">
                             <div class="col-lg-2 col-md-12">
                                 <div class="room-slider">
-                                    <div class="room-img"><img data-src="{{url('images/room1/slide1.jpg')}}" class="lazyload img-fluid" alt="image"></div>
+                                    <div class="room-img"><img data-src="{{url('images/room1/slide1.jpg')}}" src="{{url('images/room1/slide1.jpg')}}" class="lazyload img-fluid" alt="image"></div>
                                 </div>
                             </div>
                             <div class="col-lg-10 col-md-12">
@@ -257,7 +258,7 @@
                         <div class="row no-gutters">
                             <div class="col-lg-2 col-md-12">
                                 <div class="room-slider">
-                                    <div class="room-img"><img data-src="{{url('images/room1/slide2.jpg')}}" class="lazyload img-fluid" alt="image"></div>
+                                    <div class="room-img"><img data-src="{{url('images/room1/slide2.jpg')}}" src="{{url('images/room1/slide2.jpg')}}" class="lazyload img-fluid" alt="image"></div>
                                 </div>
                             </div>
                             <div class="col-lg-10 col-md-12">
@@ -387,6 +388,7 @@
 
 
 @section('script')
+
 <script type="text/javascript" src="{{url('js1/custome.js')}}"></script>
 <script type="text/javascript" src="{{url('js1/font-5.js')}}"></script>
 <script type="text/javascript" src="{{url('js1/magnific.js')}}"></script>
