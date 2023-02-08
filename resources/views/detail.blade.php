@@ -77,7 +77,7 @@
                 <div class="header-section">
                     <h2>Supreme Hostel</h2>
                 </div>
-                <p>Zostel Bangalore offers you a convenient, social stay in Bangalore’s party hub of Indiranagar. It features indoor and outdoor common areas, a quaint cafe for homely meals, and well-equipped workstations. During your stay here, make new friends, network with the minds of India’s silicon valley, and step out to explore the city’s finest cafes, monuments, and streets.</p>
+                <p>Stayteller Bangalore offers you a convenient, social stay in Bangalore’s party hub of Indiranagar. It features indoor and outdoor common areas, a quaint cafe for homely meals, and well-equipped workstations. During your stay here, make new friends, network with the minds of India’s silicon valley, and step out to explore the city’s finest cafes, monuments, and streets.</p>
                 <div id="collapse1" class="hide-part">
                     <p class="mt-3 gray"><strong>Recommended experiences:</strong></p>
                     <p>Visit Bangalore Palace, Cubbon Park, and Lal Bagh. Shop at MG Road. Indulge in Bangalore’s nightlife. Try the street food. Go to Ulsoor Lake and Nandi Hills.</p>
@@ -321,8 +321,8 @@
                 <div class="accordion_box">
                     <button class="accordion new-acc">Direction</button>
                     <div class="panel">
-                        <p class=""><span class="font-black gray">From the Majestic bus stand/KSR Junction:</span> 11 km, 45 min; ~INR 350 (auto) or ~INR 450 (cab) to Zostel Bangalore.</p>
-                        <p class="mt-3"><span class="font-black gray">From the airport:</span> 45 km, 1.5 hr, ~INR 900 (auto) or ~INR 1800 (cab) to Zostel Bangalore. Alternately, take a Vayu Vajra bus towards the Majestic (Kempegowda) Bus Stand and follow the above instructions.</p>
+                        <p class=""><span class="font-black gray">From the Majestic bus stand/KSR Junction:</span> 11 km, 45 min; ~INR 350 (auto) or ~INR 450 (cab) to Stayteller Bangalore.</p>
+                        <p class="mt-3"><span class="font-black gray">From the airport:</span> 45 km, 1.5 hr, ~INR 900 (auto) or ~INR 1800 (cab) to Stayteller Bangalore. Alternately, take a Vayu Vajra bus towards the Majestic (Kempegowda) Bus Stand and follow the above instructions.</p>
                         <p class="mt-3 italic">Note: If you need more details, please contact the property.</p>
                     </div>
                 </div>
@@ -346,7 +346,7 @@
     </div>
         <div class="mt-3">
             <p>- Guests are required to pay a 21% advance at the time of booking itself.</p>
-            <p>- We strictly DO NOT allow a group of more than 8 people. In case of a group of 4 or more, you might be purposefully allotted different dorm rooms. Further, if the group behaviour is deemed unfit at the property, the Zostel Property Manager, upon subjective evaluation, retains the full right to take required action which may also result in an on-spot cancellation without refunds.</p>
+            <p>- We strictly DO NOT allow a group of more than 8 people. In case of a group of 4 or more, you might be purposefully allotted different dorm rooms. Further, if the group behaviour is deemed unfit at the property, the Stayteller Property Manager, upon subjective evaluation, retains the full right to take required action which may also result in an on-spot cancellation without refunds.</p>
             <p>- Children below 18 years of age are not permitted entry/stay at any of our hostels, with or without guardians. We do not recommend families.</p>
             <p>- Our standard check-in time is 12 PM and the standard check-out time is 10 AM</p>
             <p>- We only accept a government ID as valid identification proof. No local IDs shall be accepted at the time of check-in.</p>
@@ -376,7 +376,7 @@
             <p>- We will be providing full credits on any cancellations received more than 7 days prior to the arrival date. You will be able to avail the credited amount for any future booking at any of our properties.</p>
             <p>- If informed within 7 days of the standard check-in time (12 pm), the entire amount shall be adjusted against the cancellation fee.</p>
             <p>- In case the property is not able to host you due to any local or subjective circumstances, we will provide you with a credit of the same amount. You will be able to avail the credited amount for any future booking at any of our properties. </p>
-            <p class="mt-4 mb-2">For any other queries, please reach out to us at reservations@zostel.com.</p>
+            <p class="mt-4 mb-2">For any other queries, please reach out to us at reservations@stayteller.com.</p>
         </div>
     </div>
 </div>
