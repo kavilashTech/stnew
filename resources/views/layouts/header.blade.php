@@ -15,7 +15,7 @@
                 <span class="icon-bar"></span>
               </button>
             </div>
-            <a href="#" class="navbar_brand float-left">
+            <a href="{{ url("/") }}" class="navbar_brand float-left">
               <img
                 class="logo1 img-fluid"
                 src="{{url('images/logo.png')}}"
@@ -54,7 +54,7 @@
                     data-target="#owner-login">
                     <span class=""></span>
                     <span class="dn-lg"> For Owners</span></span>
-                    
+
                   </a>
               </li>
             </ul>
