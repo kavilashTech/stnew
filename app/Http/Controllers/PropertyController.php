@@ -13,4 +13,9 @@ class PropertyController extends Controller
     {
         return view('detail');
     }
+
+    public function propertyview(Request $request,$id)
+    {
+        return view('property');
+    }
 }

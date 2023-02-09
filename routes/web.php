@@ -29,7 +29,7 @@ Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::controller(PropertyController::class)->group(function () {
     //mobile app balnk page for webview
     Route::get('/detail/{slug}', 'detail')->name('property.detail');
-
+    Route::get('/property/{id}', 'propertyview')->name('property.page');
 
 });
 

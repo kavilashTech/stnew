@@ -12,7 +12,7 @@
 
     <link rel="stylesheet" href="{{url('css/main.css')}}" type="text/css" />
     <link rel="stylesheet" href="{{url('css/responsive.css')}}" type="text/css" />
-
+    @yield('head')
 </head>
 
 <body>
@@ -119,7 +119,7 @@
                     <div class="footer_menu_widget">
                         <ul>
                             <li class=" depth-0">
-                                <a target="" href="/">Home</a>
+                                <a  target="" href="{{ url("/") }}" >Home</a>
                                 <ul class="children-menu menu-dropdown">
                                     <li class=" depth-1"><a target="" href="/">Home 1</a></li>
                                     <li class=" depth-1"><a target="" href="#">Home 3</a></li>

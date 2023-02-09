@@ -1,0 +1,141 @@
+.property-list .main-title .menu-list {font-size: 13px;font-weight: 600;}
+.property-list .main-title .menu-list a {color: #ff5a5f;}
+.property-slidbar .property-content {
+    background-color: #fff;
+    border: 1px solid #eae9e9;
+    padding: 20px;
+    border-radius: 8px;
+    -webkit-border-radius: 8px;
+    -moz-border-radius: 8px;
+    -ms-border-radius: 8px;
+    -o-border-radius: 8px;
+}
+.btn-show {text-transform: uppercase;font-weight: 700 !important;font-size: 13px !important;}
+.property-content .form-check-label {font-size: 14px;color: #333;font-weight: 500;}
+.property-content .main-title p {font-weight: 700;font-size: 15px;}
+.property-content .main-title h3 {font-weight: 700;font-size: 18px;}
+.property-content .form-control {
+    background-color: #ffffff;
+    border: 3px solid #ebebeb;
+    border-radius: 8px;
+    font-size: 14px;
+    color: #484848;
+    line-height: 1.2;
+    height: 42px;
+}
+.featured-content .feature-slide {
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 180px;
+    position: relative;
+    border-radius: 8px;
+    overflow: hidden;
+    -webkit-border-radius: 8px;
+    -moz-border-radius: 8px;
+    -ms-border-radius: 8px;
+    -o-border-radius: 8px;
+}
+.featured-content .feature-slide .main-title {
+    position: absolute;
+    background-color: rgba(0,0,0,.4);
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-end;
+    padding: 10px;
+}
+.featured-content .feature-slide .main-title h3 {font-size: 20px;}
+.featured-content .feature-slide .main-title p {font-size: 14px;}
+.featured-content .owl-theme .owl-dots .owl-dot span {width: 8px;height: 8px;}
+.category-list .category-item:last-child .category-link p {margin-bottom: 0;}
+.recently-list li:not(:last-child) {margin-bottom: 10px;}
+.recently-list .recently-link .recently-img {
+    width: 60px;
+    height: 60px;
+    border-radius: 8px;
+    -webkit-border-radius: 8px;
+    -moz-border-radius: 8px;
+    -ms-border-radius: 8px;
+    -o-border-radius: 8px;
+    overflow: hidden;
+    margin-right: 10px;
+}
+.recently-list .recently-link .recently-img img {width: 100%;height: 100%;object-fit: cover;}
+.recently-list .recently-link .recently-details p {line-height: 120%;}
+.sort-by p {white-space: nowrap;margin-bottom: 0;}
+.sort-by .form-control {border: 0;height: 30px;}
+.properties-content ul li {
+    background-color: #fff;
+    padding: 12px 20px;
+    border: 1px solid #ff5a5f;
+    border-radius: 8px;
+    -webkit-border-radius: 8px;
+    -moz-border-radius: 8px;
+    -ms-border-radius: 8px;
+    -o-border-radius: 8px;
+}
+.properties-content ul li:not(:last-child) {margin-bottom: 20px;}
+.properties-details .properties-img {
+    width: 200px;
+    height: 160px;
+    position: relative;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    border-radius: 8px;
+    overflow: hidden;
+    -webkit-border-radius: 8px;
+    -moz-border-radius: 8px;
+    -ms-border-radius: 8px;
+    -o-border-radius: 8px;
+}
+.properties-details .properties-img::after {
+    content: '';
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,.1);
+    display: flex;
+}
+.properties-details .properties-img .like-icon {
+    position: absolute;
+    bottom: 6px;
+    right: 6px;
+    width: 30px;
+    height: 30px;
+    background-color: rgba(0,0,0,.6);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 5px;
+    color: #c2c2c2;
+    cursor: pointer;
+}
+.propertiesdetail {line-height: 120%;}
+.propertiesdetail p {font-size: 16px;}
+.property-pagination .page-link {
+    border-radius: 100% !important;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 8px;
+    -webkit-border-radius: 100% !important;
+    -moz-border-radius: 100% !important;
+    -ms-border-radius: 100% !important;
+    -o-border-radius: 100% !important;
+    color: #777777;
+}
+.property-pagination .page-item.active .page-link {
+    background-color: #ff5a5f;
+    border-color: #ff5a5f;
+}
+
+@media only screen and (max-width: 767.59px) {
+    .properties-items {flex-direction: column;}
+    .properties-details {flex-direction: column;align-items: flex-start !important;width: 100%;}
+    .properties-details .properties-img {width: 100%;}
+}

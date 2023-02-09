@@ -31,7 +31,7 @@
               data-menu-style="horizontal"
             >
               <li class="active depth-0">
-                <a target="" href="#">Home</a>
+                <a target="" href="{{ url("/") }}">Home</a>
               </li>
               <li class="depth-0">
                 <a target="" href="page/about-us">About</a>
@@ -83,7 +83,7 @@
             </div>
             <ul class="menu_bar_home2">
               <li class="list-inline-item list_s">
-                <a href="#"
+                <a href="{{ url("/") }}"
                   ><span class="flaticon-user"></span
                 ></a>
               </li>
@@ -97,7 +97,7 @@
         <nav id="menu" class="stylehome1 mm-menu_offcanvas">
           <ul>
             <li class="active depth-0">
-              <a target="" href="#"
+              <a target="" href="{{ url("/") }}"
                 >Home</a
               >
             </li>

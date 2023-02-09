@@ -90,11 +90,6 @@
       };
   });
 
-  $(".mouse_scroll, .mouse_scroll.home8").on('click', function() {
-      $('html, body').animate({
-          scrollTop: $("#feature-property, #property-city").offset().top
-      }, 1000);
-  });
   /** Main Menu Custom Script End **/
 
   /* ----- Blog innerpage sidebar according ----- */
@@ -461,6 +456,26 @@
       $(".banner-carousel-btn .right-btn").on("click", function() {
           $(".slider-banner").trigger("prev.owl.carousel");
           return false;
+      });
+  }
+  /*  Expert-Freelancer-Owl-carousel  */
+  if ($(".feature-slider").length) {
+      $(".feature-slider").owlCarousel({
+          loop: true,
+          items: 1,
+          margin: 0,
+          dots: true,
+          nav: false,
+        //   rtl:bookingCore.rtl,
+          autoplay: true,
+          //animateIn: 'slideInLeft',
+          //animateOut: 'slideInLeft',
+          animateOut: 'fadeOut',
+
+
+          active: true,
+          smartSpeed: 450,
+          // autoplay: true
       });
   }
 
