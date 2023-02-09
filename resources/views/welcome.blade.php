@@ -8,13 +8,13 @@
             <div class="row justify-content-center mx-0">
               <div class="col-xl-11 col-lg-12 col-md-12 px-0">
                 <div class="home_adv_srch_opt mb10 mx-0">
-                  <form>
+                  <form method = "get" action="{{route('property.search')}}">
                     <div class="home1-advnc-search">
                       <ul class="mb0 d-flex align-items-center justify-content-center py-1">
                         <li>
                             <div class="search_option_two">
                               <div class="candidate_revew_select">
-                                <select class="selectpicker w100 show-tick">
+                                <select class="selectpicker w100 show-tick selectlocation" name  ="location_id">
                                   <option value="0">Location</option>
 
                                   @foreach($locationdata as $location)
@@ -25,15 +25,14 @@
                             </div>
                           </li>
                         <li class="search_area">
+
+
                             <div class="search_option_two">
                                 <div class="candidate_revew_select">
-                                  <select
-                                    name="location_id"
-                                    class="selectpicker w100 show-tick"
-                                  >
+                                  <select name="area_id" class="selectpicker w100 show-tick" id = "areadata">
                                     <option value="0">Area</option>
                                     @foreach($areadata as $area)
-                                    <option value="{{$area->name}}">{{$area->name}}</option>
+                                    <option value="{{$area->id}}">{{$area->name}}</option>
                                     @endforeach
                                   </select>
                                 </div>
@@ -58,12 +57,12 @@
 
                         <li class="search_area">
                           <div class="check-in form-group mb-0">
-                            <input type="text" class="form-control" placeholder="Check-in" onfocus="(this.type = 'date')">
+                            <input type="text" class="form-control" name = "check_in" placeholder="Check-in" onfocus="(this.type = 'date')">
                           </div>
                         </li>
                         <li class="search_area">
                           <div class="check-in form-group mb-0">
-                            <input type="text" class="form-control" placeholder="Check-out" onfocus="(this.type = 'date')">
+                            <input type="text" class="form-control" name = "check_out" placeholder="Check-out" onfocus="(this.type = 'date')">
                           </div>
                         </li>
                         <li class="list-inline-item">
@@ -362,4 +361,51 @@
 @endsection
 
 
+@section('script')
+
+<script>
+    $('.selectlocation').on('change', function (e) {
+    var optionSelected = $("option:selected", this);
+    var valueSelected = this.value;
+    $.ajax({
+        url: "{{route('property.location')}}",
+        data: {
+
+            _token: "{{csrf_token()}}",
+            location: this.value,
+        },
+        dataType: 'json',
+        type: 'get',
+        beforeSend: function(xhr) {
+            ajaxReady = 0;
+        },
+        success: function(res) {
+            $("#areadata option").remove();
+
+            $.each( res, function(k, v) {
+                console.log(v);
+              var newitemnum = v.id;
+    var newitemdesc = v.value;
+    $("#areadata").append('<option value="'+newitemnum+'" selected="">'+newitemdesc+'</option>');
+    $("#areadata").selectpicker("refresh");
+
+
+
+
+               });
+
+
+
+        },
+        error: function() {
+            ajaxReady = 1;
+        }
+    })
+
+
+
+});
+    </script>
+
+@endsection
 
