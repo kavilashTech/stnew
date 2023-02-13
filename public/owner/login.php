@@ -11,11 +11,11 @@ include 'loginfunction.php';
                 <h4 class="form-title text-center">Owner Login</h4>
                 <form class="login-form" method="POST" action="login.php">
                     <div class="form-group">
-                        <input type="email" class="form-control" name="email" autocomplete="off" placeholder="Email address" value="sampathraj.mp@gmail.com">
+                        <input type="email" class="form-control" name="email" autocomplete="off" placeholder="Email address" value="">
                         <span class="invalid-feedback error error-email"></span>
                     </div>
                     <div class="form-group mt-3">
-                        <input type="password" class="form-control" name="password" autocomplete="off" placeholder="Password" value="123456" >
+                        <input type="password" class="form-control" name="password" autocomplete="off" placeholder="Password" value="" >
                         <span class="invalid-feedback error error-password"></span>
                     </div>
                     <div class="form-group">

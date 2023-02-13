@@ -10,7 +10,7 @@ jQuery(function () {
     $("#saveDesc").on("click", function (event) {
         var fs = current_fs = $(this)
         event.preventDefault();
-        alert(event.target.parentNode.id);
+        // alert(event.target.parentNode.id);
         // alert(event.target.id);
 
         if (event.target.parentNode.id == 'formDescription') {
@@ -36,8 +36,8 @@ jQuery(function () {
     $("#save").on("click", function (event) {
         var fs = current_fs = $(this)
         event.preventDefault();
-        alert(event.target.parentNode.id);
-        alert(event.target.id);
+        // alert(event.target.parentNode.id);
+        // alert(event.target.id);
 
         //BASIC Tab
         //Target.id is the Button Name
@@ -71,8 +71,8 @@ jQuery(function () {
 $("#saveTerms").on("click", function (event) {
     var fs = current_fs = $(this)
     event.preventDefault();
-    alert(event.target.parentNode.id);
-    alert(event.target.id);
+    // alert(event.target.parentNode.id);
+    // alert(event.target.id);
 
     if (event.target.parentNode.id == 'formTerms') {
 
