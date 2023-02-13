@@ -20,7 +20,7 @@ if (!isset($_SESSION['user'])) {
 <script type='text/javascript'>
 // $("#yourLink").click(function(e){
 function myFunc(pid){
-    alert(pid);
+    // alert(pid);
     document.getElementById("pid").value = pid;
     document.getElementById("formPID").action = "staytypes.php";
     document.getElementById("formPID").method = "GET";
