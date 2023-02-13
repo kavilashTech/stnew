@@ -167,7 +167,7 @@
                 <p>
                   Handpicked properties by our team..
 
-                  <a class="float-right" href="{{ route('property.page',$category->id)}}"
+                  <a class="float-right" href="{{url("/property?category_id=$category->id & filter='All'") }}"
                     >View All <span class="flaticon-next"></span
                   ></a>
                 </p>
@@ -380,13 +380,15 @@
             ajaxReady = 0;
         },
         success: function(res) {
+
             $("#areadata option").remove();
 
+            $("#areadata").append('<option value="0" selected="">Select Area</option>');
             $.each( res, function(k, v) {
                 console.log(v);
               var newitemnum = v.id;
     var newitemdesc = v.value;
-    $("#areadata").append('<option value="'+newitemnum+'" selected="">'+newitemdesc+'</option>');
+    $("#areadata").append('<option value="'+newitemnum+'">'+newitemdesc+'</option>');
     $("#areadata").selectpicker("refresh");
 
 

@@ -47,57 +47,42 @@
                         <p class="mb-0"><i class="fa fa-ellipsis-v" aria-hidden="true"></i><span class="ml-2">Amenities</span></p>
                       </div>
                       <div>
+
+                      @foreach($list_amenities as $amenities)
+                        @php
+                        $propertyaminites = App\Models\Amenitielists :: where("amenity_id", $amenities->id)->get();
+                        @endphp
+                            @foreach($propertyaminites as $proaminites)
                         <div class="form-check">
                           <input type="checkbox" class="form-check-input" id="exampleCheck1">
-                          <label class="form-check-label" for="exampleCheck1">Air Conditioning</label>
+                          <label class="form-check-label" for="exampleCheck1">{{$proaminites->name}}</label>
                         </div>
-                        <div class="form-check">
-                          <input type="checkbox" class="form-check-input" id="exampleCheck1">
-                          <label class="form-check-label" for="exampleCheck1">Kitchen</label>
-                        </div>
-                        <div class="form-check">
-                          <input type="checkbox" class="form-check-input" id="exampleCheck1">
-                          <label class="form-check-label" for="exampleCheck1">Parking</label>
-                        </div>
-                        <div class="form-check">
-                          <input type="checkbox" class="form-check-input" id="exampleCheck1">
-                          <label class="form-check-label" for="exampleCheck1">Wi-Fi Internet</label>
-                        </div>
-                        <div class="form-check">
-                          <input type="checkbox" class="form-check-input" id="exampleCheck1">
-                          <label class="form-check-label" for="exampleCheck1">Bathroom Type</label>
-                        </div>
+                        @endforeach
+                        @endforeach
+
+
+
                       </div>
                     </div>
                     <div>
                       <div class="main-title mb-2 mt-3">
-                        <p class="mb-0"><i class="fa fa-ellipsis-v" aria-hidden="true"></i><span class="ml-2">Features</span></p>
+                        <p class="mb-0"><i class="fa fa-ellipsis-v" aria-hidden="true"></i><span class="ml-2">Room Amenities</span></p>
                       </div>
                       <div>
+                      @foreach($list_room_amenities as $amenities)
+                        @php
+                        $propertyaminites = App\Models\Amenitielists :: where("amenity_id", $amenities->id)->get();
+                        @endphp
+                            @foreach($propertyaminites as $proaminites)
                         <div class="form-check">
                           <input type="checkbox" class="form-check-input" id="exampleCheck1">
-                          <label class="form-check-label" for="exampleCheck1">Office</label>
+                          <label class="form-check-label" for="exampleCheck1">{{$proaminites->name}}</label>
                         </div>
-                        <div class="form-check">
-                          <input type="checkbox" class="form-check-input" id="exampleCheck1">
-                          <label class="form-check-label" for="exampleCheck1">Study Hall</label>
-                        </div>
-                        <div class="form-check">
-                          <input type="checkbox" class="form-check-input" id="exampleCheck1">
-                          <label class="form-check-label" for="exampleCheck1">Library</label>
-                        </div>
-                        <div class="form-check">
-                          <input type="checkbox" class="form-check-input" id="exampleCheck1">
-                          <label class="form-check-label" for="exampleCheck1">Kitchen</label>
-                        </div>
-                        <div class="form-check">
-                          <input type="checkbox" class="form-check-input" id="exampleCheck1">
-                          <label class="form-check-label" for="exampleCheck1">Parking</label>
-                        </div>
-                        <div class="form-check">
-                          <input type="checkbox" class="form-check-input" id="exampleCheck1">
-                          <label class="form-check-label" for="exampleCheck1">CCTV</label>
-                        </div>
+                        @endforeach
+                        @endforeach
+
+
+
                       </div>
                     </div>
                     <button class="btn px-0 btn-show text-thm">Show More</button>
@@ -224,8 +209,7 @@
                     <select value="{{$filter}}" onchange="changeFilterProperty(this)" name="filter" class="selectpicker property-select-filter show-tick">
 													<option data-url="{{ request()->fullUrlWithQuery(['filter'=>'new']) }}" value="new" @if(Request::input('filter') == 'new') selected @endif>{{__('Newest')}}</option>
 													<option data-url="{{ request()->fullUrlWithQuery(['filter'=>'old']) }}" value="old" @if(Request::input('filter') == 'old') selected @endif>{{__('Oldest')}}</option>
-													<option data-url="{{ request()->fullUrlWithQuery(['filter'=>'price_high']) }}" value="price_high" @if(Request::input('filter') == 'price_high') selected @endif>{{__('Price [high to low]')}}</option>
-													<option data-url="{{ request()->fullUrlWithQuery(['filter'=>'price_low']) }}" value="price_low" @if(Request::input('filter') == 'price_low') selected @endif>{{__('Price [low to high]')}}</option>
+
 													<option data-url="{{ request()->fullUrlWithQuery(['filter'=>'name_high']) }}" value="name_high" @if(Request::input('filter') == 'name_high') selected @endif>{{__('Name [a->z]')}}</option>
 													<option data-url="{{ request()->fullUrlWithQuery(['filter'=>'name_low']) }}" value="name_low" @if(Request::input('filter') == 'name_low') selected @endif>{{__('Name [z->a]')}}</option>
 												</select>
@@ -241,7 +225,7 @@
                     <a class="thumb-image" href="{{ route('property.detail',$row->id)}}">
                       <div class="properties-items d-flex align-items-start justify-content-between">
                         <div class="properties-details d-flex align-items-md-center">
-                          <div class="properties-img" style="background-image: url({{asset('/images/4.jpg')}});">
+                          <div class="properties-img" style="background-image: url({{asset($row->feature_image)}});">
                             <div class="like-icon"><i class="fa fa-heart" aria-hidden="true"></i></div>
                           </div>
                           <div class="propertiesdetail ml-md-3 mt-md-0 mt-2">
@@ -260,6 +244,10 @@
                             @if(!empty($row->location_id))
                             @php
                                 $locationdata  = App\Models\Location :: find($row->location_id);
+                             @endphp
+                             @else
+                             @php
+                                $locationdata  = '';
                              @endphp
                             @endif
 

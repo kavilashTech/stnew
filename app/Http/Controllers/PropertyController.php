@@ -8,6 +8,7 @@ use App\Models\Property;
 use App\Models\Category;
 use App\Models\Area;
 use App\Models\Location;
+use App\Models\Amenities;
 
 
 class PropertyController extends Controller
@@ -48,6 +49,30 @@ class PropertyController extends Controller
         if ($request->input('check_out') != '') {
 
         }
+        if(!empty($filter = $request->query("filter"))) {
+            switch($filter) {
+                case"new":
+                    $model_property->orderBy("properties.id", "desc");
+                    break;
+                case"old":
+                    $model_property->orderBy("properties.id", "asc");
+                    break;
+
+                case"name_high":
+                    $model_property->orderBy("properties.property_title", "asc");
+                    break;
+                case"name_low":
+                    $model_property->orderBy("properties.property_title", "desc");
+                    break;
+                default:
+                    $model_property->orderBy("is_featured", "desc");
+                    $model_property->orderBy("id", "desc");
+                    break;
+            }
+
+        }
+
+
         $model_property->orderBy("properties.is_featured", "desc");
         $model_property->orderBy("properties.id", "desc");
         $model_property->groupBy("properties.id");
@@ -58,6 +83,8 @@ class PropertyController extends Controller
             'list_location'      => Location::where('status', '1')->get(),
             'list_category'      => Category::where('status', '1')->get(),
             'list_features'      => Property::where('status', '2')->where('is_featured',1)->get() ,
+            'list_amenities'    => Amenities :: where('show_in_detail',1)->get(),
+            'list_room_amenities'    => Amenities :: where('level',1)->get(),
             'property_min_max_price' => '',
             'markers'            => $markers,
             "blank"              => 1,
@@ -86,8 +113,12 @@ class PropertyController extends Controller
     {
 
         $locationid = $request->input('location');
+        if($locationid != 0){
+            $areadata = Area::where('location_id', $locationid)->get();
+                } else {
+                    $areadata = Area::where('status', 1)->get();
+        }
 
-        $areadata = Area::where('location_id', $locationid)->get();
 
         $output = [];
         foreach ($areadata as $area) {

@@ -332,7 +332,7 @@
                                         <h4>Register</h4>
                                     </div>
                                     <form action="#" class="form bravo-form-register" method="post">
-                                        <input type="hidden" name="_token" value="35R7aGPos5A2gigPwSyuiL2m8rwAzeOUZoMAzytj">
+                                    @csrf
                                         <div class="form-group input-group">
                                             <input type="text" class="form-control" name="first_name" autocomplete="off" placeholder="First Name">
                                             <div class="input-group-prepend">
@@ -484,6 +484,68 @@
     <script type="text/javascript" src="{{url('js/owl.carousel.min.js')}}"></script>
     <script type="text/javascript" src="{{url('js/main.js')}}"></script>
     <script type="text/javascript" src="{{url('js/custome.js')}}"></script>
+    <script>
+         $('#register').on('show.bs.modal', function(event) {
+        $('#login').modal('hide')
+    })
+    $('#login').on('show.bs.modal', function(event) {
+        $('#register').modal('hide')
+    });
+
+
+    $('.bravo-form-register [type=submit]').click(function(e) {
+        e.preventDefault();
+        let form = $(this).closest('.bravo-form-register');
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': form.find('meta[name="csrf-token"]').attr('content')
+            }
+        });
+        $.ajax({
+            'url': "",
+            'data': {
+                'email': form.find('input[name=email]').val(),
+                'password': form.find('input[name=password]').val(),
+                'first_name': form.find('input[name=first_name]').val(),
+                'last_name': form.find('input[name=last_name]').val(),
+                'phone': form.find('input[name=phone]').val(),
+                'type_role': form.find('input[name=type_role]').is(":checked") ? $("input:radio[name=type_role]:checked").val() : '' ,
+                'term': form.find('input[name=term]').is(":checked") ? 1 : '',
+
+            },
+
+            'type': '',
+            beforeSend: function() {
+
+                form.find('.error').hide();
+                form.find('.icon-loading').css("display", 'inline-block');
+            },
+            success: function(data) {
+                form.find('.icon-loading').hide();
+                if (data.error === true) {
+                    if (data.messages !== undefined) {
+                        for (var item in data.messages) {
+                            var msg = data.messages[item];
+                            form.find('.error-' + item).show().text(msg[0]);
+                        }
+                    }
+                    if (data.messages.message_error !== undefined) {
+                        form.find('.message-error').show().html('<div class="alert alert-danger">' + data.messages.message_error[0] + '</div>');
+                    }
+                }
+                if (data.redirect !== undefined) {
+                    window.location.href = data.redirect
+                }
+            },
+            error: function(e) {
+                form.find('.icon-loading').hide();
+                if (typeof e.responseJSON !== "undefined" && typeof e.responseJSON.message != 'undefined') {
+                    form.find('.message-error').show().html('<div class="alert alert-danger">' + e.responseJSON.message + '</div>');
+                }
+            }
+        });
+    })
+    </script>
 
     @yield('script')
 
