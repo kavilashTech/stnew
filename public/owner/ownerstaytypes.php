@@ -73,7 +73,7 @@ function myFunc(pid){
                     <div class="card-body">
                         <table class="table ">
                             <thead>
-                                <th>ID</th>
+                                <!-- <th>ID</th> -->
                                 <th>Title</th>
                                 <th>Location</th>
                                 <th>Area</th>
@@ -102,7 +102,7 @@ function myFunc(pid){
                                     while ($row = mysqli_fetch_array($query)) {
                                 ?>
                                         <tr>
-                                            <td><input type="text" name="rowpid" id="rowpid" value="<?php echo $row['id']; ?>"></td>
+                                            <!-- <td><input type="text" name="rowpid" id="rowpid" value="<?php //echo $row['id']; ?>"></td> -->
                                             <td><?php echo $row['property_title']; ?></td>
                                             <td><?php echo $row['Location']; ?></td>
                                             <td><?php echo $row['Area']; ?></td>
