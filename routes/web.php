@@ -35,7 +35,8 @@ Route::controller(PropertyController::class)->group(function () {
 
 });
 
-Auth::routes();
+Auth::routes(['verify' => true]);
+Route::post('register',[UserController::class, 'userRegister'])->name('auth.register');
 
 //Route::get('/home', [HomeController::class, 'index'])->name('home');
 
@@ -43,4 +44,13 @@ Route::group(['middleware' => ['auth']], function() {
     Route::resource('roles', RoleController::class);
     Route::resource('users', UserController::class);
     Route::resource('products', ProductController::class);
+
+
+    Route::controller(ProductController::class)->group(function(){
+        Route::get('demo-search', 'index');
+        Route::get('autocomplete', 'autocomplete')->name('autocomplete');
+    });
 });
+
+
+
