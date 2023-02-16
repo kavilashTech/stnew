@@ -13,60 +13,85 @@
 <div class="gallery-section">
     <div class="gallery-box">
         <div class="row no-gutters">
+            @php
+            $gallery_image = ($rows->gallery_images != '') ? json_decode($rows->gallery_images): '';
+
+            @endphp
+
+
             <div class="col-md-6 bor-right">
                 <div class="inner-box">
-                    <a href="{{url('images/img1.jpg')}}" class="zoom" title="Hotel photo 1">
-                        <img data-src="{{url('images/img1.jpg')}}" src="{{url('images/img1.jpg')}}" class="img-fluid lazyload" alt="Gallery" />
+                    @if($gallery_image != '')
+                    <a href="{{url('images/property/gallery/'.$gallery_image['0'])}}" class="zoom" title="Hotel photo 1">
+                        <img data-src="{{url('images/property/gallery/'.$gallery_image['0'])}}" src="{{url('images/property/gallery/'.$gallery_image['0'])}}" class="img-fluid lazyload" alt="Gallery" />
                     </a>
+                    @else
+                    <img data-src="{{url('images/property/gallery/empty_gallery.jpeg')}}" src="{{url('images/property/gallery/empty_gallery.jpeg')}}" class="img-fluid lazyload" alt="Gallery" />
+                    @endif
                 </div>
             </div>
+@if(isset($gallery_image[1]) || isset($gallery_image[2]) )
             <div class="col-md-3">
+            @if(isset($gallery_image[1]))
                 <div class="row dd-none">
                     <div class="col-md-12">
                         <div class="inner-box">
-                            <a href="{{url('images/img2.jpg')}}" class="zoom" title="Hotel photo 2">
-                                <img data-src="{{url('images/img2.jpg')}}" src="{{url('images/img2.jpg')}}" class="img-fluid lazyload" alt="Gallery" />
+                            <a href="{{url('images/property/gallery/'.$gallery_image['1'])}}" class="zoom" title="Hotel photo 2">
+                                <img data-src="{{url('images/property/gallery/'.$gallery_image['1'])}}" src="{{url('images/property/gallery/'.$gallery_image['1'])}}" class="img-fluid lazyload" alt="Gallery" />
                             </a>
                         </div>
                     </div>
                 </div>
+                @endif
+                @if(isset($gallery_image[2]))
                 <div class="row dd-none">
                     <div class="col-md-12">
                         <div class="inner-box">
-                            <a href="{{url('images/img3.jpg')}}" class="zoom" title="Hotel photo 3">
-                                <img data-src="{{url('images/img3.jpg')}}" src="{{url('images/img3.jpg')}}" class="img-fluid lazyload" alt="Gallery" />
+                            <a href="{{url('images/property/gallery/'.$gallery_image['2'])}}" class="zoom" title="Hotel photo 3">
+                                <img data-src="{{url('images/property/gallery/'.$gallery_image['2'])}}" src="{{url('images/property/gallery/'.$gallery_image['2'])}}" class="img-fluid lazyload" alt="Gallery" />
                             </a>
                         </div>
                     </div>
                 </div>
+                @endif
             </div>
+
+            @endif
+            @if(isset($gallery_image[3]) || isset($gallery_image[4]) )
             <div class="col-md-3">
+            @if(isset($gallery_image[3]))
                 <div class="row dd-none">
                     <div class="col-md-12">
                         <div class="inner-box">
-                            <a href="{{url('images/img4.jpg')}}" class="zoom" title="Hotel photo 4">
-                                <img data-src="{{url('images/img4.jpg')}}" src="{{url('images/img4.jpg')}}" class="img-fluid lazyload" alt="Gallery" />
+                            <a href="{{url('images/property/gallery/'.$gallery_image['3'])}}" class="zoom" title="Hotel photo 4">
+                                <img data-src="{{url('images/property/gallery/'.$gallery_image['3'])}}" src="{{url('images/property/gallery/'.$gallery_image['3'])}}" class="img-fluid lazyload" alt="Gallery" />
                             </a>
                         </div>
                     </div>
                 </div>
+                @endif
+                @if(isset($gallery_image[4]))
                 <div class="row dd-none">
                     <div class="col-md-12">
                         <div class="inner-box">
-                            <a href="{{url('images/img5.jpg')}}" class="zoom" title="Hotel photo 5">
-                                <img data-src="{{url('images/img5.jpg')}}" src="{{url('images/img5.jpg')}}" class="img-fluid lazyload" alt="Gallery" />
+                            <a href="{{url('images/property/gallery/'.$gallery_image['4'])}}" class="zoom" title="Hotel photo 5">
+                                <img data-src="{{url('images/property/gallery/'.$gallery_image['4'])}}" src="{{url('images/property/gallery/'.$gallery_image['4'])}}" class="img-fluid lazyload" alt="Gallery" />
                             </a>
                         </div>
                     </div>
                 </div>
+                @endif
             </div>
+            @endif
         </div>
     </div>
+    @if(isset($gallery_image) && isset($gallery_image[0]))
     <div class="view-all-photo">
-        <a href="{{url('images/img3.jpg')}}" class="zoom" title="Hotel photo 1">
+        <a href="{{url('images/property/gallery/'.$gallery_image['0'])}}" class="zoom" title="Hotel photo 1">
             <i class="material-icons mr-2">image</i> View all photos
         </a>
     </div>
+    @endif
 </div>
 
 
@@ -76,39 +101,27 @@
         <div class="row">
             <div class="col-lg-6">
                 <div class="header-section">
-                    <h2>Supreme Hostel</h2>
+                    <h2>{{ $rows->property_title ?? '' }}</h2>
                 </div>
-                <p>Stayteller Bangalore offers you a convenient, social stay in Bangalore’s party hub of Indiranagar. It features indoor and outdoor common areas, a quaint cafe for homely meals, and well-equipped workstations. During your stay here, make new friends, network with the minds of India’s silicon valley, and step out to explore the city’s finest cafes, monuments, and streets.</p>
+                @if(!empty($rows->description))
+                <p>{!! Str::words($rows->description,50) !!}</p>
                 <div id="collapse1" class="hide-part">
-                    <p class="mt-3 gray"><strong>Recommended experiences:</strong></p>
-                    <p>Visit Bangalore Palace, Cubbon Park, and Lal Bagh. Shop at MG Road. Indulge in Bangalore’s nightlife. Try the street food. Go to Ulsoor Lake and Nandi Hills.</p>
+                    <p class="mt-3 gray"></p>
+                    <p>{!! $rows->description !!}</p>
                 </div>
                 <button href="#collapse1" class="toggle-btn">Show more</button>
+
+                @endif
             </div>
             <div class="col-lg-6">
                 <div class="header-section">
                     <h3>Amenities</h3>
                     <div class="row no-gutters">
-                        <div class="col-md-4 col-6 pr-2"><div class="amy"><i class="material-icons mr-1">vpn_key</i><span class="font-medium text-sm text-text ">Lockers</span></div></div>
-                        <div class="col-md-4 col-6 pr-2"><div class="amy"><i class="material-icons mr-1">hot_tub</i><span class="font-medium text-sm text-text ">Hot water</span></div></div>
-                        <div class="col-md-4 col-6 pr-2"><div class="amy"><i class="material-icons mr-1">local_laundry_service</i><span class="font-medium text-sm text-text ">Laundry Services (Extra)</span></div></div>
-                        <div class="col-md-4 col-6 pr-2"><div class="amy"><i class="material-icons mr-1">wifi</i><span class="font-medium text-sm text-text ">Free Wi-Fi</span></div></div>
-                        <div class="col-md-4 col-6 pr-2"><div class="amy"><i class="material-icons mr-1">payment</i><span class="font-medium text-sm text-text ">Card Payment Accepted</span></div></div>
-                        <div class="col-md-4 col-6 pr-2"><div class="amy"><i class="material-icons mr-1">tv</i><span class="font-medium text-sm text-text ">Common Television</span></div></div>
-                        <div class="col-md-4 col-6 pr-2"><div class="amy"><i class="material-icons mr-1">local_drink</i><span class="font-medium text-sm text-text ">Water Dispenser</span></div></div>
-                        <div class="col-md-4 col-6 pr-2"><div class="amy"><i class="material-icons mr-1">ac_unit</i><span class="font-medium text-sm text-text ">Air-conditioning</span></div></div>
-                        <div class="col-md-4 col-6 pr-2"><div class="amy"><i class="material-icons mr-1">room_service</i><span class="font-medium text-sm text-text ">24/7 Reception</span></div></div>
-                        <div class="col-md-4 col-6 pr-2"><div class="amy"><i class="material-icons mr-1">casino</i><span class="font-medium text-sm text-text ">Common hangout area</span></div></div>
-                        <div class="col-md-4 col-6 pr-2"><div class="amy"><i class="material-icons mr-1">restaurant</i><span class="font-medium text-sm text-text ">Cafe</span></div></div>
-                        <div class="col-md-4 col-6 pr-2"><div class="amy"><i class="material-icons mr-1">sports_esports</i><span class="font-medium text-sm text-text ">In-house Activities</span></div></div>
-                        <div class="col-md-4 col-6 pr-2"><div class="amy"><i class="material-icons mr-1">wb_incandescent</i><span class="font-medium text-sm text-text ">Bedside Lamps</span></div></div>
-                        <div class="col-md-4 col-6 pr-2"><div class="amy"><i class="material-icons mr-1">free_breakfast</i><span class="font-medium text-sm text-text ">Breakfast (Extra)</span></div></div>
-                        <div class="col-md-4 col-6 pr-2"><div class="amy"><i class="material-icons mr-1">luggage</i><span class="font-medium text-sm text-text ">Storage Facility</span></div></div>
-                        <div class="col-md-4 col-6 pr-2"><div class="amy"><i class="material-icons mr-1">layers</i><span class="font-medium text-sm text-text ">Towels on rent</span></div></div>
-                        <div class="col-md-4 col-6 pr-2"><div class="amy"><i class="material-icons mr-1">airline_seat_individual_suite</i><span class="font-medium text-sm text-text ">Linen Included</span></div></div>
-                        <div class="col-md-4 col-6 pr-2"><div class="amy"><i class="material-icons mr-1">qr_code_scanner</i><span class="font-medium text-sm text-text ">UPI Payment Accepted</span></div></div>
-                        <div class="col-md-4 col-6 pr-2"><div class="amy"><i class="material-icons mr-1">shower</i><span class="font-medium text-sm text-text ">Shower</span></div></div>
-                        <div class="col-md-4 col-6 pr-2"><div class="amy"><i class="material-icons mr-1">local_parking</i><span class="font-medium text-sm text-text ">Parking (public)</span></div></div></div>
+                        @foreach($propertyamentie as $propertyamentiedata)
+                        <div class="col-md-4 col-6 pr-2"><div class="amy"><i class="material-icons mr-1">gite</i><span class="font-medium text-sm text-text ">{{$propertyamentiedata['name']}}</span></div></div>
+                        @endforeach
+                    </div>
+
                     </div>
                 </div>
             </div>
@@ -130,17 +143,20 @@
                             </div>
                         </div>
                         <div class="col-md-7">
-                            <div class="v-centter justify-content-end">
+                            <!-- <div class="v-centter justify-content-end">
                                 <div class="dropdown dropdown-toggle red-drop mr-4">USD</div>
                                 <div class="calender">
                                     <div class="cal1">Mon 19 Dec, 2022</div>
                                     <div class="pt-2 pl-2 pr-2 gray"><i class="material-icons mr-1">east</i></div>
                                     <div class="cal2">Tue 20 Dec, 2022</div>
                                 </div>
-                            </div>
+                            </div> -->
                         </div>
                     </div>
                 </div>
+                @if(count($list_of_rooms) > 0 )
+                @foreach($list_of_rooms as $roomdata)
+
 
                 <div class="room-section">
                     <div class="rooms">
@@ -153,11 +169,13 @@
                             <div class="col-lg-10 col-md-12">
                                 <div class="room-details">
                                     <div class="head">
-                                        <div class="">6 Bed Mixed Dorm (with shared washroom)<br/><span class="font14 v-centter normal mt-2"><i class="material-icons font16">person</i> X 1</span></div>
+                                        <div class="">{{$roomdata->name}}<br/><span class="font14 v-centter normal mt-2"><i class="material-icons font16">person</i> X 1</span></div>
                                         <table class="price-table">
-                                            <tr><td>Total Beds :</td><td>25</td></tr>
-                                            <tr><td class="bold">Rent :</td><td class="bold">&#8377; 5500 / Month</td></tr>
-                                            <tr><td>Deposit :<br/><span class="font10">(Refundable)</span></td><td>&#8377; 15,000</td></tr>
+                                            <tr><td>Total Beds :</td><td>{{$roomdata->total_bed_count}}</td></tr>
+                                            <tr><td class="bold">Rent :</td><td class="bold">&#8377; {{$roomdata->price_per_month}} / Month</td></tr>
+                                            @if($roomdata->refundable == 1)
+                                            <tr><td>Deposit :<br/><span class="font10">(Refundable)</span></td><td>&#8377; {{$roomdata->deposit}}</td></tr>
+                                            @endif
                                         </table>
                                     </div>
                                     <div class="row room-facilities">
@@ -252,8 +270,23 @@
                         </div>
                     </div>
                 </div>
+                @endforeach
+                @else
 
-                <div class="room-section">
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="row">
+                                <div class="flex flex-col items-center justify-center w-72">
+                                    <img src="https://book.zostel.com/static/media/gray-zobu.018014d9.svg" alt="zobu" class="h-40">
+                                    <span class="mt-4 font-medium text-lg text-subtitle">No room selected</span>
+                                </div>
+                                </div>
+                            </div>
+                        </div>
+                </div>
+                @endif
+
+                <!-- <div class="room-section">
                     <div class="rooms">
                         <div class="row no-gutters">
                             <div class="col-lg-2 col-md-12">
@@ -294,7 +327,7 @@
                             </div>
                         </div>
                     </div>
-                </div>
+                </div> -->
             </div>
         </div>
     </div>

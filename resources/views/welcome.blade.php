@@ -189,7 +189,7 @@
                     <div class="mb-2 properti-thumb">
                       <a class="thumb-image" href="{{ route('property.detail',1)}}">
                         <div class="thumb_img bg_img_placeholder feature_property_bg_image_overlay pt-0">
-                          <img src="{{url($property->feature_image)}}" class="img-fluid">
+                          <img src="{{url('images/property/'.$property->feature_image)}}" class="img-fluid">
                         </div>
                       </a>
                       <div class="properti-number d-flex align-items-center justify-content-center"><span>8</span></div>
