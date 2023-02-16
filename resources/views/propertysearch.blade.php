@@ -1,6 +1,14 @@
 @extends('layouts.user')
 @section('head')
 <link rel="stylesheet" href="{{url('css/list-property.css')}}" type="text/css" />
+
+<style>
+
+.show-more {
+  display: none;
+  cursor: pointer;
+}
+</style>
 @endsection
 @section('content')
 
@@ -23,7 +31,7 @@
               <form method = "get" action="{{route('property.search')}}">
                 <div class="property-content mb-3">
                   <div class="form-group">
-                    <input type="text" class="form-control" placeholder="Property Name">
+                    <input type="text" class="form-control" name = "property_name" placeholder="Property Name">
                   </div>
                   <div class="form-group">
                     <select name="location_id" class="form-control">
@@ -53,8 +61,8 @@
                         $propertyaminites = App\Models\Amenitielists :: where("amenity_id", $amenities->id)->get();
                         @endphp
                             @foreach($propertyaminites as $proaminites)
-                        <div class="form-check">
-                          <input type="checkbox" class="form-check-input" id="exampleCheck1">
+                        <div class="form-check ty-compact-list">
+                          <input type="checkbox" name= "property_amenities[]" value = "{{$proaminites->id}}" class="form-check-input" id="exampleCheck1">
                           <label class="form-check-label" for="exampleCheck1">{{$proaminites->name}}</label>
                         </div>
                         @endforeach
@@ -64,6 +72,8 @@
 
                       </div>
                     </div>
+                    <div class="show-more  px-0 btn-show text-thm">Show more</div>
+
                     <div>
                       <div class="main-title mb-2 mt-3">
                         <p class="mb-0"><i class="fa fa-ellipsis-v" aria-hidden="true"></i><span class="ml-2">Room Amenities</span></p>
@@ -74,8 +84,8 @@
                         $propertyaminites = App\Models\Amenitielists :: where("amenity_id", $amenities->id)->get();
                         @endphp
                             @foreach($propertyaminites as $proaminites)
-                        <div class="form-check">
-                          <input type="checkbox" class="form-check-input" id="exampleCheck1">
+                        <div class="form-check ty-compact-list1">
+                          <input type="checkbox" name = "room_aminities[]"  value = "{{$proaminites->id}}" class="form-check-input" id="exampleCheck1">
                           <label class="form-check-label" for="exampleCheck1">{{$proaminites->name}}</label>
                         </div>
                         @endforeach
@@ -85,7 +95,8 @@
 
                       </div>
                     </div>
-                    <button class="btn px-0 btn-show text-thm">Show More</button>
+                    <div class="show-more1  px-0 btn-show text-thm">Show more</div>
+
                   </div>
                   <div>
                     <button type="submit" class="btn btn-thm w-100">Search</button>
@@ -100,7 +111,7 @@
                       <div class="feature-slider owl-theme owl-carousel">
                         @foreach($list_features  as $feature)
                         <div class="slide">
-                          <div class="feature-slide" style="background-image: url({{asset('/images/4.jpg')}});">
+                          <div class="feature-slide" style="background-image: url({{asset( 'images/property/'.$feature->feature_image)}})">
                             <div class="main-title mb-0">
                               <h3 class="text-white mb-0">₹ 300</h3>
                               <p class="text-white">{{$feature->property_title}}</p>
@@ -225,7 +236,7 @@
                     <a class="thumb-image" href="{{ route('property.detail',$row->id)}}">
                       <div class="properties-items d-flex align-items-start justify-content-between">
                         <div class="properties-details d-flex align-items-md-center">
-                          <div class="properties-img" style="background-image: url({{asset($row->feature_image)}});">
+                          <div class="properties-img" style="background-image: url({{asset( 'images/property/'.$row->feature_image)}});">
                             <div class="like-icon"><i class="fa fa-heart" aria-hidden="true"></i></div>
                           </div>
                           <div class="propertiesdetail ml-md-3 mt-md-0 mt-2">
@@ -294,6 +305,31 @@
     var url = $(e).find(":selected").data('url');
     window.location.href=url;
 }
+
+
+if ($('.ty-compact-list').length > 5) {
+  $('.ty-compact-list:gt(2)').hide();
+  $('.show-more').show();
+}
+
+$('.show-more').on('click', function() {
+  //toggle elements with class .ty-compact-list that their index is bigger than 2
+  $('.ty-compact-list:gt(2)').toggle();
+  //change text of show more element just for demonstration purposes to this demo
+  $(this).text() === 'Show more' ? $(this).text('Show less') : $(this).text('Show more');
+});
+
+if ($('.ty-compact-list1').length > 5) {
+  $('.ty-compact-list1:gt(2)').hide();
+  $('.show-more1').show();
+}
+
+$('.show-more1').on('click', function() {
+  //toggle elements with class .ty-compact-list that their index is bigger than 2
+  $('.ty-compact-list1:gt(2)').toggle();
+  //change text of show more element just for demonstration purposes to this demo
+  $(this).text() === 'Show more' ? $(this).text('Show less') : $(this).text('Show more');
+});
     </script>
 
 @endsection

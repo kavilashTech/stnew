@@ -9,6 +9,9 @@ use App\Models\Category;
 use App\Models\Area;
 use App\Models\Location;
 use App\Models\Amenities;
+use App\Models\Amenitielists;
+use App\Models\Propertyamenities;
+use Illuminate\Support\Facades\DB;
 
 
 class PropertyController extends Controller
@@ -17,16 +20,17 @@ class PropertyController extends Controller
 
     public function index(Request $request)
     {
-
+//dd($request->input());
 
         $model_property= Property :: where("properties.status", "2");
+
         $markers = [];
 
 
         // if(($request->input('location_id')) && ($request->input('area_id')) && ($request->input('category_id')) && ($request->input('check_in')) && ($request->input('check_out'))){
         //     dd($request->input());
         // }
-        if ($request->input('location_id') != '') {
+        if ($request->input('location_id') != '0') {
             $location = Location::query()->where('id', $request->input('location_id'))->where("status","1")->first();
 
             if(!empty($location)){
@@ -36,17 +40,32 @@ class PropertyController extends Controller
             }
 
         }
-        if ($request->input('area_id') != '') {
+        if ($request->input('area_id') != '0' && !empty($request->input('area_id')) ) {
             $model_property->where("properties.area_id",$request->input('area_id'));
         }
 
         if ($request->input('category_id') != '0') {
-            $model_property->where("properties.category_id",$request->input('category_id'));
+
+           $aa =  $model_property->where("properties.category_id",$request->input('category_id'))->get();
+
+
         }
         if ($request->input('check_in') != '') {
 
         }
         if ($request->input('check_out') != '') {
+
+        }
+
+        if($request->property_amenities != ''){
+              $joinmembers = implode(",",$request->property_amenities);
+              $certi_id =trim($joinmembers,",");
+
+
+            $model_property->join('property_amenities as proam', 'proam.property_id', "properties.id")->whereIn('proam.amlist_id', explode(",", $certi_id));
+
+        }
+        if($request->room_aminities != ''){
 
         }
         if(!empty($filter = $request->query("filter"))) {
@@ -73,9 +92,14 @@ class PropertyController extends Controller
         }
 
 
+
+
         $model_property->orderBy("properties.is_featured", "desc");
         $model_property->orderBy("properties.id", "desc");
-        $model_property->groupBy("properties.id");
+        if ($request->input('property_amenities') != '') {
+            $model_property->groupBy("proam.id");
+    }
+
         $limit = min(20,$request->query('limit',10));
 
         $data = [
@@ -101,7 +125,39 @@ class PropertyController extends Controller
 
     public function detail(Request $request, $slug)
     {
-        return view('detail');
+
+        $model_property= Property :: find($slug);
+        $list_amienites = Propertyamenities :: Where('property_id',$slug)->get();
+        $listof_rooms   = DB::table('property_rooms')->where('property_id',$slug)->get();
+
+        $amentiearr = array();
+        foreach($list_amienites as $litamienites){
+            $amenitielist = Amenitielists ::whereIn('id', explode(",", $litamienites->amlist_id))->get();
+            foreach($amenitielist as $amenitidata){
+                $amentiearr[] = array('name' => $amenitidata->name,
+                                    'icon' => 'property/'.$amenitidata->icon);
+            }
+        }
+        // foreach($listof_rooms as $roomamt){
+        //     $listof_rooms_amenities   = DB::table('room_amenities')->where('room_id',$roomamt->id)->get();
+        //     foreach($listof_rooms_amenities as $roomamenities){
+        //         $amenitielist = Amenitielists ::whereIn('id', explode(",", $roomamenities->amlist_id))->get();
+
+        //     }
+
+        // }
+
+
+
+        $data = [
+            'rows'               => $model_property,
+            'propertyamentie'    => $amentiearr,
+            'list_of_rooms'             => $listof_rooms,
+
+
+        ];
+
+        return view('detail',$data);
     }
 
     public function propertyview(Request $request, $id)
