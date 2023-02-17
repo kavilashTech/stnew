@@ -231,6 +231,10 @@
                 @if($rows->total() > 0)
                   <ul class="mb-0">
                     @foreach($rows as $row)
+                    @php
+                    $property_min_max_price = DB::table('property_rooms')->where('property_id',$row->id)->min('price_per_month');
+                    $total_of_beds = DB::table('property_rooms')->where('property_id',$row->id)->sum('no_of_rooms');
+                    @endphp
 
                     <li>
                     <a class="thumb-image" href="{{ route('property.detail',$row->id)}}">
@@ -265,10 +269,10 @@
                             <div class="property-location">
                               <small><i class="fa fa-map-marker" aria-hidden="true"></i> <span>{{($locationdata) ? $locationdata->name : ''}}</span></small>
                             </div>
-                            <small>Beds: 5</small>
+                            <small>Beds: {{($total_of_beds ?? 0)}}</small>
                           </div>
                         </div>
-                        <div class="properties-rent mt-4"><strong>Rent: ₹300</strong></div>
+                        <div class="properties-rent mt-4"><strong>Rent: ₹{{($property_min_max_price ?? 0)}}</strong></div>
                       </div>
                     </a>
                     </li>

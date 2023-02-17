@@ -104,12 +104,12 @@
                     <h2>{{ $rows->property_title ?? '' }}</h2>
                 </div>
                 @if(!empty($rows->description))
-                <p>{!! Str::words($rows->description,50) !!}</p>
+                <p class = "limit_text">{!! Str::words($rows->description,50) !!}</p>
                 <div id="collapse1" class="hide-part">
                     <p class="mt-3 gray"></p>
                     <p>{!! $rows->description !!}</p>
                 </div>
-                <button href="#collapse1" class="toggle-btn">Show more</button>
+                <button href="#collapse1" class="toggle-btn description_details">Show more</button>
 
                 @endif
             </div>
@@ -441,16 +441,18 @@
     $(document).ready(function() {
           $('.toggle-btn').click(function(){
             //get collapse content selector
+            $(".limit_text").css("display", "none")
             var collapse_content_selector = $(this).attr('href');
 
             //make the collapse content to be shown or hide
             var toggle_switch = $(this);
             $(collapse_content_selector).toggle(function(){
               if($(this).css('display')=='none'){
+                $(".limit_text").css("display", "block")
                                 //change the button label to be 'Show'
                 toggle_switch.html('Show more');
               }else{
-                                //change the button label to be 'Hide'
+                $(".limit_text").css("display", "none")             //change the button label to be 'Hide'
                 toggle_switch.html('Show less');
               }
             });
@@ -520,6 +522,8 @@
     });
 </script>
 @endsection
+
+
 
 
 

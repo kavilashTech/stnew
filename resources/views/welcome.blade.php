@@ -183,6 +183,9 @@
                 @foreach($propertycategory as $property)
             @php
             $locationdata  = App\Models\Location :: find($property->location_id);
+            $property_min_max_price = DB::table('property_rooms')->where('property_id',$property->id)->min('price_per_month');
+            $total_of_beds = DB::table('property_rooms')->where('property_id',$property->id)->sum('no_of_rooms');
+
             @endphp
                 <div class="item">
                   <div class="properti_city properti-slider">
@@ -192,7 +195,7 @@
                           <img src="{{url('images/property/'.$property->feature_image)}}" class="img-fluid">
                         </div>
                       </a>
-                      <div class="properti-number d-flex align-items-center justify-content-center"><span>8</span></div>
+                      <div class="properti-number d-flex align-items-center justify-content-center"><span>{{($total_of_beds ?? 0)}}</span></div>
                     </div>
                     <div class="properti-content">
                       <div class="properti-title">{{$property->property_title}}</div>
@@ -209,7 +212,7 @@
                         </div>
                       </div>
                       <div class="properti-price">
-                        INR 1,758.33
+                        INR {{($property_min_max_price ??  0)}}
                       </div>
                     </div>
                   </div>
