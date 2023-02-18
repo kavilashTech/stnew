@@ -25,6 +25,9 @@ Route::get('/', function () {
 });
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
+Route::get('/about-us', [HomeController::class, 'aboutUs'])->name('aboutus');
+Route::get('/contact-us', [HomeController::class, 'contactUs'])->name('contactus');
+Route::get('/faq', [HomeController::class, 'faq'])->name('faq');
 
 Route::controller(PropertyController::class)->group(function () {
     //mobile app balnk page for webview
