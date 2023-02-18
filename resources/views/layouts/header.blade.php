@@ -30,7 +30,7 @@
               class="ace-responsive-menu text-right nav-menu"
               data-menu-style="horizontal"
             >
-              <li class="active depth-0">
+              <li class="depth-0">
                 <a target="" href="{{ url("/") }}">Home</a>
               </li>
               <li class="depth-0">
