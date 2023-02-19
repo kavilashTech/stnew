@@ -23,37 +23,63 @@
     <div id="form-message-success" class="mb-4">
     Your message was sent, thank you!
     </div>
-    <form method="POST" id="contactForm" name="contactForm" class="contactForm" novalidate="novalidate">
+    <form method="POST" id="contactForm" name="contactForm" class="contactForm" action = {{route('post.contactus')}}>
+      @csrf
     <div class="row">
+      <div class="col-md-12">@if(session()->has('success'))
+        <div class="alert alert-success">
+            {{ session()->get('success') }}
+        </div>
+    @endif
+    @if(session()->has('error'))
+    <div class="alert alert-danger">
+        {{ session()->get('error') }}
+    </div>
+@endif</div>
     <div class="col-md-6">
       <div class="form-group">
-        <label class="label" for="name">First Name</label>
-        <input type="text" class="form-control" name="name" id="name" placeholder="Name" fdprocessedid="r0rqaa">
+        <label class="label" for="name">First Name<span class="required">*</span></label>
+        <input type="text" class="form-control"  value="{{old('first_name')}}" name="first_name"  placeholder="First Name" >
+        @error('first_name')
+          <p class="error">{{$message}}</p>
+        @enderror
       </div>
     </div>
     <div class="col-md-6">
       <div class="form-group">
-        <label class="label" for="name">Last Name</label>
-        <input type="text" class="form-control" name="name" id="name" placeholder="Name" fdprocessedid="r0rqaa">
+        <label class="label" for="name">Last Name<span class="required">*</span></label>
+        <input type="text" class="form-control"  value="{{old('last_name')}}" name="last_name"  placeholder="Last Name" >
+        @error('last_name')
+          <p class="error">{{$message}}</p>
+        @enderror
       </div>
     </div>
     <div class="col-md-6">
     <div class="form-group">
-    <label class="label" for="email">Email Address</label>
-    <input type="email" class="form-control" name="email" id="email" placeholder="Email" fdprocessedid="vz6yti">
+    <label class="label" for="email">Email Address<span class="required">*</span></label>
+    <input type="email" class="form-control"  value="{{old('Email')}}" name="email" placeholder="Email" >
+    @error('email')
+          <p class="error">{{$message}}</p>
+        @enderror
     </div>
     </div>
     <div class="col-md-6">
     <div class="form-group">
-    <label class="label" for="subject">Phone number</label>
-    <input type="text" class="form-control" name="subject" id="subject" placeholder="Subject" fdprocessedid="1d9p4f">
+    <label class="label" for="subject">Mobile number<span class="required">*</span></label>
+    <input type="text" class="form-control"  value="{{old('mobile_number')}}" name="mobile_number"  placeholder="Mobile number" >
+    @error('mobile_number')
+          <p class="error">{{$message}}</p>
+        @enderror
     </div>
     </div>
     
     <div class="col-md-12">
     <div class="form-group">
-    <label class="label" for="#">Message</label>
-    <textarea name="message" class="form-control" id="message" cols="30" rows="4" placeholder="Message"></textarea>
+    <label class="label" for="#">Message<span class="required">*</span></label>
+    <textarea name="message" value="{{old('message')}}" class="form-control" id="message" cols="30" rows="4" placeholder="Message"></textarea>
+    @error('message')
+          <p class="error">{{$message}}</p>
+        @enderror
     </div>
     </div>
     <div class="col-md-12">

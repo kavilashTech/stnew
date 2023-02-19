@@ -5,8 +5,10 @@ use App\Models\Property;
 use App\Models\Category;
 use App\Models\Area;
 use App\Models\Location;
-
+use App\Models\Enquiry;
 use Illuminate\Http\Request;
+use App\Mail\EnquirtMail;
+use Mail;
 
 class HomeController extends Controller
 {
@@ -44,8 +46,33 @@ class HomeController extends Controller
         return view('pages.faq_page');
     }
     
-     public function contactUs()
+    public function contactUs()
     {
         return view('pages.contact_us');
+    }
+
+    public function postContactUs(Request $request)
+    {
+        $validated = $request->validate([
+            'first_name' => 'required|max:255',
+                'last_name' => 'required|max:255',
+                'email' => 'required|email',
+                'mobile_number' => 'required|digits_between:10,12',
+                'message' => 'required',
+            ]);
+
+        try{
+            Enquiry::create($validated);
+            Mail::send('mailTemplate.enquiry',['name'=>$validated['first_name'].$validated['last_name']], function($message) use ($validated)
+            {
+              $message->from(env('MAIL_FROM_ADDRESS'));
+              $message->to($validated['email']);
+              $message->subject($validated['message']);
+            });
+          
+            return redirect()->back()->withSuccess('Your enquire has been send to admin. We will contact you shortly!');
+        }catch (\Exception $e){
+            return back()->withError($e->getMessage());
+        }
     }
 }

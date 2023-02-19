@@ -264,3 +264,4 @@ button.accordion:focus{border: 1px solid #E8F0F2;outline: none;border-bottom-lef
     border: 1px solid #24324a;
     border-radius: 50px;
  }
+.error , .required{color:red}
