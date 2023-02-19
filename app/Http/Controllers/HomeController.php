@@ -6,6 +6,7 @@ use App\Models\Category;
 use App\Models\Area;
 use App\Models\Location;
 use App\Models\Enquiry;
+use App\Models\Faq;
 use Illuminate\Http\Request;
 use App\Mail\EnquirtMail;
 use Mail;
@@ -43,7 +44,8 @@ class HomeController extends Controller
     }
     public function faq()
     {
-        return view('pages.faq_page');
+        $faqs = Faq::where('status',1)->get();
+        return view('pages.faq_page',compact('faqs'));
     }
     
     public function contactUs()

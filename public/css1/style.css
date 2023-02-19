@@ -265,3 +265,9 @@ button.accordion:focus{border: 1px solid #E8F0F2;outline: none;border-bottom-lef
     border-radius: 50px;
  }
 .error , .required{color:red}
+.notfound{
+    text-align: center;
+    margin: 100px 0px;
+    font-size: 54px;
+    font-weight: 900;
+}
