@@ -12,7 +12,7 @@
 
 
     <div class="image-box" style="position: relative">
-        <img  src="{{asset('images/aboutus.jpg')}}" width= "100%" height= "500px"> 
+        <img  src="{{asset('images/aboutus.jpg')}}" width= "100%" height= "250px"> 
     </div>
     <div class="about-section">
         <div class="container">

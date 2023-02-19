@@ -13,7 +13,7 @@
 
 
     <div class="image-box" style="position: relative">
-        <img  src="{{asset('images/faq1.jpg')}}" width= "100%" height= "500px"> 
+        <img  src="{{asset('images/faq1.jpg')}}" width= "100%" height= "250px"> 
     </div>
 
 <div class="container mt-3">
