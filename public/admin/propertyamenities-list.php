@@ -3,8 +3,6 @@ include 'includes/header.php';
 include 'includes/menu.php';
 include 'includes/sidenav.php';
 
-
-
 //Check if user has propertly logged in
 // TODO : once login is created, remove comments from below block
 // if (!isset($_SESSION["uid"])) {
