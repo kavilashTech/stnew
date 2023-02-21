@@ -7,6 +7,7 @@ use App\Models\Area;
 use App\Models\Location;
 use App\Models\Enquiry;
 use App\Models\Faq;
+use App\Models\Testimonial;
 use Illuminate\Http\Request;
 use App\Mail\EnquirtMail;
 use Mail;
@@ -34,8 +35,9 @@ class HomeController extends Controller
         $areadata = Area::where('status', '1')->get();
         $locationdata = Location::where('status', '1')->get();
         $propertycategory = Category::where('status', '1')->orderBy('sortorder', 'Asc')->get();
+        $testimonials = Testimonial::where('status', '1')->get();
 
-        return view('welcome',compact('propertycategory','areadata','locationdata'));
+        return view('welcome',compact('propertycategory','areadata','locationdata','testimonials'));
     }
 
     public function aboutUs()

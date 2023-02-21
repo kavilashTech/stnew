@@ -240,42 +240,20 @@
             <div class="col-lg-10">
               <div class="testimonial-slider owl-theme owl-carousel">
                 <!-- new code (24-01-23) -->
-                <div class="item">
-                  <div class="testimonial-content">
-                    <div class="client-detail">
-                      <div class="client-logo">
-                        <img src="{{url('images/male.png')}}" class="img-fluid">
+                @foreach ($testimonials as $item =>$value)
+                  <div class="item">
+                    <div class="testimonial-content">
+                      <div class="client-detail">
+                        <div class="client-logo">
+                          <img src="{{url('images/'.$value->profile_image)}}" class="img-fluid">
+                        </div>
+                        <h5 class="client-name mb-0">{{$value->name}}<span class="d-block">{{$value->profession}}</span></h5>
                       </div>
-                      <h5 class="client-name mb-0">Client Name<span class="d-block">Profession</span></h5>
+                      <div class="client-dec">{{$value->description}}</div>
                     </div>
-                    <div class="client-dec">Lorem ipsum dolor sit amet consectetur adipisicing elit. Aspernatur, dolorum.</div>
                   </div>
+                @endforeach
                 </div>
-                <div class="item">
-                  <div class="testimonial-content">
-                    <div class="client-detail">
-                      <div class="client-logo">
-                        <img src="{{url('images/male.png')}}" class="img-fluid">
-                      </div>
-                      <h5 class="client-name mb-0">Client Name<span class="d-block">Profession</span></h5>
-                    </div>
-                    <div class="client-dec">Lorem ipsum dolor sit amet consectetur adipisicing elit. Aspernatur, dolorum.</div>
-                  </div>
-                </div>
-                <div class="item">
-                  <div class="testimonial-content">
-                    <div class="client-detail">
-                      <div class="client-logo">
-                        <img src="{{url('images/male.png')}}" class="img-fluid">
-                      </div>
-                      <h5 class="client-name mb-0">Client Name<span class="d-block">Profession</span></h5>
-                    </div>
-                    <div class="client-dec">Lorem ipsum dolor sit amet consectetur adipisicing elit. Aspernatur, dolorum.</div>
-                  </div>
-                </div>
-
-
-              </div>
             </div>
           </div>
         </div>
