@@ -16,11 +16,10 @@ use Illuminate\Support\Facades\DB;
 
 class PropertyController extends Controller
 {
-    //
 
     public function index(Request $request)
     {
-//dd($request->input());
+        //dd($request->input());
 
         $model_property= Property :: where("properties.status", "2");
 
@@ -106,17 +105,16 @@ class PropertyController extends Controller
             'rows'               => $model_property->paginate($limit),
             'list_location'      => Location::where('status', '1')->get(),
             'list_category'      => Category::where('status', '1')->get(),
-            'list_features'      => Property::where('status', '2')->where('is_featured',1)->get() ,
-            'list_amenities'    => Amenities :: where('show_in_detail',1)->get(),
-            'list_room_amenities'    => Amenities :: where('level',1)->get(),
+            'list_features'      => Property::with('amenities')->where('status', '2')->where('is_featured',1)->get() ,
+            'list_amenities'     => Amenities :: where('show_in_detail',1)->get(),
+            'list_room_amenities' => Amenities :: where('level',1)->get(),
             'property_min_max_price' => '',
             'markers'            => $markers,
             "blank"              => 1,
             "filter"             => $request->query('filter'),
-
         ];
 
-        //dd($data);
+        // dd($data);
 
         return view('propertysearch', $data);
 

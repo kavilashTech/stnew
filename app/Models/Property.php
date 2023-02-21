@@ -4,12 +4,11 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Amenities;
 
 
 class Property extends Model
 {
-
-
     protected $table = 'properties';
 
     /**
@@ -27,4 +26,9 @@ class Property extends Model
         'alternative_number',
         'reason'
     ];
+
+
+    public function amenities(){
+        return $this->belongsToMany(Amenities::class,'property_amenities','property_id','amenity_id');
+    }
 }

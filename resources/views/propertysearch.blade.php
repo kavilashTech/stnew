@@ -272,7 +272,19 @@
                             <small>Beds: {{($total_of_beds ?? 0)}}</small>
                           </div>
                         </div>
-                        <div class="properties-rent mt-4"><strong>Rent: ₹{{($property_min_max_price ?? 0)}}</strong></div>
+                          @if ($feature->amenities)
+                          <div style=" display:flex; flex-wrap: wrap; margin-top: 38px;">
+                            @foreach ($feature->amenities as  $item=>$value)
+                               <div class="search-bold" style="flex: 40%; paddin:0px 18px;"> <i class="fa fa-user"></i>   {{$value->name}}</div>
+                            @endforeach
+                          </div>                            
+                          @endif
+
+                        <div class="properties-rent mt-4 d-flex flex-column "><strong>Rent: ₹{{($property_min_max_price ?? 0)}}</strong>
+                          <button class="btn btn-thm btn-sm mb-1">Compare</button>
+                          <button class="btn btn-thm btn-sm mb-1">Contact</button>
+                          <button class="btn btn-thm btn-sm mb-1">Book</button>
+                        </div>
                       </div>
                     </a>
                     </li>
