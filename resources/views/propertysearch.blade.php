@@ -239,7 +239,7 @@
                     <li>
                     <a class="thumb-image" href="{{ route('property.detail',$row->id)}}">
                       <div class="properties-items d-flex align-items-start justify-content-between">
-                        <div class="properties-details d-flex align-items-md-center">
+                        <div class="properties-details d-flex">
                           <div class="properties-img" style="background-image: url({{asset( 'images/property/'.$row->feature_image)}});">
                             <div class="like-icon"><i class="fa fa-heart" aria-hidden="true"></i></div>
                           </div>
@@ -272,15 +272,15 @@
                             <small>Beds: {{($total_of_beds ?? 0)}}</small>
                           </div>
                         </div>
-                          @if ($feature->amenities)
-                          <div style=" display:flex; flex-wrap: wrap; margin-top: 38px;">
-                            @foreach ($feature->amenities as  $item=>$value)
-                               <div class="search-bold" style="flex: 40%; paddin:0px 18px;"> <i class="fa fa-user"></i>   {{$value->name}}</div>
-                            @endforeach
-                          </div>                            
-                          @endif
+                        @if ($feature->amenities)
+                        <div style=" display:flex; flex-wrap: wrap; width:40%">
+                          @foreach ($feature->amenities as  $item=>$value)
+                             <div class="search-bold" > <i class="fa fa-user"></i>   {{$value->name}}</div>
+                          @endforeach
+                        </div>                            
+                        @endif
 
-                        <div class="properties-rent mt-4 d-flex flex-column "><strong>Rent: ₹{{($property_min_max_price ?? 0)}}</strong>
+                        <div class="properties-rent  d-flex flex-column "><strong>Rent: ₹{{($property_min_max_price ?? 0)}}</strong>
                           <button class="btn btn-thm btn-sm mb-1">Compare</button>
                           <button class="btn btn-thm btn-sm mb-1">Contact</button>
                           <button class="btn btn-thm btn-sm mb-1">Book</button>

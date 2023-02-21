@@ -143,5 +143,6 @@
 
 .search-bold{
     font-weight: bold;
-    font-size: 18px;
+    font-size: 17px;
+    flex: 40%; padding:0px 18px;
 }
