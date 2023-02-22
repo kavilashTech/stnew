@@ -90,16 +90,15 @@ function login(){
 			$logged_in_user = mysqli_fetch_assoc($results);
 			if ($logged_in_user['user_role'] == 4) {
 
-				$_SESSION['user'] = $logged_in_user;
+				$_SESSION['user'] = $logged_in_user['id'];
 				$_SESSION['success']  = "You are now logged in";
+				//TODO : If Admin redirect to Admin Dashboard
 				header('location: ownerdashboard.php');		  
 			}
-			// else{
-			// 	$_SESSION['user'] = $logged_in_user;
-			// 	$_SESSION['success']  = "You are now logged in";
-
-			// 	header('location: index.php');
-			// }
+			elseif ($logged_in_user['user_role'] == 1){
+				$_SESSION['user'] = $logged_in_user['id'];
+				header('location: ownerdashboard.php');		  
+			}
 		}else {
 			array_push($errors, "Wrong username/password combination");
 			// display_error();

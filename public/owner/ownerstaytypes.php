@@ -78,6 +78,7 @@ function myFunc(pid){
                                 <th>Location</th>
                                 <th>Area</th>
                                 <th>Status</th>
+                                <th>Rooms</th>
                                 <th>Vacancy</th>
                                 <th width="20%">Action</th>
                             </thead>
@@ -117,7 +118,9 @@ function myFunc(pid){
                                             } ?>
 
                                             <td><?php echo $status; ?></td>
-                                            <td><a href="" data-toggle="modal" class="btn btn-primary btn-rounded btn-icon" class="btn btn-status-negative btn-rounded btn-icon" title="Vacancy"><i class="fas fa-sm fa-calendar"></i></a></td>
+                                            <td><a style="text-decoration:none!important;" href="propertyrooms.php?pid=<?php echo $row['id'];?>" title="Rooms"><span style="background-color:#4863A0;border-radius:5px;padding:3px;font-size:12px;text-transform:uppercase;color:white;">Manage Rooms</span></a></td>
+                                            <td><a style="text-decoration:none!important;" href="" data-toggle="modal" title="Vacancy"><span style="background-color:#36454F;border-radius:5px;padding:3px;font-size:12px;text-transform:uppercase;color:white;">Vacancy</span></a></td>
+                                            <!-- <td><a href="" data-toggle="modal" class="btn btn-primary btn-rounded btn-icon" class="btn btn-status-negative btn-rounded btn-icon" title="Vacancy"><i class="fas fa-sm fa-calendar"></i></a></td> -->
                                             <td>
 
 

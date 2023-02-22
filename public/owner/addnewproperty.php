@@ -15,8 +15,8 @@ if (isset($_POST['btnAddProperty'])) {
     $active = 1;
     $status = 0;
 
-    $stmt = $connection->prepare("INSERT INTO properties (category_id, property_title, active, status) VALUES (?, ?, ?, ?)");
-    $stmt->bind_param("isii", $category_id, $propertyTitle, $active, $status);
+    $stmt = $connection->prepare("INSERT INTO properties (category_id, property_title, gallery_images, active, status) VALUES (?, ?, ?, ?, ?)");
+    $stmt->bind_param("issii", $category_id, $propertyTitle, $active, $status);
 
     // $insertSql = "INSERT INTO properties (category_id, property_title, active, status) VALUES 
     // ($category_id,'$propertyTitle', $active, $active, $status)";

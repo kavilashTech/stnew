@@ -1,4 +1,7 @@
 <?php
+
+use function PHPUnit\Framework\isNull;
+
 include 'includes/header.php';
 include 'includes/menu.php';
 include 'includes/sidenav.php';
@@ -12,7 +15,7 @@ if (!isset($_SESSION['user'])) {
     echo '<meta http-equiv="Refresh" content="0; url=login.php">';
     exit(0);
 }
-
+$propImgPath = '../images/property/gallery/';
 
 if (isset($_REQUEST['pid'])) {
 
@@ -44,21 +47,18 @@ if (mysqli_num_rows($result) > 0) {
     $mobile1 = $row['mobile1'];
     $mobile2 = $row['mobile2'];
     $salientFeatures = $row['salient_features'];
+    $exclusivityId = $row['exclusivity_id'];
 
     //DESCRIPTION Tab
     $shortDescription = $row['short_description'];
     $description = $row['description'];
 
-$policy = $row['policy'];
-
-
+    $policy = $row['policy'];
 } else {
     $_SESSION['message'] = "Could not Load Data. Contact Administrator";
 }
 
 ?>
-
-<!-- TODO : Bed type should be part of Room Level Amenities and code should be similar to Bathroom and Bathroom List -->
 
 <style>
     .admin-msg {
@@ -88,6 +88,58 @@ $policy = $row['policy'];
 <script type="application/javascript" src="js/addAmenities.js"></script>
 <script type="application/javascript" src="js/jquery.form.js"></script>
 <!-- `<script type="application/javascript" src="js/jquery.min.js"></script> -->
+
+<style>
+    .col-img {
+        /* width:30px; */
+        float: left;
+    }
+
+    .col-img img {
+        max-height: 80px;
+        height: 70px;
+        object-fit: contain;
+        padding: 5px;
+        border: 1px solid #d9d9d9;
+    }
+
+    .img-wrap {
+        position: relative;
+        display: inline-block;
+        /* border: 1px red solid; */
+        font-size: 0;
+    }
+
+    .img-wrap .close {
+        position: absolute;
+        top: 2px;
+        right: 2px;
+        z-index: 100;
+        background-color: red;
+        padding: 2px 3px 5px;
+        color: #000;
+        font-weight: bold;
+        cursor: pointer;
+        opacity: .2;
+        text-align: center;
+        font-size: 22px;
+        line-height: 10px;
+        border-radius: 50%;
+    }
+
+    .img-wrap:hover .close {
+        opacity: 1;
+    }
+
+    .uploadStatus {
+        font-size: 12px;
+        color: red !important;
+    }
+</style>
+
+
+
+
 
 <div id="layoutSidenav">
     <div id="layoutSidenav_content">
@@ -130,15 +182,14 @@ $policy = $row['policy'];
                                                     <li id="Description"><strong>Description</strong></li>
                                                     <li id="Amenities"><strong>Amenities</strong></li>
                                                     <li id="Media"><strong>Media</strong></li>
-                                                    <li id="Rooms"><strong>Rooms</strong></li>
                                                     <li id="Worktime"><strong>Work Time</strong></li>
                                                     <li id="Terms"><strong>Terms</strong></li>
                                                     <li id="Acceptance"><strong>Acceptance</strong></li>
                                                     <!-- <li id="confirm"><strong>Finish</strong></li> -->
                                                 </ul>
                                                 <div id="formbasicsuccess">
-                                                    <script> 
-                                                
+                                                    <script>
+
                                                     </script>
                                                 </div>
                                                 <!-- fieldsets -->
@@ -214,6 +265,12 @@ $policy = $row['policy'];
                                                                         }
                                                                         ?>
                                                                     </select>
+                                                                    <script>
+
+
+
+
+                                                                    </script>
                                                                 </div>
                                                                 <!-- Area Dropdown - Dependent on Location Selection -->
                                                                 <!-- Area Dropdown - Dependent on Location Selection -->
@@ -223,7 +280,9 @@ $policy = $row['policy'];
                                                                         <option></option>
 
                                                                     </select>
+
                                                                 </div>
+
                                                                 <!-- END Area Dropdown - Dependent on Location Selection -->
                                                                 <div class="col-3">
                                                                     <label for="txtPincode">Pincode</label>
@@ -262,6 +321,9 @@ $policy = $row['policy'];
                                                                         }
                                                                         ?>
                                                                     </select>
+                                                                    <script>
+                                                                        document.getElementById('cmbExclusivity').selectedIndex = <?php echo $exclusivityId ?>;
+                                                                    </script>
                                                                 </div>
                                                             </div>
                                                             <div class="row">
@@ -275,6 +337,20 @@ $policy = $row['policy'];
 
                                                         <input type="button" name="next" id="btnBasic" class="next action-button " value="Next Step" />
                                                         <button class="save action-button-save ml-auto" id="save">Save</button>
+                                                        <a href="ownerstaytypes.php" class="btn save action-button-cancel ml-auto" id="btnRoomBack" name="btnRoomBack" style="text-decoration:none">Back</a>
+                                                        <script>
+                                                            jQuery(window).on("load", function() {
+                                                                document.getElementById('cmbLocation').selectedIndex = <?php echo $locationId ?>;
+                                                                $('#cmbLocation').trigger('change');
+                                                                setTimeout(function() {
+                                                                    $('#cmbArea')
+                                                                        .val(<?php echo $areaId ?>)
+                                                                        .trigger('change')
+
+                                                                }, 100);
+
+                                                            });
+                                                        </script>
                                                     </form>
                                                 </fieldset>
                                                 <fieldset id="fsDesc">
@@ -313,7 +389,7 @@ $policy = $row['policy'];
                                                                         <input type="hidden" name="propertyAmenityValue" id="propertyAmenityValue">
                                                                         <label for="cmbAmenity">Select Amenity</label>
                                                                         <select class="list-dt" id="cmbAmenity" name="cmbAmenity" style="width:50%!important">
-                                                                            <option></option>
+                                                                            <option selected value="0">Select Amenity ...</option>
                                                                             <?php
                                                                             $selectSQL = "SELECT * FROM amenities where level=0";
 
@@ -337,87 +413,156 @@ $policy = $row['policy'];
                                                                     <div class="col-4 ">
                                                                         <label for="cmbAmenityList">Select Amenity List</label>
                                                                         <select class="list-dt" id="cmbAmenityList" name="cmbAmenityList" style="width:100%!important">
-                                                                            <option></option>
+                                                                            <option selected value="0" has-value="0">Select List...</option>
 
                                                                         </select>
                                                                     </div>
                                                                     <div class="col-2">
-                                                                        <div id="AddPropertyAmenityValue" style="visibility:hidden" >
+                                                                        <div id="AddPropertyAmenityValue" style="visibility:hidden">
                                                                             <label for="txtAddPropertyAmenityValue">Enter Value</label>
                                                                             <input type="text" placeholder="" id="txtAddPropertyAmenityValue" name="txtAddPropertyAmenityValue">
                                                                         </div>
                                                                     </div>
                                                                     <div class="col-2 mt-auto">
-                                                                        <input type="button" class="btn btn-primary"  id="addPropAmenity"style="width:50px!important" value="Add">
+                                                                        <input type="button" class="btn btn-primary" id="addPropAmenity" name="addPropAmenity" style="width:50px!important" value="Add">
                                                                     </div>
                                                                 </div>
 
                                                             </div> <!-- row -->
                                                             <!-- Paging test Start ---------------------------  -->
                                                             <style>
-/* body{width:600px;font-family:"Helvetica Neue", HelveticaNeue, Helvetica, Arial, sans-serif;font-size:14px;} */
-.link {padding: 10px 15px;background: transparent;border:#bccfd8 1px solid;border-left:0px;cursor:pointer;color:#607d8b}
-.disabled {cursor:not-allowed;color: #bccfd8;}
-.current {background: #bccfd8;}
-.first{border-left:#bccfd8 1px solid;}
-/* .question {font-weight:bold;border:1px solid red;} */
-.tblData{width:50%;position:relative;}
-/* .tblData {background-color: yellow;} */
-.answer{padding-top: 10px; border:1px solid red;}
-#pagination{margin-top: 20px;padding-top: 30px;border-top: #F0F0F0 1px solid;}
-.dot {padding: 10px 15px;background: transparent;border-right: #bccfd8 1px solid;}
-#overlay {background-color: rgba(0, 0, 0, 0.6);z-index: 999;position: absolute;left: 0;top: 0;width: 100%;height: 100%;display: none;}
-#overlay div {position:absolute;left:50%;top:50%;margin-top:-32px;margin-left:-32px;}
-.page-content {padding: 20px;margin: 0 auto;}
-.pagination-setting {padding:10px; margin:5px 0px 10px;border:#bccfd8  1px solid;color:#607d8b;}
-</style>
-<script>
-function getresult(url) {
-	$.ajax({
-		url: url,
-		type: "GET",
-		data:  {rowcount:$("#rowcount").val(),"pagination_setting":$("#pagination-setting").val()},
-		beforeSend: function(){$("#overlay").show();},
-		success: function(data){
-		$("#pagination-result").html(data);
-		setInterval(function() {$("#overlay").hide(); },500);
-		},
-		error: function() 
-		{} 	        
-   });
-}
-function changePagination(option) {
-	if(option!= "") {
-		getresult("getresult.php");
-	}
-}
-</script>
-<!-- <div id="overlay"><div><img src="loading.gif" width="64px" height="64px"/></div></div> -->
-<div class="page-content">
-	<!-- <div style="border-bottom: #F0F0F0 1px solid;margin-bottom: 15px;">
+                                                                /* body{width:600px;font-family:"Helvetica Neue", HelveticaNeue, Helvetica, Arial, sans-serif;font-size:14px;} */
+                                                                .link {
+                                                                    padding: 10px 15px;
+                                                                    background: transparent;
+                                                                    border: #bccfd8 1px solid;
+                                                                    border-left: 0px;
+                                                                    cursor: pointer;
+                                                                    color: #607d8b
+                                                                }
+
+                                                                .disabled {
+                                                                    cursor: not-allowed;
+                                                                    color: #bccfd8;
+                                                                }
+
+                                                                .current {
+                                                                    background: #bccfd8;
+                                                                }
+
+                                                                .first {
+                                                                    border-left: #bccfd8 1px solid;
+                                                                }
+
+                                                                /* .question {font-weight:bold;border:1px solid red;} */
+                                                                .tblData {
+                                                                    width: 50%;
+                                                                    position: relative;
+                                                                }
+
+                                                                /* .tblData {background-color: yellow;} */
+                                                                .answer {
+                                                                    padding-top: 10px;
+                                                                    border: 1px solid red;
+                                                                }
+
+                                                                #pagination {
+                                                                    margin-top: 20px;
+                                                                    padding-top: 30px;
+                                                                    border-top: #F0F0F0 1px solid;
+                                                                }
+
+                                                                .dot {
+                                                                    padding: 10px 15px;
+                                                                    background: transparent;
+                                                                    border-right: #bccfd8 1px solid;
+                                                                }
+
+                                                                #overlay {
+                                                                    background-color: rgba(0, 0, 0, 0.6);
+                                                                    z-index: 999;
+                                                                    position: absolute;
+                                                                    left: 0;
+                                                                    top: 0;
+                                                                    width: 100%;
+                                                                    height: 100%;
+                                                                    display: none;
+                                                                }
+
+                                                                #overlay div {
+                                                                    position: absolute;
+                                                                    left: 50%;
+                                                                    top: 50%;
+                                                                    margin-top: -32px;
+                                                                    margin-left: -32px;
+                                                                }
+
+                                                                .page-content {
+                                                                    padding: 20px;
+                                                                    margin: 0 auto;
+                                                                }
+
+                                                                .pagination-setting {
+                                                                    padding: 10px;
+                                                                    margin: 5px 0px 10px;
+                                                                    border: #bccfd8 1px solid;
+                                                                    color: #607d8b;
+                                                                }
+                                                            </style>
+                                                            <script>
+                                                                function getresult(url) {
+                                                                    $.ajax({
+                                                                        url: url,
+                                                                        type: "GET",
+                                                                        data: {
+                                                                            rowcount: $("#rowcount").val(),
+                                                                            "pagination_setting": $("#pagination-setting").val()
+                                                                        },
+                                                                        beforeSend: function() {
+                                                                            $("#overlay").show();
+                                                                        },
+                                                                        success: function(data) {
+                                                                            $("#pagination-result").html(data);
+                                                                            setInterval(function() {
+                                                                                $("#overlay").hide();
+                                                                            }, 500);
+                                                                        },
+                                                                        error: function() {}
+                                                                    });
+                                                                }
+
+                                                                function changePagination(option) {
+                                                                    if (option != "") {
+                                                                        getresult("getresult.php");
+                                                                    }
+                                                                }
+                                                            </script>
+                                                            <!-- <div id="overlay"><div><img src="loading.gif" width="64px" height="64px"/></div></div> -->
+                                                            <div class="page-content">
+                                                                <!-- <div style="border-bottom: #F0F0F0 1px solid;margin-bottom: 15px;">
 	Pagination Setting:<br> <select name="pagination-setting" onChange="changePagination(this.value);" class="pagination-setting" id="pagination-setting">
 	<option value="all-links">Display All Page Link</option>
 	<option value="prev-next">Display Prev Next Only</option>
 	</select>
 	</div> -->
-	
-	<div id="pagination-result">
-	<input type="hidden" name="rowcount" id="rowcount" />
-	</div>
-</div>
+
+                                                                <div id="pagination-result">
+                                                                    <input type="hidden" name="rowcount" id="rowcount" />
+                                                                </div>
+                                                            </div>
 
 
-<script>
-getresult("getresult.php");
-</script>
+                                                            <script>
+                                                                getresult("getresult.php");
+                                                            </script>
 
 
                                                             <!-- Paging test End ---------------------------  -->
                                                         </div>
-                                                            <input type="hidden" id="tabPropAmenities" name="tabPropAmenities">
-                                                            <input type="button" name="previous" class="previous action-button-previous" value="Previous" />
-                                                            <input type="button" name="next" id="propertyAmenities" class="next action-button" value="Next Step" />
-                                                            <!-- <button class="save action-button-save ml-auto">Save</button> -->
+                                                        <input type="hidden" id="tabPropAmenities" name="tabPropAmenities">
+                                                        <input type="button" name="previous" class="previous action-button-previous" value="Previous" />
+                                                        <input type="button" name="next" id="propertyAmenities" class="next action-button" value="Next Step" />
+                                                        <!-- <button class="save action-button-save ml-auto">Save</button> -->
                                                     </form>
                                                 </fieldset>
 
@@ -425,74 +570,26 @@ getresult("getresult.php");
                                                 <fieldset>
                                                     <form method="post" id="uploadForm" name="uploadForm" enctype="multipart/form-data" action="img-upload.php">
                                                         <div class="form-card">
-                                                            <script>
-                                                                $(function() {
-                                                                    $('#uploadForm').ajaxForm({
-                                                                        target: '#imagesPreview',
-                                                                        beforeSubmit: function() {
-                                                                            // $('#uploadStatus').html('<img src="css/uploading.gif" />');
-                                                                        },
-                                                                        success: function() {
-                                                                            $('#images').val('');
-                                                                            $('#uploadStatus').html('');
-                                                                        },
-                                                                        error: function() {
-                                                                            $('#uploadStatus').html('<p>Upload failed! Please try again.</p>');
-                                                                        }
-                                                                    });
-                                                                });
-                                                            </script>
-                                                            <!-- TODO : Check whether we can move the style block elsewhere -->
-                                                            <style>
-                                                                .col-img {
-                                                                    /* width:30px; */
-                                                                    float: left;
-                                                                }
-
-                                                                .col-img img {
-                                                                    max-height: 80px;
-                                                                    height: 70px;
-                                                                    object-fit: contain;
-                                                                    padding: 5px;
-                                                                    border: 1px solid #d9d9d9;
-                                                                }
-
-                                                                .img-wrap {
-                                                                    position: relative;
-                                                                    display: inline-block;
-                                                                    /* border: 1px red solid; */
-                                                                    font-size: 0;
-                                                                }
-
-                                                                .img-wrap .close {
-                                                                    position: absolute;
-                                                                    top: 2px;
-                                                                    right: 2px;
-                                                                    z-index: 100;
-                                                                    background-color: red;
-                                                                    padding: 2px 3px 5px;
-                                                                    color: #000;
-                                                                    font-weight: bold;
-                                                                    cursor: pointer;
-                                                                    opacity: .2;
-                                                                    text-align: center;
-                                                                    font-size: 22px;
-                                                                    line-height: 10px;
-                                                                    border-radius: 50%;
-                                                                }
-
-                                                                .img-wrap:hover .close {
-                                                                    opacity: 1;
-                                                                }
-
-                                                                .uploadStatus {
-                                                                    font-size: 12px;
-                                                                    color: red !important;
-                                                                }
-                                                            </style>
-                                                            <h2 class="fs-title">Media Information</h2>
-
+                                                            <h4 class="fs-title">Media Information</h4>
                                                             Select Image Files to Upload (Max : 5):
+                                                            <script>
+                                                                // $(function() {
+                                                                //     $('#uploadForm').ajaxForm({
+                                                                //         target: '#imagesPreview',
+                                                                //         beforeSubmit: function() {
+                                                                //             // $('#uploadStatus').html('<img src="css/uploading.gif" />');
+                                                                //         },
+                                                                //         success: function() {
+                                                                //             // alert('running script from same page');
+                                                                //             $('#images').val('');
+                                                                //             $('#uploadStatus').html('');
+                                                                //         },
+                                                                //         error: function() {
+                                                                //             $('#uploadStatus').html('<p>Upload failed! Please try again.</p>');
+                                                                //         }
+                                                                //     });
+                                                                // });
+                                                            </script>
                                                             <div class="row">
                                                                 <div class="col-3">
                                                                     <!-- Upload controls column -->
@@ -504,6 +601,7 @@ getresult("getresult.php");
                                                                     <div class="row">
                                                                         <!-- <div class="col-3"> -->
                                                                         <input type="submit" name="btnImageUpload" id="btnImageUpload" value="UPLOAD">
+                                                                        <!-- <input type="button" name="btnImageSave1" id="btnImageSave1" value="Save Image"> -->
                                                                         <!-- display upload status -->
                                                                         <div id="uploadStatus" style="color:red"></div>
                                                                         <div class="gallery" id="imagesPreview"></div>
@@ -511,42 +609,44 @@ getresult("getresult.php");
                                                                         <!-- </div> -->
                                                                     </div>
                                                                 </div>
-                                                                <div class="col-8">
+                                                                <div class="col-8" style="margin-left:60px!important;">
 
                                                                     <!-- Gallery Column -->
                                                                     <?PHP
                                                                     // Get image data from database
-                                                                    $result = $connection->query("SELECT img_file_name FROM property_images ORDER BY id DESC");
-                                                                    $noOfImages = $result->num_rows;
-                                                                    echo "images : " . $noOfImages;
-                                                                    ?>
+                                                                    $selectSQL = "SELECT gallery_images FROM properties where id = " . $propertyId;
+                                                                    $result = $connection->query($selectSQL);
+                                                                    // echo $selectSQL;
 
-                                                                    <?php
-                                                                    if ($noOfImages > 0) {
-                                                                        if ($noOfImages < 6) { ?>
-                                                                            <div class="gallery">
+                                                                    if (mysqli_num_rows($result) > 0) {
+                                                                        // echo is_null(mysqli_num_rows($result)) . "asdf<br>";
+                                                                        $row = mysqli_fetch_assoc($result);
+                                                                        $json = $row['gallery_images'];
+                                                                        $noOfImages = 0;
+                                                                        if ($json != "") {
 
-                                                                                <?php while ($row = $result->fetch_assoc()) { ?>
-
-                                                                                    <div class="col-img img-wrap">
-                                                                                        <span class="close" title="delete">&times;</span>
-                                                                                        <img src="<?php echo 'uploads/' . $row['img_file_name']; ?>" />
-                                                                                    </div>
-
-
-                                                                                <?php } ?>
-
-                                                                            </div>
-                                                                        <?php } else {
-                                                                            //Max image numbers reached.
-                                                                            echo "<script>document.getElementById('imageUpload').hidden = true;</script>";
+                                                                            // echo $json;
+                                                                            $gallery_array = json_decode($json, true);
+                                                                            $noOfImages = count($gallery_array);
+                                                                            // echo count($gallery_array);
+                                                                            foreach ($gallery_array as $Gimage) {
+                                                                                echo "<img style='margin:0px 2px'; src = '" . $propImgPath . $Gimage . "' width='100px'>";
+                                                                            }
+                                                                        } else {
+                                                                            echo "<center>No Images Found</center>";
                                                                         }
-                                                                    } else { ?>
-                                                                        <p class="status error">Image(s) not found...</p>
-                                                                    <?php }
+                                                                    } else {
+                                                                        echo "NO Images Found";
+                                                                    }
+
+                                                                    if (($noOfImages > 0) && ($noOfImages < 6)) {
+                                                                    } else {
+                                                                        // echo "<script>document.getElementById('btnImageUpload').hidden = true;</script>";
+                                                                    }
+
                                                                     if ($noOfImages >= 5) {
                                                                         //Max image uploaded. cannot upload more.
-                                                                        echo "<script>document.getElementById('imageUpload').hidden = true;</script>";
+                                                                        // echo "<script>$('#btnImageUpload').prop('disabled', true);</script>";
                                                                         echo "<script>document.getElementById('uploadStatus').innerHTML = 'Max Files Reached';</script>";
                                                                     }
                                                                     ?>
@@ -558,23 +658,6 @@ getresult("getresult.php");
                                                     </form>
                                                     <form method="post" id="videoUploadForm" name="videoUploadForm" enctype="multipart/form-data" action="img-upload.php">
                                                         <div class="form-card">
-                                                            <script>
-                                                                $(function() {
-                                                                    $('#videoUploadForm').ajaxForm({
-                                                                        target: '#videoPreview',
-                                                                        beforeSubmit: function() {
-                                                                            // $('#uploadStatus').html('<img src="css/uploading.gif" />');
-                                                                        },
-                                                                        success: function() {
-                                                                            $('#videoFile').val('');
-                                                                            $('#uploadStatus').html('');
-                                                                        },
-                                                                        error: function() {
-                                                                            $('#uploadStatus').html('<p>Upload failed! Please try again.</p>');
-                                                                        }
-                                                                    });
-                                                                });
-                                                            </script>
                                                             <P class="mb-2"> Select Video Files to Upload (One video only):</P>
                                                             <div class="row">
                                                                 <div class="col-3">
@@ -584,159 +667,57 @@ getresult("getresult.php");
 
                                                                     <div class="row">
                                                                         <input type="submit" name="btnVideoUpload" id="btnVideoUpload" value="UPLOAD">
+                                                                        <div id="uploadStatus" style="color:red"></div>
+                                                                        <div class="gallery" id="videoPreview"></div>
                                                                     </div>
 
                                                                 </div>
                                                                 <div class="col-8 float-start">
-                                                                    <div id="uploadStatus" style="color:red"></div>
-                                                                    <div class="gallery" id="videoPreview"></div>
-                                                                </div>
+                                                                    <?PHP
+                                                                    // Get video data from database
+                                                                    $selectSQL = "SELECT property_video FROM properties where id = " . $propertyId;
+                                                                    $result = $connection->query($selectSQL);
 
+                                                                    if (mysqli_num_rows($result) > 0) {
+
+                                                                        $row = mysqli_fetch_assoc($result);
+                                                                        if ($row['property_video'] != "") {
+                                                                        
+
+                                                                        $proVideopath = "../images/property/video/";
+
+                                                                        echo "<video src = '" . $proVideopath . $row['property_video'] . "' controls width='320px' height='220px'></video>";
+                                                                        } else{
+                                                                            echo "<center>No Videos Fount</center>";
+                                                                        }
+                                                                    } else {
+                                                                        echo "NO Videos Found";
+                                                                    }
+                                                                    ?>
+                                                                </div>
                                                             </div>
 
                                                         </div>
+                                                        <!-- <input type="hidden" id="tabMedia" name="tabMedia" value=""> -->
                                                         <input type="button" name="previous" class="previous action-button-previous" value="Previous" />
                                                         <input type="button" name="next" id="btnMedia" class="next action-button" value="Next Step" />
-                                                        <button class="save action-button-save ml-auto">Save</button>
-                                                    </form>
-                                                </fieldset>
-
-
-                                                <fieldset>
-                                                    <form action="">
-                                                        <div class="form-card">
-                                                            <h2 class="fs-title">Room Information</h2>
-                                                            <p>Create Rooms</p>
-                                                            <div class="row mb-2">
-                                                                <div class="col-6">
-                                                                    <label for="txtRoomName">Room Name</label>
-                                                                    <input type="text" id="txtRoomName" name="txtRoomName" placeholder="">
-                                                                </div>
-                                                                <div class="col-4">
-                                                                    <label for="txtRcmbRoomTypeoomName">Room Type</label>
-                                                                    <select class="list-dt" id="cmbRoomType" name="cmbRoomType">
-                                                                        <option></option>
-                                                                        <?php
-                                                                        $selectSQL = "SELECT * FROM room_types";
-
-                                                                        $result = mysqli_query($connection, $selectSQL);
-
-                                                                        if (mysqli_num_rows($result) > 0) {
-
-                                                                            while ($row = mysqli_fetch_array($result)) {
-                                                                        ?>
-                                                                                <option value="<?php echo $row['id']; ?>"><?php echo $row['name']; ?></option>
-                                                                            <?php
-                                                                            }
-                                                                        } else { ?>
-                                                                            <td colspan="3" style="text-align:center;color:red;">No Records Found</td>
-                                                                        <?php
-                                                                        }
-                                                                        ?>
-                                                                    </select>
-                                                                </div>
-                                                                <div class="col-2">
-                                                                    <label for="txtBedCount">Bed Count</label>
-                                                                    <input type="text" id="txtBedCount" name="txtBedCount">
-                                                                </div>
-                                                            </div>
-                                                            <!-- TODO: to move to Modal Pop-up ---- Start -->
-                                                            <div class="row">
-                                                                <div class="col-3">
-                                                                    <label for="cmbRoomAmenity">Amenity</label>
-                                                                    <select class="list-dt" id="cmbRoomAmenity" name="cmbRoomAmenity">
-                                                                        <option selected>Select Amenity ...</option>
-                                                                        <?php
-                                                                        $selectSQL = "SELECT * FROM amenities where level=1";
-
-                                                                        $result = mysqli_query($connection, $selectSQL);
-
-                                                                        if (mysqli_num_rows($result) > 0) {
-
-                                                                            while ($row = mysqli_fetch_array($result)) {
-                                                                        ?>
-                                                                                <option value="<?php echo $row['id']; ?>"><?php echo $row['name']; ?></option>
-                                                                            <?php
-                                                                            }
-                                                                        } else { ?>
-                                                                            <td colspan="3" style="text-align:center;color:red;">No Records Found</td>
-                                                                        <?php
-                                                                        }
-                                                                        ?>
-                                                                    </select>
-                                                                </div>
-                                                                <div class="col-3">
-                                                                    <label for="cmbRoomAmenityList">Amenity List</label>
-                                                                    <select class="list-dt" id="cmbRoomAmenityList" name="cmbRoomAmenityList">
-                                                                        <option></option>
-                                                                    </select>
-                                                                </div>
-                                                                <div class="col-3">
-                                                                    <input type="text" name="txtRoomAmenityValue" id="txtRoomAmenityValue" placeholder="Value" hidden />
-                                                                </div>
-                                                                <div class="col-2">
-                                                                    <input type="button" class="btn btn-primary" style="width:50px!important" value="Add">
-                                                                </div>
-                                                            </div>
-
-                                                            <div class="row ">
-                                                                <p>Selected Room Amenities</p>
-                                                                <div id="amDataTable">
-
-                                                                    <table id="roomAmenitiesTable" class="display" width="100%">
-                                                                        <thead>
-                                                                            <tr>
-                                                                                <th>Amenity</th>
-                                                                                <th>Choices</th>
-                                                                                <th>Value</th>
-                                                                                <th>Action</th>
-                                                                            </tr>
-                                                                        </thead>
-                                                                        <tbody>
-                                                                            <tr>
-                                                                                <td>Nearby Places</td>
-                                                                                <td>Railway Station</td>
-                                                                                <td></td>
-                                                                                <td style="text-align:center;"><span style="color:red;">X</span></td>
-                                                                            </tr>
-                                                                            <tr>
-                                                                                <td>Nearby Places</td>
-                                                                                <td>Restaurant</td>
-                                                                                <td></td>
-                                                                                <td style="text-align:center;"><span style="color:red;">X</span></td>
-                                                                            </tr>
-                                                                            <tr>
-                                                                                <td>Parking</td>
-                                                                                <td>Bike Parking</td>
-                                                                                <td></td>
-                                                                                <td style="text-align:center;"><span style="color:red;">X</span></td>
-                                                                            </tr>
-                                                                            <tr>
-                                                                                <td>Internet</td>
-                                                                                <td>Broadband</td>
-                                                                                <td>100 Mbps</td>
-                                                                                <td style="text-align:center;"><span style="color:red;">X</span></td>
-                                                                            </tr>
-                                                                            <tr>
-                                                                                <td>Food Packing</td>
-                                                                                <td>Lunch Only</td>
-                                                                                <td></td>
-                                                                                <td style="text-align:center;"><span style="color:red;">X</span></td>
-                                                                            </tr>
-                                                                        </tbody>
-                                                                    </table>
-                                                                </div>
-                                                            </div>
-                                                            <!-- TODO: to move to Modal Pop-up ---- End -->
-                                                        </div>
-                                                        <input type="button" name="previous" class="previous action-button-previous" value="Previous" />
-                                                        <input type="button" name="next" id="btnRoomInfo" class="next action-button" value="Next Step" />
-                                                        <button class="save action-button-save ml-auto">Save</button>
+                                                        <!-- <button class="save action-button-save ml-auto" id="btnMediaSave" name="btnMediaSave">Save</button> -->
                                                     </form>
                                                 </fieldset>
 
                                                 <fieldset>
-                                                    <form action="">
+                                                    <form action="" method="Post" id="formWorkTiming" name="formWorkTiming">
+                                                        <script>
+                                                            function duplicateTime() {
+
+                                                                alert('Duplicate Time');
+                                                                return false;
+                                                                for (let i = 0; i < txtStartTime.length; i++) {
+                                                                    alert(txtStartTime[i].val());
+                                                                }
+                                                                // document.getElementById('txtStartTime')
+                                                            }
+                                                        </script>
                                                         <div class="form-card">
                                                             <h2 class="fs-title">Work Timings</h2>
                                                             <table>
@@ -744,42 +725,44 @@ getresult("getresult.php");
                                                                     <td width="50%">Weekday</td>
                                                                     <td>Start Time</td>
                                                                     <td>End Time</td>
+                                                                    <td></td>
                                                                 </tr>
                                                                 <tr>
+                                                                    <!-- Sunday = 0 -->
                                                                     <td>Monday</td>
-                                                                    <td><input type="time" class="txtMonTime" style="border:none;margin-bottom:1px;" /></td>
-                                                                    <td><input type="time" class="txtMonTime" style="border:none;margin-bottom:1px;" /></td>
-                                                                    <!-- <td><input type="time" id="txtMonTime" /></td> -->
+                                                                    <td><input type="time" id="txtStartTime[]" style="border:none;margin-bottom:1px;" /></td>
+                                                                    <td><input type="time" id="txtEndTime[]" style="border:none;margin-bottom:1px;" /></td>
+                                                                    <td><a href="" onclick="duplicateTime();" class="btn btn-primary">Copy to all days</a></td>
                                                                 </tr>
                                                                 <tr>
                                                                     <td>Tuesday</td>
-                                                                    <td><input type="time" class="txtMonTime" style="border:none;margin-bottom:1px;" /></td>
-                                                                    <td><input type="time" class="txtMonTime" style="border:none;margin-bottom:1px;" /></td>
+                                                                    <td><input type="time" id="txtStartTime[]" style="border:none;margin-bottom:1px;" /></td>
+                                                                    <td><input type="time" id="txtEndTime[]" style="border:none;margin-bottom:1px;" /></td>
                                                                 </tr>
                                                                 <tr>
                                                                     <td>Wednesday</td>
-                                                                    <td><input type="time" class="txtMonTime" style="border:none;margin-bottom:1px;" /></td>
-                                                                    <td><input type="time" class="txtMonTime" style="border:none;margin-bottom:1px;" /></td>
+                                                                    <td><input type="time" id="txtStartTime[]" style="border:none;margin-bottom:1px;" /></td>
+                                                                    <td><input type="time" id="txtEndTime[]" style="border:none;margin-bottom:1px;" /></td>
                                                                 </tr>
                                                                 <tr>
                                                                     <td>Thursday</td>
-                                                                    <td><input type="time" class="txtMonTime" style="border:none;margin-bottom:1px;" /></td>
-                                                                    <td><input type="time" class="txtMonTime" style="border:none;margin-bottom:1px;" /></td>
+                                                                    <td><input type="time" id="txtStartTime[]" style="border:none;margin-bottom:1px;" /></td>
+                                                                    <td><input type="time" id="txtEndTime[]" style="border:none;margin-bottom:1px;" /></td>
                                                                 </tr>
                                                                 <tr>
                                                                     <td>Friday</td>
-                                                                    <td><input type="time" class="txtMonTime" style="border:none;margin-bottom:1px;" /></td>
-                                                                    <td><input type="time" class="txtMonTime" style="border:none;margin-bottom:1px;" /></td>
+                                                                    <td><input type="time" id="txtStartTime[]" style="border:none;margin-bottom:1px;" /></td>
+                                                                    <td><input type="time" id="txtEndTime[]" style="border:none;margin-bottom:1px;" /></td>
                                                                 </tr>
                                                                 <tr>
                                                                     <td>Saturday</td>
-                                                                    <td><input type="time" class="txtMonTime" style="border:none;margin-bottom:1px;" /></td>
-                                                                    <td><input type="time" class="txtMonTime" style="border:none;margin-bottom:1px;" /></td>
+                                                                    <td><input type="time" id="txtStartTime[]" style="border:none;margin-bottom:1px;" /></td>
+                                                                    <td><input type="time" id="txtEndTime[]" style="border:none;margin-bottom:1px;" /></td>
                                                                 </tr>
                                                                 <tr>
                                                                     <td>Sunday</td>
-                                                                    <td><input type="time" class="txtMonTime" style="border:none;margin-bottom:1px;" /></td>
-                                                                    <td><input type="time" class="txtMonTime" style="border:none;margin-bottom:1px;" /></td>
+                                                                    <td><input type="time" id="txtStartTime[]" style="border:none;margin-bottom:1px;" /></td>
+                                                                    <td><input type="time" id="txtEndTime[]" style="border:none;margin-bottom:1px;" /></td>
                                                                 </tr>
                                                             </table>
 
@@ -860,32 +843,32 @@ getresult("getresult.php");
 
 <script type="application/javascript">
     // $('#admin-msg').delay(10000).fadeOut(300);
-    
-        // $('#formbasicsuccess').delay(8000).fadeOut(300);
-    
+
+    // $('#formbasicsuccess').delay(8000).fadeOut(300);
+
 
 
     // function initialSetup() {
-//   if (document.getElementById("formbasicsuccess").innerHTML != null) {
-//     setTimeout(function() {
-//       document.getElementById('formbasicsuccess').style.display = 'block';
-//     }, 5000);
-//     document.getElementById('formbasicsuccess').style.display = 'none';
-//   }
-// }
+    //   if (document.getElementById("formbasicsuccess").innerHTML != null) {
+    //     setTimeout(function() {
+    //       document.getElementById('formbasicsuccess').style.display = 'block';
+    //     }, 5000);
+    //     document.getElementById('formbasicsuccess').style.display = 'none';
+    //   }
+    // }
 
-// initialSetup();
+    // initialSetup();
 
-//     function toggleDiv() {
-//     setTimeout(function () {
-//         $("#myDiv").hide();
-//         setTimeout(function () {
-//             $("#myDiv").show();
-//             toggleDiv();
-//         }, 30000);
-//     }, 10000);
-// }
-// toggleDiv();
+    //     function toggleDiv() {
+    //     setTimeout(function () {
+    //         $("#myDiv").hide();
+    //         setTimeout(function () {
+    //             $("#myDiv").show();
+    //             toggleDiv();
+    //         }, 30000);
+    //     }, 10000);
+    // }
+    // toggleDiv();
 
 
     // $('.timepicker').timepicker({

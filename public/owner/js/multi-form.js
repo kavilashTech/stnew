@@ -6,12 +6,10 @@ jQuery(function () {
     var successname = ""
     var formData;
 
-//DESCRIPTION TAB SAVE CLICKED
+    //DESCRIPTION TAB SAVE CLICKED
     $("#saveDesc").on("click", function (event) {
         var fs = current_fs = $(this)
         event.preventDefault();
-        // alert(event.target.parentNode.id);
-        // alert(event.target.id);
 
         if (event.target.parentNode.id == 'formDescription') {
 
@@ -66,30 +64,71 @@ jQuery(function () {
 
     });
 
-    
-//DESCRIPTION TAB SAVE CLICKED
-$("#saveTerms").on("click", function (event) {
-    var fs = current_fs = $(this)
-    event.preventDefault();
-    // alert(event.target.parentNode.id);
-    // alert(event.target.id);
 
-    if (event.target.parentNode.id == 'formTerms') {
+    //TERMS TAB SAVE CLICKED
+    $("#saveTerms").on("click", function (event) {
+        var fs = current_fs = $(this)
+        event.preventDefault();
+        // alert(event.target.parentNode.id);
+        // alert(event.target.id);
 
-        //Initialize variables
-        var child = event.target;
-        var formName = child.parentNode.id;
-        successname = formName;
-        document.getElementById('tabTerms').value = formName;
-        formData = $(this).parent().serialize();
+        if (event.target.parentNode.id == 'formTerms') {
 
-        var Terms = document.getElementById('tareaTerms').value;
+            //Initialize variables
+            var child = event.target;
+            var formName = child.parentNode.id;
+            successname = formName;
+            document.getElementById('tabTerms').value = formName;
+            formData = $(this).parent().serialize();
+
+            var Terms = document.getElementById('tareaTerms').value;
 
 
-        functionWithAjaxScript(formData);
-    }
+            functionWithAjaxScript(formData);
+        }
 
-});
+    });
+
+
+    //MEDIS TAB SAVE CLICKED
+    $("#btnImageSave1").on("click", function (event) {
+        var fs = current_fs = $(this)
+        event.preventDefault();
+        
+        if (event.target.parentNode.id == 'formTerms') {
+            console.log('media button clicked');
+
+            //Initialize variables
+            var child = event.target;
+            var formName = child.parentNode.id;
+            successname = formName;
+            document.getElementById('tabMedia').value = formName;
+            formData = $(this).parent().serialize();
+            console.log('formData : ' + formData);
+
+            $.ajax({
+                url: "img-upload.php",
+                type: "POST",
+                data: formData,
+                success: function (data) {
+                    // console.log(data);
+                    document.getElementById("formbasicsuccess").innerHTML = data;
+                    document.getElementById("formbasicsuccess").style.color = 'green';
+                    document.getElementById("formbasicsuccess").style.display = "block";
+                    var plaintext = "$('#formbasicsuccess').delay(5000).fadeOut(300);";
+                    const script = document.createElement('script');
+                    script.id = 'idForScript'
+                    script.innerHTML = plaintext;
+                    document.head.appendChild(script);;
+                }
+            });
+
+        }
+
+    });
+
+
+
 
 
     function functionWithAjaxScript(formData) {
@@ -100,12 +139,8 @@ $("#saveTerms").on("click", function (event) {
             url: "addproperty.php",
             type: "POST",
             data: formData,
-            // data: $(this).parent().serialize(),
             success: function (data) {
                 // console.log(data);
-                //Identify the Tab from which the submit is done. Handle it in addproperty.php
-                // alert(data);
-                // console.log('successname : ' + successname + ' - ');
                 document.getElementById("formbasicsuccess").innerHTML = data;
                 document.getElementById("formbasicsuccess").style.color = 'green';
                 document.getElementById("formbasicsuccess").style.display = "block";

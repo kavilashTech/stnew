@@ -78,7 +78,7 @@ function login(){
 		// echo "Inside About to run query";
 
 		$query = "SELECT * FROM users WHERE email='$email' AND password='$password' LIMIT 1";
-		echo "Query :" . $query;
+		// echo "Query :" . $query;
 // exit(0);
 		$results = mysqli_query($db, $query);
 
@@ -87,11 +87,18 @@ function login(){
 			// exit(0);
 			// check if user is admin or user
 			$logged_in_user = mysqli_fetch_assoc($results);
+
+			// echo $logged_in_user['user_role'];
+			// exit(0); 
 			if ($logged_in_user['user_role'] == 4) {
 
 				$_SESSION['user'] = $logged_in_user;
 				$_SESSION['success']  = "You are now logged in";
 				header('location: dashboard.php');		  
+			} elseif ($logged_in_user['user_role'] == 1){
+				$_SESSION['user'] = $logged_in_user;
+				$_SESSION['success']  = "You are now logged in";
+				header('location: ../owner/ownerdashboard.php');		  
 			}
 			else{
 				array_push($errors, "You don't have Admin Rights.");

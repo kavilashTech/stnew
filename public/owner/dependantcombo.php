@@ -23,7 +23,7 @@ if (!empty($location_id)) {
 }
 
 
-//Fetching Property Level Amenity Data
+//Fetching Property Level Amenity List Data
 $amenity_id = !empty($_POST['amenity_id']) ? $_POST['amenity_id'] : '';
 if (!empty($amenity_id)) {
 
@@ -61,25 +61,26 @@ if (!empty($amenity_id)) {
 // }
 
 
-//Fetching Room Level Amenity Data
+//Fetching Room Level Amenity List Data
 $room_amenity_id = !empty($_POST['room_amenity_id']) ? $_POST['room_amenity_id'] : '';
 if (!empty($room_amenity_id)) {
 
 
     //  echo $query;
     // exit(0);
-    $amenityListData = $connection->prepare("SELECT id, name, value as multiple from amenities_list WHERE amenity_id=?");
+    $amenityListData = $connection->prepare("SELECT id, name, value from amenities_list WHERE amenity_id=?");
     $amenityListData->bind_param('i', $room_amenity_id);
     $amenityListData->execute();
     $result = $amenityListData->get_result();
 
     if ($result->num_rows > 0) {
-        echo "<option></option>";
+        echo "<option value='0'>Select...</option>";
         while ($row = $result->fetch_assoc()) {
 
-            
-            echo "<option value='" . $row['id'] . "'>" . $row['name'] . "</option><br>";
+            echo "<option value='" . $row['id'] . "' has-value='" . $row['value'] . "'>" . $row['name'] . "</option><br>";
         }
+    } else {
+        echo "<option value='0'>Select...</option>";
     }
 }
 

@@ -1,16 +1,33 @@
 <?php
+include 'includes/header.php';
+// function console_log($output, $with_script_tags = true) {
+//     $js_code = 'console.log(' . json_encode($output, JSON_HEX_TAG) . 
+// ');';
+//     if ($with_script_tags) {
+//         $js_code = '<script>' . $js_code . '</script>';
+//     }
+//     echo $js_code;
+// }
 
+
+// console_log('test from php');
 // Start Image Upload -------------------- 
-if (isset($_POST['imageUpload'])) {
-    // File upload configuration 
-    //   echo "<script>alert(" . $_FILES['images']['name']. ");</script>";
+$propertyId = $_SESSION['PROPERTY_ID'];
+$images_filename = [];
+// echo("Inside Image Upload");
+// exit(0);
 
-    $targetDir = "uploads/";
-    $allowTypes = array('jpg', 'png', 'jpeg', 'gif');
-    
+if (isset($_POST['btnImageUpload'])) {
+    // File upload configuration 
+    // console_log('test from php button pressed');
+    //   echo "<script>alert(" . json_encode($_FILES['images']). ");</script>";
+    // $targetDir = "uploads/";
+    $targetDir = '../images/property/gallery/';
+    $allowTypes = array('jpg', 'png');
+
     $images_arr = array();
 
-    if(!isset($_FILES['images']['name']) && $_FILES['images']['name'] = ''){
+    if (!isset($_FILES['images']['name']) && $_FILES['images']['name'] = '') {
         echo "<script>alert('No Image Found');</script>";
         exit(0);
     }
@@ -23,7 +40,7 @@ if (isset($_POST['imageUpload'])) {
         $type         = $_FILES['images']['type'][$key];
         $error         = $_FILES['images']['error'][$key];
 
-        
+
         // File upload path 
         $fileName = basename($_FILES['images']['name'][$key]);
         $targetFilePath = $targetDir . $fileName;
@@ -36,12 +53,39 @@ if (isset($_POST['imageUpload'])) {
         if (in_array($fileType, $allowTypes)) {
             // Store images on the server 
             if (move_uploaded_file($_FILES['images']['tmp_name'][$key], $targetFilePath)) {
-            $images_arr[] = $targetFilePath;
+                $images_arr[] = $targetFilePath;
+                $images_filename[] = basename($_FILES['images']['name'][$key]);
             }
         }
-        // print_r ($images_arr);
+        //  echo($images_arr);
     }
+
+    // Insert into Database
+    $imageSet = json_encode($images_filename);
+    $updateSQL = "Update properties set  gallery_images=JSON_ARRAY_APPEND(gallery_images,";
+    foreach ($images_filename as $img) {
+        $updateSQL = $updateSQL . " '$', '" . $img . "',";
+    }
+    $updateSQL = rtrim($updateSQL, ",");
+    $updateSQL = $updateSQL . ") where id=" . $propertyId;
+
+
+
+    if (mysqli_query($connection, $updateSQL)) {
+        echo "success";
+    } else {
+        die("error " . mysqli_error($connection));
+    }
+    $connection->close();
 }
+// $stmt->close();
+
+// 
+
+
+
+
+
 
 // Generate gallery view of the images 
 if (!empty($images_arr)) { ?>
@@ -69,8 +113,21 @@ if (!empty($images_arr)) { ?>
             </div>
 
         <?php  }
+
+        foreach ($images_filename as $image_fname) {
         ?>
-        <script>document.getElementById("sav").style.display = "block";</script>
+
+            <!-- <div class="col-img">
+                <p><?php // echo $image_fname; 
+                    ?> </p>
+            </div> -->
+
+        <?php
+
+        }
+
+        ?>
+        <!-- <script>document.getElementById("#save").style.display = "block";</script> -->
 
     </ul>
 <?php }
@@ -86,10 +143,10 @@ if (!empty($images_arr)) { ?>
 // TODO : Save images into Database
 
 
-if (isset($_POST['btnSaveImage'])) {
-    echo "<script>alert('save');</script>";
+if (isset($_POST['btnMediaSave'])) {
+    echo "<script>alert('save in php');</script>";
 }
-    ?>
+?>
 
 <!-- End -- Save into Database -->
 
@@ -104,51 +161,67 @@ if (isset($_POST['btnVideoUpload'])) {
     // File upload configuration 
     //   echo "<script>alert(" . $_FILES['images']['name']. ");</script>";
 
-    $targetDir = "uploads/";
+    $targetDir = "../images/property/video/";
     $allowTypes = array('mp4');
-    
-    $images_arr = array();
-    // print_r($_FILES);
-    // if(!isset($_FILES['videoFile']['name']) && $_FILES['videoFile']['name'] = ''){
-    if(!isset($_FILES['videoFile']['name'])){
+
+    if (!isset($_FILES['videoFile']['name'])) {
         echo "<script>alert('No Video Found');</script>";
         exit(0);
     }
 
 
     // foreach ($_FILES['videoFile']['name'] as $key => $val) {
-        $image_name = $_FILES['videoFile']['name'];
-        $tmp_name     = $_FILES['videoFile']['tmp_name'];
-        $size         = $_FILES['videoFile']['size'];
-        $type         = $_FILES['videoFile']['type'];
-        $error         = $_FILES['videoFile']['error'];
+    $video_name = $_FILES['videoFile']['name'];
+    $tmp_name     = $_FILES['videoFile']['tmp_name'];
+    $size         = $_FILES['videoFile']['size'];
+    $type         = $_FILES['videoFile']['type'];
+    $error         = $_FILES['videoFile']['error'];
 
-        
-        // File upload path 
-        $fileName = basename($_FILES['videoFile']['name']);
-        $targetFilePath = $targetDir . $fileName;
-
-        // Check whether file type is valid 
-        $fileType = pathinfo($targetFilePath, PATHINFO_EXTENSION);
+    //TODO : Check and limit Filesize
 
 
+    // File upload path 
+    $videofileName = basename($_FILES['videoFile']['name']);
+    $videotargetFilePath = $targetDir . $videofileName;
 
-        if (in_array($fileType, $allowTypes)) {
-            // Store images on the server 
-            if (move_uploaded_file($_FILES['videoFile']['tmp_name'], $targetFilePath)) {
-            $video_arr[] = $targetFilePath;
-            }
-        }
-        // print_r ($images_arr);
-    // }
-}
-if (!empty($video_arr)) { 
-    ?>
+    // Check whether file type is valid 
+    $fileType = pathinfo($videotargetFilePath, PATHINFO_EXTENSION);
 
-    <video src='<?php echo $video_arr[0]; ?>' controls width='320px' height='220px'></video>
+
+    // echo $videofileName;
+    if (move_uploaded_file($_FILES['videoFile']['tmp_name'], $videotargetFilePath)) {
+
+
+        // echo "successfully moved file";
+
+        //Update Database
+
+        $updateSQL = "Update properties set  property_video = '" . $videofileName . "' where id=" . $propertyId;
+
+        // echo $updateSQL;
+
+        if (mysqli_query($connection, $updateSQL)) {
+
+            if ($videotargetFilePath != '') {
+?>
+
+                <video src='<?php echo $videotargetFilePath; ?>' controls width='320px' height='220px'></video>
 
 <?php
+            }
+
+
+            // echo "success";
+        } else {
+            die("error " . mysqli_error($connection));
+        }
+    }
+
+    $connection->close();
 }
+
 ?>
+
+
 
 <!-- // End Video Upload --------------------  -->

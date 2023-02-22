@@ -26,7 +26,7 @@ if (isset($_POST['tabBasic'])) {
         $pincode = $_POST['txtPincode'] ?: "NULL";
         $mobile1 = $_POST['txtPhone'] ?: "NULL";
         $mobile2 = $_POST['txtAlternatePhone'] ?: "NULL";
-        $exclusivity_id = $_POST['cmbExclusivity'] ?: "NULL";
+        $exclusivity_id = $_POST['cmbExclusivity'] ?: "0";
 
         $salientFeatures = $dblink -> real_escape_string($_POST['tareaSalientFeatures']);
         // $salientFeatures = $_POST['tareaSalientFeatures'] ?: "NULL";
