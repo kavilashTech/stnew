@@ -62,10 +62,11 @@ if (isset($_POST['tabDesc'])) {
     // $propertyId = $_SESSION["favcolor"];
 
     //Optional Fields - Enter Default if not provided
-    $shortDesc = $_POST["tareaShortDescription"] ?: "NULL";
-    $longDesc = $_POST["tareaLongDescription"] ?: "NULL";
-    // $shortDesc = $_POST['tareaShortDescription'];
-    // $longDesc = $_POST['tareaLongDescription'];
+    // $shortDesc = $_POST["tareaShortDescription"] ?: "NULL";
+    // $longDesc = $_POST["tareaLongDescription"] ?: "NULL";
+
+    $shortDesc = $dblink -> real_escape_string($_POST['tareaShortDescription']);
+    $longDesc = $dblink -> real_escape_string($_POST['tareaLongDescription']);
 
     $updateSQL = "Update properties Set short_description='" . $shortDesc . "', description='" . $longDesc . "' WHERE id=" . $propertyId;
 

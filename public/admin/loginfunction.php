@@ -93,11 +93,15 @@ function login(){
 			if ($logged_in_user['user_role'] == 4) {
 
 				$_SESSION['user'] = $logged_in_user;
+				$_SESSION['userId'] = $logged_in_user['id'];
 				$_SESSION['success']  = "You are now logged in";
 				header('location: dashboard.php');		  
-			} elseif ($logged_in_user['user_role'] == 1){
+			} else if ($logged_in_user['user_role'] == 1){
 				$_SESSION['user'] = $logged_in_user;
+				$_SESSION['userId'] = $logged_in_user['id'];
 				$_SESSION['success']  = "You are now logged in";
+				// echo "OWNER LOGGED IN : " . $_SESSION['userId'] . " Role : " . $logged_in_user['user_role'];
+				// exit(0);
 				header('location: ../owner/ownerdashboard.php');		  
 			}
 			else{

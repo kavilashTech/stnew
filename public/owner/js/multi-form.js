@@ -90,7 +90,7 @@ jQuery(function () {
     });
 
 
-    //MEDIS TAB SAVE CLICKED
+    //MEDIA TAB SAVE CLICKED
     $("#btnImageSave1").on("click", function (event) {
         var fs = current_fs = $(this)
         event.preventDefault();

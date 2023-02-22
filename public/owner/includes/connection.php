@@ -6,6 +6,7 @@
 //Localhost URL
 // define('SITE_URL', 'http://localhost/stnew/admin');
 
+ define('PROPERTY_IMAGE_FOLDER', "/public/assets/images/properties/gallery/");
 
 define('ADMIN_EMAIL', 'sampathraj.mp@gmail.com');
 // connection mysqli_connect_error

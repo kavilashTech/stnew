@@ -94,7 +94,8 @@ function myFunc(pid){
                                     LEFT JOIN locations f1
                                     ON m.location_id = f1.id
                                     LEFT JOIN area f2
-                                    ON m.area_id = f2.id";
+                                    ON m.area_id = f2.id
+                                     AND m.owner_id =" . $_SESSION['userId'];
 
                                 $query = mysqli_query($connection, $selectSQL);
 
@@ -132,7 +133,7 @@ function myFunc(pid){
                                     <?php
                                     }
                                 } else { ?>
-                                    <td colspan="5" style="text-align:center;color:red;">No Records Found</td>
+                                    <td colspan="7" class="text-danger" style="text-align:center;font-weight:bold;">No Records Found</td>
                                 <?php
                                 }
 

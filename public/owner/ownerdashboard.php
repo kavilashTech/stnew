@@ -12,7 +12,7 @@ if (!isset($_SESSION['user'])) {
 //TODO : Bring ownder Id dynamically based on login
 $propertyCount = 0;
 $pendingCount = 0;
-$owner_id = 1;
+$owner_id = $_SESSION['userId'];
 $selectSQL = "select count(id) from properties where status = 1 and owner_id = " . $owner_id;
 $result = $connection->query($selectSQL);
 $pendingCount = mysqli_num_rows($result);
@@ -21,6 +21,7 @@ $selectSQL = "SELECT a.id, a.property_title,a.status, b.categoryname  FROM prope
 WHERE b.id = a.category_id
 and a.owner_id = " . $owner_id;
 // echo $selectSQL;
+// exit(0);
 
 $result = mysqli_query($connection, $selectSQL);
 $propertyCount = mysqli_num_rows($result);
@@ -101,17 +102,17 @@ $propertyCount = mysqli_num_rows($result);
                                                 </td> -->
                                             <?php
                                             if ($propertyCount > 0) {
-
+                                                // if (mysqli_num_rows($result) > 0) {
                                                 while ($row = mysqli_fetch_assoc($result)) {
                                                     //echo "nothing";
-                                                    $propertyStatus ="";
+                                                    $propertyStatus = "";
                                                     if ($row['status'] == 0) {
                                                         $propertyStatus = "In Progress";
                                                         $tagStyle = "background-color:blue";
                                                     } else if ($row['status'] == 1) {
                                                         $propertyStatus = "Pending";
                                                         $tagStyle = "background-color:orange";
-                                                    } else if ($row['status'] == 2){
+                                                    } else if ($row['status'] == 2) {
                                                         $propertyStatus = "Approved";
                                                         $tagStyle = "background-color:green";
                                                     } else if ($row['status'] == 3) {
@@ -127,11 +128,11 @@ $propertyCount = mysqli_num_rows($result);
                                                                 <!-- <img src="images/faces/face1.jpg" alt=""> -->
                                                                 <div>
                                                                     <h6><?php echo $row['property_title']; ?></h6>
-                                                                    <p class="mb-0"><?php echo $row['categoryname'];?></p>
+                                                                    <p class="mb-0"><?php echo $row['categoryname']; ?></p>
                                                                 </div>
                                                             </div>
                                                         </td>
-                                                        <td><span style="<?php echo $tagStyle;?>; border-radius:5px;padding:3px;font-size:12px;text-transform:uppercase;color:white;"><?php echo $propertyStatus;?></span></td>
+                                                        <td><span style="<?php echo $tagStyle; ?>; border-radius:5px;padding:3px;font-size:12px;text-transform:uppercase;color:white;"><?php echo $propertyStatus; ?></span></td>
                                                         <td class="text-center">
                                                             <button title="View" type="button" class="btn btn-status-neutral btn-rounded btn-icon">
                                                                 <i class="fas fa-sm fa-eye"></i>
@@ -145,12 +146,13 @@ $propertyCount = mysqli_num_rows($result);
                                                         </td>
                                                     </tr>
                                             <?php
-
-
-
                                                 }
                                             } else {
-                                                $_SESSION['message'] = "Could not Load Data. Contact Administrator";
+                                                 ?>       
+                                                <tr>
+                                                <td colspan="3" class="text-danger" style="font-weight:bold;text-align:center;">No Records Found</td>
+                                            </tr>
+                                            <?php
                                             }
 
 
@@ -160,7 +162,7 @@ $propertyCount = mysqli_num_rows($result);
 
 
 
-                                            
+
 
                                         </tbody>
                                     </table>

@@ -1,6 +1,5 @@
 <?php
 
-use function PHPUnit\Framework\isNull;
 
 include 'includes/header.php';
 include 'includes/menu.php';
@@ -16,6 +15,7 @@ if (!isset($_SESSION['user'])) {
     exit(0);
 }
 $propImgPath = '../images/property/gallery/';
+$owner_id = $_SESSION['userId'];
 
 if (isset($_REQUEST['pid'])) {
 
@@ -26,7 +26,7 @@ if (isset($_REQUEST['pid'])) {
     $propertyId = $_SESSION['PROPERTY_ID'];
 }
 
-$selectSQL = "select * from properties where id = " . $propertyId;
+$selectSQL = "select * from properties where id = " . $propertyId . " and owner_id =" . $owner_id;
 // echo $selectSQL;
 // exit(0);
 
@@ -55,7 +55,8 @@ if (mysqli_num_rows($result) > 0) {
 
     $policy = $row['policy'];
 } else {
-    $_SESSION['message'] = "Could not Load Data. Contact Administrator";
+    $_SESSION['message'] = "Stays Not Found. Contact Stayteller";
+    // exit(0);
 }
 
 ?>
@@ -172,6 +173,7 @@ if (mysqli_num_rows($result) > 0) {
                                     <!-- <div class="card px-0 pt-4 pb-0 mt-3 mb-3"> -->
                                     <!-- <h2><strong>Sign Up Your User Account</strong></h2>
                     <p>Fill all form field to go to next step</p> -->
+                    
                                     <div class="row">
                                         <div class="col-md-12 mx-0">
                                             <!-- <form id="msform"> -->
@@ -187,6 +189,7 @@ if (mysqli_num_rows($result) > 0) {
                                                     <li id="Acceptance"><strong>Acceptance</strong></li>
                                                     <!-- <li id="confirm"><strong>Finish</strong></li> -->
                                                 </ul>
+                                                
                                                 <div id="formbasicsuccess">
                                                     <script>
 
