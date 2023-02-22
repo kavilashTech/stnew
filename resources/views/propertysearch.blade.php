@@ -272,10 +272,15 @@
                             <small>Beds: {{($total_of_beds ?? 0)}}</small>
                           </div>
                         </div>
+                        @php $count=1; @endphp
                         @if ($feature->amenities)
                         <div style=" display:flex; flex-wrap: wrap; width:40%">
-                          @foreach ($feature->amenities as  $item=>$value)
-                             <div class="search-bold" > <i class="fa fa-user"></i>   {{$value->name}}</div>
+                          @foreach ($feature->amenities as  $item => $value)
+                            @if ($count > 7)
+                              @break;                              
+                            @endif
+                             <div class="search-bold" > <i class="material-icons mr-1">{{$value->icon}}</i><span>{{$value->name}}</span></div>
+                             @php $count++;  @endphp
                           @endforeach
                         </div>                            
                         @endif
