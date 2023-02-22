@@ -161,12 +161,12 @@
                 <div class="room-section">
                     <div class="rooms">
                         <div class="row no-gutters">
-                            <div class="col-lg-2 col-md-12">
+                            <div class="col-lg-2 col-md-12" style="display:none">
                                 <div class="room-slider">
                                     <div class="room-img"><img data-src="{{url('images/room1/slide1.jpg')}}" src="{{url('images/room1/slide1.jpg')}}" class="lazyload img-fluid" alt="image"></div>
                                 </div>
                             </div>
-                            <div class="col-lg-10 col-md-12">
+                            <div class="col-lg-12 col-md-12">
                                 <div class="room-details">
                                     <div class="head">
                                         <div class="">{{$roomdata->name}}<br/><span class="font14 v-centter normal mt-2"><i class="material-icons font16">person</i> X 1</span></div>
