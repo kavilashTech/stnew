@@ -14,7 +14,8 @@
       <img  src="{{asset('images/faq1.jpg')}}" width= "100%" height= "250px"> 
   </div>
 
-  <div class="container mt-3">
+  <div class="container mt-3 faq-heading">
+    <h3 class=" my-5">Frequently Asked Questions</h3>
     <div id="accordion" class="faq-accordion">
       @forelse ($faqs as $item => $value )
         <div class="card mb-4">
