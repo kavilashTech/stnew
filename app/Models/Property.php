@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\Amenities;
 use App\Models\Exclusive;
+use App\Models\PropertyRating;
 
 
 class Property extends Model
@@ -35,5 +36,9 @@ class Property extends Model
     
     public function exclusivity(){
         return $this->belongsTo(Exclusive::class);
+    }
+
+    public function rating(){
+        return $this->hasMany(PropertyRating::class);
     }
 }
