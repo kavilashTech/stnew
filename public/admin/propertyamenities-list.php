@@ -82,7 +82,7 @@ if (isset($_GET['id'])) {
                             <tbody>
                                 <?php
                                 // include('includes/conn.php');
-                                $sqlSelect = "SELECT B.id, B.name, B.value FROM `amenities` A, `amenities_list` B WHERE B.amenity_id = a.id AND a.id=" . $main_amenity_id;
+                                $sqlSelect = "SELECT B.id, B.name, B.value FROM `amenities` A, `amenities_list` B WHERE B.amenity_id = A.id AND A.id=" . $main_amenity_id;
                                 // echo '<td>' . $sqlSelect . '</td>'; 
                                 // exit(0);
                                 $query = mysqli_query($connection, $sqlSelect);

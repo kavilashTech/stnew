@@ -55,12 +55,13 @@ img.mfp-img{max-height: 500px!important;height: 500px!important;}
 .about-section{margin: 25px 0;}
 .about-section button{border: none;box-shadow: none;outline: none;background: none;padding: 0;}
 .header-section h2{font-size: 36px;font-family: 'Nunito-b';color: #DC3545;margin-bottom: 20px;}
-.header-section h3{font-size: 24px;font-family: 'Nunito-bb';color: #000;margin-bottom: 20px;}
+.header-section h3{font-size: 24px;font-family: 'Nunito-bb';color: #000;margin-bottom: 20px; text-align:center;}
 .toggle-btn{color: #FF5A5F;margin-top: 10px;cursor: pointer;font-weight: 600;font-size: 14px;}
 .hide-part{display: none;}
 .amy{font-size: 14px;margin-bottom: 5px;text-indent: -9px;margin-left: 18px;color: #4D585B;font-family: 'Nunito-m';}
 .amy .material-icons{font-size: 15px;color: #000;vertical-align: middle;}
 .info{font-size: 14px;font-family: 'Nunito-b';margin-top: 0px!important;}
+
 
 .location-section{margin: 40px 0;}
 .policy-section{margin: 40px 0;background-color: #E8F0F2;padding: 10px 0 30px 0;}
@@ -231,6 +232,7 @@ button.accordion:focus{border: 1px solid #E8F0F2;outline: none;border-bottom-lef
 
 }
 
+.faq-heading h3{ font-size: 24px; text-align: center;}
 .faq-accordion .faq-link{
     cursor: pointer;
     font-size: 16px;
