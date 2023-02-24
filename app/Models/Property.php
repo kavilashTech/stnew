@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\Amenities;
+use App\Models\Exclusive;
 
 
 class Property extends Model
@@ -30,5 +31,9 @@ class Property extends Model
 
     public function amenities(){
         return $this->belongsToMany(Amenities::class,'property_amenities','property_id','amenity_id');
+    }
+    
+    public function exclusivity(){
+        return $this->belongsTo(Exclusive::class);
     }
 }

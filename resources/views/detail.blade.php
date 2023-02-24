@@ -30,7 +30,7 @@
                     @endif
                 </div>
             </div>
-@if(isset($gallery_image[1]) || isset($gallery_image[2]) )
+        @if(isset($gallery_image[1]) || isset($gallery_image[2]) )
             <div class="col-md-3">
             @if(isset($gallery_image[1]))
                 <div class="row dd-none">
@@ -121,7 +121,9 @@
                         <div class="col-md-4 col-6 pr-2"><div class="amy"><i class="material-icons mr-1">gite</i><span class="font-medium text-sm text-text ">{{$propertyamentiedata['name']}}</span></div></div>
                         @endforeach
                     </div>
-
+                    <div class="d-flex" style="position:absolute; bottom:0px">
+                        <h3>Exclusive :  </h3>
+                        <p style="font-size: 16px; line-height: 2rem; font-weight:600;">&nbsp;&nbsp;{{@$rows->exclusivity ? $rows->exclusivity->name : 'N/A' }}</p>
                     </div>
                 </div>
             </div>
