@@ -124,7 +124,7 @@ class PropertyController extends Controller
     public function detail(Request $request, $slug)
     {
 
-        $model_property= Property::with('exclusivity')->find($slug);
+        $model_property= Property::with('exclusivity','rating')->find($slug);
         $list_amienites = Propertyamenities :: Where('property_id',$slug)->get();
         $listof_rooms   = DB::table('property_rooms')->where('property_id',$slug)->get();
 
@@ -149,7 +149,7 @@ class PropertyController extends Controller
             'list_of_rooms'             => $listof_rooms,
         ];
 
-        // dd($data);
+     
         return view('detail',$data);
     }
 
