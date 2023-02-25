@@ -37,7 +37,9 @@ a,a:hover{color: inherit;text-decoration: none;}
 .red-nav-link:hover{color: #fff!important;}
 .bor-right{border: 1px solid #fff;}
 
-.booking-section{position: relative;background-color: #E8F0F2;padding: 35px 0;margin: 30px 0;}
+.booking-section{position: relative;
+    /* background-color: #E8F0F2; */
+    padding: 35px 0;margin: 30px 0;}
 .booking-section .container{position: relative;}
 .no-room-img{max-height: 140px;}
 .no-room-text{margin-top: 10px;font-size: 18px;color: #96A4A9;font-family: 'Nunito-b';}
@@ -63,7 +65,7 @@ img.mfp-img{max-height: 500px!important;height: 500px!important;}
 .info{font-size: 14px;font-family: 'Nunito-b';margin-top: 0px!important;}
 
 
-.location-section{margin: 40px 0;}
+.location-section{margin: 40px 0; background-color: #E8F0F2; }
 .policy-section{margin: 40px 0;background-color: #E8F0F2;padding: 10px 0 30px 0;}
 .whatsapp{border: 1px solid #E8F0F2;border-radius: 10px;padding: 10px;width: fit-content;color: #F1584D;margin: 20px 0;}
 .direction{border: 1px solid #E8F0F2;border-radius: 10px;padding: 10px;width: 100%;color: #F1584D;margin: 20px 0;}
@@ -310,7 +312,11 @@ content: '';
     content: '';
 }
  .review-img{
-    width: 200px;
+    width: 175px;
     border-radius: 10px;
-    height: 160px;
+    height: 150px;
+}
+
+#bookin-section .header-section h3{
+    text-align: left;
 }
