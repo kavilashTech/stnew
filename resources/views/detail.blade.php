@@ -343,7 +343,7 @@
                             @if(count($rows->rating) > 0)
                                 @foreach ($rows->rating as $item )
                                     <div class="row" style="margin: 20px 0px;
-                                    border-bottom: 1px solid gray; padding-bottom: 12px;">
+                                    border-bottom: 1px solid #ff5a5f; padding-bottom: 12px;">
                                         <div class="col-md-3 d-flex">                                    
                                             <div>
                                                 @if($item->user->profile_img)
