@@ -309,3 +309,8 @@ content: '';
 .tab-section .active::after{
     content: '';
 }
+ .review-img{
+    width: 200px;
+    border-radius: 10px;
+    height: 160px;
+}

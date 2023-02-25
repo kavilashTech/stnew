@@ -22,9 +22,19 @@ class PropertyRating extends Model
         'rating',
         'reviewcomments',
         'status',
+        'owner_id',
+        'owner_reply'
     ];
 
     public function property(){
         return $this->belongsTo(Property::class);
+    }
+
+    public function user(){
+        return $this->belongsTo(User::class);
+    }
+
+    public function owner(){
+        return $this->belongsTo(User::class,'owner_id');
     }
 }

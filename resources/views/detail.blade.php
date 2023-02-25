@@ -340,7 +340,62 @@
                         {!! $rows->policy !!}
                         </div>
                         <div id="tab6" class="tab-pane">
-                            <p>Reviews</p>
+                            @if(count($rows->rating) > 0)
+                                @foreach ($rows->rating as $item )
+                                    <div class="row" style="margin: 20px 0px;
+                                    border-bottom: 1px solid gray; padding-bottom: 12px;">
+                                        <div class="col-md-3 d-flex">                                    
+                                            <div>
+                                                @if($item->user->profile_img)
+                                                    <img src="{{asset('images/users/'.$item->user->profile_img)}}" class="review-img">
+                                                @else
+                                                    <img src="{{asset('images/users/default.jpg')}}" class="review-img">
+                                                @endif
+                                            </div>
+                                            <div class="property-review" style="padding: 10px 10px;">
+                                                <p>{{$item->user->display_name}}</p>
+                                                <small class="review-star">
+                                                    @for ($i=1; $i <= $item->rating ; $i++)
+                                                        <i class="fa fa-star text-thm" aria-hidden="true"></i>
+                                                    @endfor
+                                                    @for ($i=1; $i <= (5 - $item->rating) ;$i++)
+                                                        <i class="fa fa-star-o text-thm" aria-hidden="true"></i>
+                                                    @endfor
+                                                </small>
+                                                {{-- <small class="ml-2">12 views</small> --}}
+                                            </div>                                    
+                                        </div>      
+                                        <div class="col-md-9"> {!! $item->reviewcomments !!} 
+                                            @if($item->owner_id != null && $item->owner_reply != null)                              
+                                                {{-- <div class="row"> --}}
+                                                    <div class="d-flex justify-content-start">
+                                                        @if($item->owner->profile_img)
+                                                            <img src="{{asset('images/users/'.$item->owner->profile_img)}}" style=" width: 95px;
+                                                            border-radius: 10px;
+                                                            height: 95px;">
+                                                                        @else
+                                                            <img src="{{asset('images/users/default.jpg')}}" style=" width: 95px;
+                                                            border-radius: 10px;
+                                                            height: 95px;">
+                                                        @endif
+                                                    <div class="px-4">
+                                                        <h5>{{$item->owner->display_name}}</h5>
+                                                        {!! $item->owner_reply  !!}
+                                                    </div>
+                                                </div>
+
+                                                </div>
+                                            @endif                        
+                                        </div>                                    
+                                    </div>
+                                @endforeach
+                            @else
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <h4> No Record Found! </h4>
+                                    </div>  
+                                </div>
+                            @endif           
                         </div>
                     </div>
                 </div>
