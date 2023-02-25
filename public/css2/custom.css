@@ -2,9 +2,8 @@
     background-color: #680227;
 }
 
-a {
+#layoutSidenav_nav a {
     color: white !important;
-    text-decoration: underline;
 }
 .sb-sidenav .sb-sidenav-menu .nav .sb-sidenav-menu-heading{
     color:white;
