@@ -359,12 +359,12 @@
 </section> 
 <div class="review-section" id="review-section">
     <div class="container">
-        
+        <div class="header-section">
+            <h3>Reviews</h3>
+        </div>
         @if(count($rows->rating) > 0)
             @foreach ($rows->rating as $item )
-            <div class="header-section">
-                <h3>Review</h3>
-            </div>
+          
                 <div class="row" style="margin: 20px 0px;
                 border-bottom: 1px solid #ff5a5f; padding-bottom: 12px;">
                     <div class="col-md-2 d-flex">                                    

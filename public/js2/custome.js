@@ -53,3 +53,49 @@ if ($(window).width() > 320) {
 
     
 })(jQuery);
+
+
+
+$('.delete-btn').on('click',function()
+{
+    var _this = $(this);
+    let url = _this.data('url');
+    console.log('df',url);
+    swal({
+        title: "Are you sure?",
+        text: "Are you sure you want to delete this record",
+        icon: "warning",
+        buttons: true,
+        dangerMode: true,
+      })
+      .then((willDelete) => {
+        if (willDelete) {
+          $.ajax({
+              url :url,
+              type: 'DELETE',
+            dataType:'json',
+            headers:{
+                'accept':'application-json',
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+            success:function(result){
+                if(result.status == true ){
+                    swal(result.message)
+                    .then((value) => {
+                      location.reload();
+                    });
+                }else{
+                    swal(result.message)
+                    .then((value) => {
+                        location.reload();
+                    });
+                }
+            }
+
+
+          })
+        } else {
+            
+        }
+      });
+}); 

@@ -8,5 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 class Area extends Model
 {
     use HasFactory;
-    protected $table         = 'area';
+    protected $table = 'area';
+    protected $fillable = ['name','status','location_id'];
+    public  $timestamps = false;
+
 }
