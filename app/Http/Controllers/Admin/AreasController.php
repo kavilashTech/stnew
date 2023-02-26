@@ -17,7 +17,7 @@ class AreasController extends Controller
     public function index(Request $request)
     {
         // try{
-            $areas  = Area::where('location_id',$request->locationId)->latest();
+            $areas  = Area::where('location_id',$request->locationId)->get();
             $locationId =  $request->locationId;
             return view('admin.area.index',compact('areas','locationId'));
         // }
@@ -49,6 +49,7 @@ class AreasController extends Controller
             'name'   => 'required|max:255',
         ]);
         $data = area::create(['name'=>$request->name,'status'=>$request->status,'location_id'=>$request->locationId]);
+        // dd($data);
         return redirect()->route('admin.areas',['locationId'=>$request->locationId])->with('success','Area has been added successfully!');
     }
 

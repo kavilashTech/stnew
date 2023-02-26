@@ -31,7 +31,7 @@
                         </tr>
                     @empty
                         <tr>
-                            <td>NO Records Found</td>
+                            <td colspan="3" style="text-align: center">No Records Found</td>
                         </tr>
                     @endforelse 
                 </tbody>
