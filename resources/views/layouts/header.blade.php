@@ -30,14 +30,14 @@
               class="ace-responsive-menu text-right nav-menu"
               data-menu-style="horizontal"
             >
-              <li class="active depth-0">
+              <li class="depth-0">
                 <a target="" href="{{ url("/") }}">Home</a>
               </li>
               <li class="depth-0">
-                <a target="" href="page/about-us">About</a>
+                <a target="" href="{{ route('aboutus')}}">About</a>
               </li>
-              <li class="depth-0"><a target="" href="#">FAQ</a></li>
-              <li class="depth-0"><a target="" href="contact">Contact</a></li>
+              <li class="depth-0"><a target="" href="{{ route('faq') }}">FAQ</a></li>
+              <li class="depth-0"><a target="" href="{{route('contactus')}}">Contact</a></li>
               <!--  -->
               <li class="list-inline-item list-inline-item add_listing dn-lg">
                 <a href="javascript:void(0)" class="btn btn-thm">

@@ -139,3 +139,10 @@
     .properties-details {flex-direction: column;align-items: flex-start !important;width: 100%;}
     .properties-details .properties-img {width: 100%;}
 }
+
+
+.search-bold{
+    font-weight: bold;
+    font-size: 17px;
+    flex: 40%; padding:0px 18px;
+}

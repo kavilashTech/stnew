@@ -10,6 +10,15 @@
 @import url(variable.css);
 @import url(https://fonts.googleapis.com/css?family=Nunito:400,400i,600,700&amp;display=swap);
 
+
+/* Custom CSS */
+.aboutus-image{
+  -webkit-box-shadow: 6px 7px 6px 2px rgb(0 0 0 / 9%);
+
+}
+
+/* Custom CSS END */
+
 /* button css */
 .btn-thm {
   background-color: #f9508d;
