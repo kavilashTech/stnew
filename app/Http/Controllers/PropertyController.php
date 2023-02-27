@@ -10,6 +10,7 @@ use App\Models\Area;
 use App\Models\Location;
 use App\Models\Amenities;
 use App\Models\Amenitielists;
+use App\Models\Availability;
 use App\Models\Propertyamenities;
 use Illuminate\Support\Facades\DB;
 
@@ -175,5 +176,28 @@ class PropertyController extends Controller
                             'value' => $area->name);
         }
         return $output;
+    }
+
+
+
+    public function generateRandomRoomAvailabilityData(Request $request)
+    {
+        $roomid     = $request->roomid;
+        $propertyid = $request->propertyid;
+        $userid     =  Auth::id();
+         $startdate = date('Y-m-d');
+        $roomvacancy = Availability::where('room_id',$roomid)->whereDate('start_date', '>=', $startdate)->get();
+
+        $data = array();
+
+        foreach($roomvacancy as $roomdata){
+
+
+            $data[] = array('date' =>$roomdata->start_date,
+                            'fare' => $roomdata->total_bed_count);
+        }
+
+        return json_encode($data);
+
     }
 }
