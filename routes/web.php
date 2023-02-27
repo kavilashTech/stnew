@@ -32,6 +32,7 @@ Route::controller(PropertyController::class)->group(function () {
     Route::get('/property/{id}', 'propertyview')->name('property.page');
     Route::get('/locationdata','locationdata')->name('property.location');
     Route::get('/property','index')->name('property.search'); // Search
+    Route::post('/checkavailabilty','generateRandomRoomAvailabilityData')->name('property.availabilty');
 
 });
 
@@ -49,6 +50,7 @@ Route::group(['middleware' => ['auth']], function() {
     Route::controller(ProductController::class)->group(function(){
         Route::get('demo-search', 'index');
         Route::get('autocomplete', 'autocomplete')->name('autocomplete');
+
     });
 });
 

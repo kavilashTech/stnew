@@ -7,6 +7,82 @@
 
 
 <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons"/>
+<style>
+
+<style type="text/css">
+        .cursor-pointer {
+            cursor: pointer;
+        }
+
+        .bg-info.bg-lighten {
+            background-color: #e5f4f7 !important;
+        }
+
+
+
+        .btn-outline-secondary {
+            color: #6c757d !important;
+        }
+
+        .btn-outline-secondary:hover {
+            color: #fff !important;
+        }
+
+        .roomAvailabilityCalendar {
+            position: relative !important;
+        }
+
+        .card{
+            background-color: #fff;
+            box-shadow: 2px 2px 8px  #9d9898!important;
+
+            }
+        .card:hover {
+            box-shadow: 2px 2px 10px  #000000!important;
+        }
+
+        .btn-thm-1 {
+            color: #fff;
+        }
+
+        .roomAvailabilityCalendar-actionContainer-left,
+        .roomAvailabilityCalendar-actionContainer-right {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+
+        .roomAvailabilityCalendar-actionContainer-left {
+            left: -5px;
+        }
+
+        .roomAvailabilityCalendar-actionContainer-right {
+            right: -5px;
+        }
+
+        .roomAvailabilityCalendar-date:hover {
+            background-color: #80808026;
+        }
+
+        .col-1-7 {
+            flex: 14%;
+            max-width: 14%;
+            position: relative;
+            width: 100%;
+            padding-right: 15px;
+            padding-left: 15px;
+        }
+        .col-1-7.roomAvailabilityCalendar-date.text-center.activeRoomdata {
+    background: #fafafa;
+    border: 1px solid #e1e1e1;
+    border-radius: 8px;
+}
+        .hideclass.text-thm.fz14 {
+    text-decoration: none;
+    -webkit-font-smoothing: antialiased;
+    font-weight: 400;
+}
+</style>
 
 @section('content')
 
@@ -159,14 +235,14 @@
 
 
                 <div class="room-section">
-                    <div class="rooms">
+                    <div class="rooms ">
                         <div class="row no-gutters">
                             <div class="col-lg-2 col-md-12">
                                 <div class="room-slider">
                                     <div class="room-img"><img data-src="{{url('images/room1/slide1.jpg')}}" src="{{url('images/room1/slide1.jpg')}}" class="lazyload img-fluid" alt="image"></div>
                                 </div>
                             </div>
-                            <div class="col-lg-10 col-md-12">
+                            <div class="col-lg-10 col-md-12 roomContainer">
                                 <div class="room-details">
                                     <div class="head">
                                         <div class="">{{$roomdata->name}}<br/><span class="font14 v-centter normal mt-2"><i class="material-icons font16">person</i> X 1</span></div>
@@ -191,6 +267,7 @@
                                     </div>
 
                                     <div class="availability">
+                                    <span class="text-xs flex items-center font-semibold text-orange cursor-pointer btnBookRoom avail one" data-roomid = "{{$roomdata->id}}" data-propertyid = "{{$roomdata->property_id}}">Availability calendar<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4 ml-1"><path d="M18 15l-6-6-6 6"></path></svg></span>
                                         <div class="avail one">Availability Calendar <i class="fa fa-angle-down" aria-hidden="true"></i></div>
                                         <div class="">
                                             <input type="number" name=""> <label>Month</label><br/>
@@ -198,11 +275,19 @@
                                         </div>
                                     </div>
                                 </div>
+
+                                <div class="row">
+                                                <div class="col-12 roomAvailabilityCalendar"></div>
+                                            </div>
+
+
                             </div>
                         </div>
                     </div>
 
-                    <div class="cale-slider">
+
+
+                    <!-- <div class="cale-slider">
                         <div id="pro-carousel1" class="owl-carousel owl-theme">
                             <div class="item">
                                 <div class="price-box">
@@ -268,7 +353,7 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </div> -->
                 </div>
                 @endforeach
                 @else
@@ -429,6 +514,244 @@
       $(".room-img .img-fluid").toggleClass('border-radius');
       $(".avail.one i").toggleClass('rotate');
     });
+
+
+    var ajaxReady = 1;
+        function addDaysToDateObj(dateObj, days) {
+            return new Date(new Date(dateObj.getFullYear(), dateObj.getMonth(), dateObj.getDate()).setDate(new Date(dateObj.getFullYear(), dateObj.getMonth(), dateObj.getDate()).getDate() + days));
+        }
+
+        function dateStrToObj(dateStr) {
+            let dateArray = dateStr.split('-');
+            return new Date(dateArray[0], dateArray[1] - 1, dateArray[2]);
+        }
+
+        function dateObjToStr(dateObj, humanReadable = false) {
+            if (humanReadable) {
+                return `${dateObj.getDate()}-${dateObj.getMonth() + 1}-${dateObj.getFullYear()}`;
+            }
+
+            return `${dateObj.getFullYear()}-${dateObj.getMonth() + 1}-${dateObj.getDate()}`;
+        }
+
+        // Temporary function - remove when implementing actual data
+        function generateRandomRoomAvailabilityData(btnb) {
+            let n=90;
+           let roomid = btnb.data('roomid');
+            let propertyid = btnb.data('propertyid');
+
+            $.ajax({
+                    url: "{{route('property.availabilty')}}",
+                    data: {
+                        roomid: roomid,
+                        propertyid: propertyid,
+                        _token: "{{csrf_token()}}",
+                    },
+                    dataType: 'json',
+                    type: 'post',
+                    beforeSend: function (xhr) {
+                        ajaxReady = 0;
+                    },
+                    success: function (res) {
+                        renderRoomAvailabilityCalendar(btnb.closest('.roomContainer').find('.roomAvailabilityCalendar'),res);
+
+
+
+                    },
+                    error:function () {
+                        ajaxReady = 1;
+                    }
+                })
+
+
+        }
+
+        /**
+         * @param availableDates - should be Array of Objects( date: 'YYYY-MM-DD', fare: AMOUNT )
+         * */
+        function renderRoomAvailabilityCalendar(calendarContainer, availableDates, startDate = false) {
+
+            const daysInWeek = [
+                'Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'
+            ];
+            const months = [
+                'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'
+            ];
+            let roomContainer = calendarContainer.closest('.roomContainer');
+
+            if (availableDates && Array.isArray(availableDates) && availableDates.length > 0) {
+                let availableDatesHTML = '';
+                let prevWeekAvailable = false;
+                let minDate = new Date();
+
+                availableDates.forEach(function(availableDate, index) {
+                    let dateObj = dateStrToObj(availableDate['date']);
+
+                    if (dateObj < minDate) {
+                        minDate = dateObj;
+                    }
+
+                    availableDate['dateObj'] = dateObj;
+
+                    availableDates[index] = availableDate;
+                });
+
+                if (startDate) {
+                    prevWeekAvailable = startDate > minDate;
+                } else {
+                    // Set start date - first time
+                    startDate = minDate;
+
+                    calendarContainer.prop('availableDates', availableDates);
+                }
+
+                let daysRendered = 0;
+                let endDateStr = '';
+
+                while(daysRendered < daysInWeek.length) {
+                    let dateObj = addDaysToDateObj(startDate, daysRendered);
+                    let dateStr = dateObjToStr(dateObj);
+                    let availableDate = null;
+
+                    availableDates.forEach(function(tempAvailableDate) {
+                        if (tempAvailableDate['dateObj'].getTime() == dateObj.getTime()) {
+                            availableDate = tempAvailableDate;
+                            console.log(availableDate);
+                            return;
+                        }
+                    });
+
+
+
+                    let calendarHTML =  `<div class="col-1-7 roomAvailabilityCalendar-date text-center  emptyroom_`+availableDate['fare']+`" data-date="${dateStr}">`+
+                                            `<div class="row">`+
+                                                `<div class="col-12">`+
+                                                    daysInWeek[dateObj.getDay()]+
+                                                `</div>`+
+                                            `</div>`+
+                                            `<div class="row">`+
+                                                `<div class="col-12">`+
+                                                    `<b>` + months[dateObj.getMonth()] + ` ` + dateObj.getDate() + `</b>`+
+                                                `</div>`+
+                                            `</div>`+
+                                            `<div class="row">`+
+                                                `<div class="col-12 roomAvailablecount">`+
+                                                    (availableDate ? `<span class="text-danger">` + availableDate['fare'] + `</span>` : `-`)+
+                                                `</div>`+
+                                            `</div>`+
+                                        `</div>`;
+
+                    if ((daysInWeek.length - 1) == daysRendered) {
+                        let nextWeekStartDate = addDaysToDateObj(dateObj, 1);
+                        endDateStr = dateObjToStr(nextWeekStartDate);
+                    }
+
+                    availableDatesHTML += calendarHTML;
+
+                    daysRendered++;
+                }
+
+                if (prevWeekAvailable) {
+                    let prevWeekStartDate = addDaysToDateObj(startDate, daysInWeek.length * -1);
+                    let prevWeekStartDateStr = dateObjToStr(prevWeekStartDate);
+
+                    availableDatesHTML +=   `<div class="roomAvailabilityCalendar-actionContainer-left">`+
+                                                `<a href="javascript:void(0);" class="btn btn-danger btnShowPreviousWeek" data-date="${prevWeekStartDateStr}"><i class="fa fa-arrow-left"></i></a>`+
+                                            `</div>`;
+                }
+
+                availableDatesHTML +=   `<div class="roomAvailabilityCalendar-actionContainer-right">`+
+                                            `<a href="javascript:void(0);" class="btn btn-danger btnShowNextWeek" data-date="${endDateStr}"><i class="fa fa-arrow-right"></i></a>`+
+                                        `</div>`;
+
+                calendarContainer.html(`<div class="row justify-content-center mt-2">${availableDatesHTML}</div>`);
+            } else {
+                calendarContainer.html('<span class="text-danger"><em>Cannot find available dates</em></span>');
+                roomContainer.find('.btnCancelRoomBooking').addClass('d-none');
+            }
+        }
+
+    jQuery(function ($) {
+            $(document).on('click', '.btnBookRoom', function(e) {
+                        e.preventDefault();
+                        e.stopPropagation();
+
+                        let roomContainer = $(this).closest('.roomContainer');
+
+
+                        roomContainer.find('.card-footer').removeClass('d-none');
+                        roomContainer.find('.btnCancelRoomBooking').removeClass('d-none');
+                        $(this).addClass('d-none');
+
+
+                        generateRandomRoomAvailabilityData($(this));
+
+
+                    });
+
+                        $(document).on('click', '.btnCancelRoomBooking', function(e) {
+                            e.preventDefault();
+                            e.stopPropagation();
+
+                            let roomContainer = $(this).closest('.roomContainer');
+                            roomContainer.find('.card-footer').addClass('d-none');
+                            roomContainer.find('.btnBookRoom').removeClass('d-none');
+                            $(this).addClass('d-none');
+                        });
+
+                        $(document).on('click', '.roomContainer .roomAvailabilityCalendar .btnShowPreviousWeek, .roomContainer .roomAvailabilityCalendar .btnShowNextWeek', function(e) {
+                            e.preventDefault();
+                            e.stopPropagation();
+                            $('.roomAvailabilityCalendar-date').removeClass('activeRoomdata');
+
+                            let calendarContainer = $(this).closest('.roomAvailabilityCalendar');
+                            let dateObj = dateStrToObj($(this).attr('data-date'));
+
+                            renderRoomAvailabilityCalendar(calendarContainer, calendarContainer.prop('availableDates'), dateObj);
+                        });
+
+            $(document).on('click', '.roomContainer .roomAvailabilityCalendar .roomAvailabilityCalendar-date', function(e) {
+                e.preventDefault();
+                e.stopPropagation();
+
+                let calendarContainer = $(this).closest('.roomAvailabilityCalendar');
+                let dateObj = dateStrToObj($(this).attr('data-date'));
+                let dateAvailability = null;
+
+                let roomid = $(this).closest('.roomContainer').find('.btnBookRoom').attr('data-roomid');
+                let propertyid =$(this).closest('.roomContainer').find('.btnBookRoom').attr('data-propertyid');
+                var date = new Date(dateObj);
+                var formatsate = date.toLocaleDateString();
+                var date = new Date(formatsate).toDateString("yyyy-MM-dd");
+                (calendarContainer.prop('availableDates') || []).forEach(function(tempDateAvailability) {
+                    if (tempDateAvailability['dateObj'].getTime() == dateObj.getTime()) {
+                        dateAvailability = tempDateAvailability;
+                        return;
+                    }
+                });
+
+                if (dateAvailability) {
+                    $(this).addClass('activeRoomdata');
+                    $(this).attr("data-availablecount", dateAvailability.fare);
+                    $(this).attr("data-roomid", roomid);
+                    $(this).attr("data-property", propertyid);
+
+
+
+
+
+                } else {
+                    alert(`Sorry, It is not available on ${dateObjToStr(dateObj, true)}`);
+                }
+            });
+        });
+
+
+
+
+
+
+
 
     $(document).ready(function() {
           $('.toggle-btn').click(function(){
