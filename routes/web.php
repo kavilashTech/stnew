@@ -8,6 +8,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\PropertyController;
 use App\Http\Controllers\Owner\Auth\OwnerLoginController;
+use App\Http\Controllers\Owner\DashboardController;
 
 /*
 |--------------------------------------------------------------------------
@@ -71,7 +72,7 @@ Route::group(['as' => 'owner.','prefix'=>'owner'], function() {
 });
 
 Route::group(['middleware' => ["auth","web"]],function(){
-    Route::get('owner/dashboard',[OwnerLoginController::class,'dashboard'])->name('owner.dashboard');
+    Route::get('owner/dashboard',[DashboardController::class,'index'])->name('owner.dashboard');
 });
 
 
