@@ -3,7 +3,7 @@
         <nav class="sb-sidenav accordion thm-bg" id="sidenavAccordion">
             <div class="sb-sidenav-menu">
                 <div class="nav">
-                    <a class="nav-link" href="{{route('admin.dashboard')}}">
+                    <a class="nav-link" href="{{route('owner.dashboard')}}">
                         <div class="sb-nav-link-icon"><i class="fa   fa-tachometer-alt"></i></div>
                         Dashboard
                     </a>
