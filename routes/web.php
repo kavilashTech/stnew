@@ -68,14 +68,12 @@ Route::group(['as' => 'owner.','prefix'=>'owner'], function() {
     Route::post('login',[OwnerLoginController::class,'ownerlogin'] )->name('login');
     Route::get('logout',[OwnerLoginController::class,'logout'] )->name('logout');
 
-    // Route::group(['middleware' => ["web"]],function(){
-    //     Route::get('dashboard',[OwnerLoginController::class,'dashboard'])->name('dashboard');
-    // });
+    Route::group(['middleware' => ["auth","web"]],function(){
+        Route::get('dashboard',[DashboardController::class,'index'])->name('dashboard');
+    });
 });
 
-Route::group(['middleware' => ["auth","web"]],function(){
-    Route::get('owner/dashboard',[DashboardController::class,'index'])->name('owner.dashboard');
-});
+
 
 
 
