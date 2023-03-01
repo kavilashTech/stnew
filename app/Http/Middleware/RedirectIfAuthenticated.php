@@ -30,17 +30,36 @@ class RedirectIfAuthenticated
         // return $next($request);
 
         $prefix =  $prefix = $request->segment(1);
-            
+        // if (isset($prefix))
+        // {
+        //     if($prefix == "admin"){
+        //         return redirect('admin/dashboard');
+        //     }else{
+        //         if($prefix == "owner"){
+        //             return redirect('owner/dashboard');
+        //         }
+        //         return $next($request); 
+        //     }
+        // }   
         if ($prefix == "admin") {
             if (Auth::guard('admin')->check()) {
                 return redirect('admin/dashboard');
             }
         }
-        else{
-            if (Auth::guard('web')->check()) {
-                    return redirect('home');
-                }
-        }
-        return $next($request);
+        // else if($prefix == "owner"){
+        //     if (Auth::guard('web')->check()) {
+        //                 return redirect('owner/dashboard');
+        //             // return $next($request);
+        //             }
+        // }---
+        // if($prefix == "owner")
+        // {
+        //     if (Auth::guard('web')->check()) {
+        //         return redirect('owner/dashboard');
+        //     // return $next($request);
+        //     }
+        // }
+         
+        return $next($request); 
     }
 }
