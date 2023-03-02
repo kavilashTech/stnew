@@ -35,6 +35,11 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.'], function () {
         Route::get('{locationId}/areas/create',[AreasController::class,'create'])->name('areas.create');
         Route::post('{locationId}/areas/create',[AreasController::class,'store'])->name('areas.store');
         Route::delete('{locationId}/areas/delete/{id}',[AreasController::class,'destroy'])->name('areas.delete');
+
+
+        // Dashboard related routes
+        Route::post('user/approved',[DashboardController::class,'userapprovel'])->name('userapprovel');
+
     }
     
     );

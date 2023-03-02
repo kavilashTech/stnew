@@ -12,6 +12,7 @@
         <link href="{{ asset('css2/adminstyles.css')}}" rel="stylesheet" />
         <link href="{{ asset('css2/font-awesome.min.css')}}" rel="stylesheet" />
         <link href="{{ asset('css2/custom.css')}}" rel="stylesheet" />
+        <link href="{{ asset('css2/toastr.css')}}" rel="stylesheet" />
         
     </head>
     <body class="sb-nav-fixed">
@@ -31,6 +32,8 @@
         <script src="{{ asset('js2/bootstrap.bundle.min.js')}} "></script>
         <script src="{{ asset('js2/sweetalert.min.js')}} "></script>
         <script src="{{ asset('js2/custome.js')}} "></script>
+        <script src="{{ asset('js2/toastr.js')}} "></script>
+        @stack('custom-script')
         {{-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
         <script src="js/scripts.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js" crossorigin="anonymous"></script>
