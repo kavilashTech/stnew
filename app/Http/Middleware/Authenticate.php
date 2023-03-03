@@ -19,7 +19,11 @@ class Authenticate extends Middleware
             if($prefix=="admin"){
                 return route('admin.show.admin.form');
             }
-            return route('login');
+            if($prefix == "owner"){
+                return route('home');
+            }
+            return $request;
+            // return route('login');
         }
     }
 }

@@ -9,9 +9,10 @@
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <title>StayTeller</title>
     <link rel="icon" type="png" href="{{url('icon/favicon.png')}}">
-
+    <meta name="csrf-token" content="{{csrf_token()}}" />
     <link rel="stylesheet" href="{{url('css/main.css')}}" type="text/css" />
     <link rel="stylesheet" href="{{url('css/responsive.css')}}" type="text/css" />
+    <link rel="stylesheet" href="{{url('css2/font-awesome.min.css')}}" type="text/css" />
     @yield('head')
 </head>
 
@@ -19,18 +20,9 @@
     <div class="wrapper mt-0 pt-0">
         <!-- Header -->
         @include('layouts.header')
-
-
-
         @yield('content')
 
     </div>
-
-
-
-
-
-
 
     <!-- Our Footer -->
     <section class="footer_one">
@@ -247,7 +239,7 @@
                             </div>
                         </div>
                     </div>
-                </div>
+                </div> 
             </div>
         </div>
     </div>
@@ -262,27 +254,31 @@
                 <div class="modal-body container pb20">
                     <div class="tab-content container" id="myTabContent">
                         <div class="row mt25 tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+                            
                             <div class="col-lg-6 col-xl-6">
                                 <div class="login_thumb">
                                     <img class="img-fluid w100" src="{{url('images/login.jpg')}}" alt="login.jpg">
                                 </div>
                             </div>
+                            
                             <div class="col-lg-6 col-xl-6">
                                 <div class="login_form">
-                                    <form action="" class="bravo-form-login" method="POST">
-                                        <input type="hidden" name="_token" value="35R7aGPos5A2gigPwSyuiL2m8rwAzeOUZoMAzytj">
+                                    <form action="" class="bravo-form-login" method="POST" id="owner-login-form">
+                                        {{-- <input type="hidden" name="_token" value="35R7aGPos5A2gigPwSyuiL2m8rwAzeOUZoMAzytj"> --}}
                                         <div class="heading">
                                             <h4>Login</h4>
+                                            <div class="col-md-12 " id="errorBox"></div>
+                            <div class="col-md-12 " id="successBox"></div>
                                         </div>
                                         <div class="input-group mb-2 mr-sm-2">
-                                            <input type="text" class="form-control" id="inlineFormInputGroupUsername2" name="email" autocomplete="off" placeholder="Email">
+                                            <input type="email" class="form-control" id="inlineFormInputGroupUsername2" name="email" autocomplete="off" placeholder="Email" required>
                                             <div class="input-group-prepend">
                                                 <div class="input-group-text"><i class="flaticon-user"></i></div>
                                             </div>
                                             <span class="invalid-feedback error error-email"></span>
                                         </div>
                                         <div class="input-group form-group">
-                                            <input type="password" class="form-control" id="exampleInputPassword1" name="password" autocomplete="off" placeholder="Password">
+                                            <input type="password" class="form-control" id="exampleInputPassword1" name="password" autocomplete="off" placeholder="Password" required>
                                             <div class="input-group-prepend">
                                                 <div class="input-group-text"><i class="flaticon-password"></i></div>
                                             </div>
@@ -299,7 +295,7 @@
                                         </div>
                                         <div class="error message-error invalid-feedback"></div>
                                         <span style="color: red;cursor: pointer;display: none;" class="resentmail owner mb-2">Resent Mail</span>
-                                        <button type="submit" class="btn btn-log btn-block btn-thm">Log In</button>
+                                        <button type="button" class="btn btn-log btn-block btn-thm " id="owner-login-btn">Log In</button>
                                         <p class="text-center">Do not have an account? <a class="text-thm" href="javascript:void(0)" data-target="#agentregister" data-toggle="modal">Register</a></p>
                                     </form>
                                 </div>
@@ -484,10 +480,13 @@
     <script type="text/javascript" src="{{url('js/owl.carousel.min.js')}}"></script>
     <script type="text/javascript" src="{{url('js/main.js')}}"></script>
     <script type="text/javascript" src="{{url('js/custome.js')}}"></script>
+    <script type="text/javascript" src="{{url('js/jquery.validate.js')}}"></script>
+    <script type="text/javascript" src="{{url('js/additional-methods.js')}}"></script>
     <script>
          $('#register').on('show.bs.modal', function(event) {
         $('#login').modal('hide')
     })
+    
     $('#login').on('show.bs.modal', function(event) {
         $('#register').modal('hide')
     });
@@ -511,12 +510,10 @@
                 'phone': form.find('input[name=phone]').val(),
                 'type_role': form.find('input[name=type_role]').is(":checked") ? $("input:radio[name=type_role]:checked").val() : '' ,
                 'term': form.find('input[name=term]').is(":checked") ? 1 : '',
-
             },
 
             'type': '',
             beforeSend: function() {
-
                 form.find('.error').hide();
                 form.find('.icon-loading').css("display", 'inline-block');
             },
@@ -544,12 +541,56 @@
                 }
             }
         });
-    })
+    });
+
+    // Owner login
+
+$('#owner-login-btn').click(function(e){
+    e.preventDefault();
+        let form = $(this).parents('#owner-login-form');
+        console.log('df',form);
+        $('#successBox').html('');
+        $('#errorBox').html('');
+
+        $(this).attr("disabled",true);
+        $.ajax({
+            'url': "{{route('owner.login')}}",
+            'data': {
+                'email': form.find('input[name=email]').val(),
+                'password': form.find('input[name=password]').val()               
+            },
+            'type': 'post',
+            headers:{
+                'accept':'application-json',
+                'X-CSRF-TOKEN': "{{csrf_token()}}"
+            },
+            success: function(data) {
+                let html = '';
+                if(data.status == true){
+                    html = `<div class="alert alert-success">${data.message}</div>`;
+                    // setTimeout(function(){
+                        let route = "{{route('owner.dashboard')}}";
+                        window.location = 'owner/dashboard';
+                    // }, 2000)
+                    $('#successBox').html(html);
+                }
+                else{
+                    html = `<div class="alert alert-danger">${data.message}</div>`;
+                    $('#errorBox').html(html);
+
+                }
+                
+            },
+            error: function(e) {
+                form.find('.icon-loading').hide();
+                
+            }
+        });
+        $(this).attr("disabled",false);
+});
     </script>
 
     @yield('script')
-
-
 
 </body>
 

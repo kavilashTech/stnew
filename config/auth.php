@@ -110,6 +110,7 @@ return [
             'table' => 'admin_password_resets',
             'expire' => 60,
         ],
+        
     ],
 
     /*

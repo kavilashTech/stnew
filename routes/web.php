@@ -7,7 +7,8 @@ use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\PropertyController;
-
+use App\Http\Controllers\Owner\Auth\OwnerLoginController;
+use App\Http\Controllers\Owner\DashboardController;
 
 /*
 |--------------------------------------------------------------------------
@@ -58,6 +59,21 @@ Route::group(['middleware' => ['auth']], function() {
 
     });
 });
+
+
+// 27-02-2023
+
+// Owner Login
+Route::group(['as' => 'owner.','prefix'=>'owner'], function() {
+    Route::post('login',[OwnerLoginController::class,'ownerlogin'] )->name('login');
+    Route::get('logout',[OwnerLoginController::class,'logout'] )->name('logout');
+
+    Route::group(['middleware' => ["auth","web"]],function(){
+        Route::get('dashboard',[DashboardController::class,'index'])->name('dashboard');
+    });
+});
+
+
 
 
 
