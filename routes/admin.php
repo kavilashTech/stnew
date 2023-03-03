@@ -41,6 +41,9 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.'], function () {
         Route::post('owner/approved',[DashboardController::class,'ownerApprovel'])->name('ownerapprovel');
         Route::post('property/approved',[DashboardController::class,'propertyApprovel'])->name('propertyapprovel');
 
+        // Propertype Status
+        Route::post('property/approved',[DashboardController::class,'propertyApprovel'])->name('propertyapprovel');
+
     }
     
     );
