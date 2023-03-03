@@ -29,7 +29,7 @@ class Property extends Model
         'reason'
     ];
 
-
+    public  $timestamps = false;
     public function amenities(){
         return $this->belongsToMany(Amenities::class,'property_amenities','property_id','amenity_id');
     }
@@ -40,5 +40,9 @@ class Property extends Model
 
     public function rating(){
         return $this->hasMany(PropertyRating::class);
+    }
+
+    public function category(){
+        return $this->belongsTo(Category::class);
     }
 }
