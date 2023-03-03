@@ -80,12 +80,12 @@ $('.delete-btn').on('click',function()
             },
             success:function(result){
                 if(result.status == true ){
-                    swal(result.message)
+                    swal('',result.message,'success')
                     .then((value) => {
                       location.reload();
                     });
                 }else{
-                    swal(result.message)
+                    swal('',result.message,'error')
                     .then((value) => {
                         location.reload();
                     });
