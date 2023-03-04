@@ -11,5 +11,4 @@ class Area extends Model
     protected $table = 'area';
     protected $fillable = ['name','status','location_id'];
     public  $timestamps = false;
-
 }
