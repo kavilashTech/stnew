@@ -6,6 +6,7 @@ use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\LocationController;
 use App\Http\Controllers\Admin\AreasController;
 use App\Http\Controllers\Admin\RoomController;
+use App\Http\Controllers\Admin\StaytypeController;
 
 /*
 |--------------------------------------------------------------------------
@@ -46,6 +47,10 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.'], function () {
         // Dashboard related routes
         Route::post('owner/approved',[DashboardController::class,'ownerApprovel'])->name('ownerapprovel');
         Route::post('property/approved',[DashboardController::class,'propertyApprovel'])->name('propertyapprovel');
+
+
+        // Property routes
+        Route::resource('properties-categories', StaytypeController::class);
 
     });
 
