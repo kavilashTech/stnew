@@ -53,7 +53,7 @@
                                     </tr>
                                     @forelse ($pending_properties as $key => $type )
                                         <tr>
-                                            <td>{{$type->property_title}}<p>{{$type->category->categoryname}}</p></td>
+                                            <td>{{$type->property_title}}</td>
                                             <td><span class="badge badge-warning">Pending</span></td>
                                             <td>
                                                 <button class="btn btn-primary"><i class="fa fa-eye" aria-hidden="true"></i></button>

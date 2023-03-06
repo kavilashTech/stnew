@@ -35,6 +35,17 @@
                             <a class="nav-link" href="#">Site Settings</a>
                         </nav>
                     </div>
+                    <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseLayouts3" aria-expanded="false" aria-controls="collapseLayouts3">
+                        <div class="sb-nav-link-icon"><i class="fa   fa-columns"></i></div>
+                        Amenities
+                        <div class="sb-sidenav-collapse-arrow"><i class="fa  fa-angle-down"></i></div>
+                    </a>
+                    <div class="collapse" id="collapseLayouts3" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
+                        <nav class="sb-sidenav-menu-nested nav">
+                            <a class="nav-link" href="{{route('admin.amenities',['level'=>'property'])}}">Property level</a>
+                            <a class="nav-link" href="{{route('admin.amenities',['level'=>'room'])}}">Room Level</a>
+                        </nav>
+                    </div>
                 </div>
             </div>
             <div class="sb-sidenav-footer" style="color:white">

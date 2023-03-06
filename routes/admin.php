@@ -7,6 +7,8 @@ use App\Http\Controllers\Admin\LocationController;
 use App\Http\Controllers\Admin\AreasController;
 use App\Http\Controllers\Admin\RoomController;
 use App\Http\Controllers\Admin\StaytypeController;
+use App\Http\Controllers\Admin\AmenitiesController;
+use App\Http\Controllers\Admin\AmenityListController;
 
 /*
 |--------------------------------------------------------------------------
@@ -51,6 +53,23 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.'], function () {
 
         // Property routes
         Route::resource('properties-categories', StaytypeController::class);
+
+        // Amenties
+        Route::get('amenities/{level}',[AmenitiesController::class,'index'])->name('amenities');       
+        Route::get('amenities/{level}/create',[AmenitiesController::class,'create'])->name('amenities.create');       
+        Route::post('amenities/create',[AmenitiesController::class,'store'])->name('amenities.create.store');       
+        Route::patch('amenities/{level}/update/{id}',[AmenitiesController::class,'update'])->name('amenities.update');       
+        Route::get('amenities/{level}/edit/{id}',[AmenitiesController::class,'edit'])->name('amenities.edit');       
+        Route::delete('amenities/{id}',[AmenitiesController::class,'destroy'])->name('amenities.destroy');
+
+        // Route for amenity list
+        Route::get('amenities/list/{parentid}/',[AmenityListController::class,'index'])->name('amenities.list');     
+        Route::get('amenities/list/{parentid}/create',[AmenityListController::class,'create'])->name('amenities.list.create');   
+        Route::post('amenities/list/{parentid}/create',[AmenityListController::class,'store'])->name('amenities.list.store');   
+
+        Route::get('amenities/list/{parentid}/edit/{id}',[AmenityListController::class,'edit'])->name('amenities.list.edit');   
+        Route::patch('amenities/list/{parentid}/edit/{id}/update',[AmenityListController::class,'update'])->name('amenities.list.update');   
+        Route::delete('amenities/list/{id}',[AmenityListController::class,'destroy'])->name('amenities.list.destroy');
 
     });
 

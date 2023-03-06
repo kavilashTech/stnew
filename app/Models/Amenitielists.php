@@ -10,7 +10,9 @@ class Amenitielists extends Model
 {
     use HasFactory;
     protected $table         = 'amenities_list';
+    protected $fillable = ['name','amenity_id','value','icon'];
 
+    public $timestamps = false;
 
 
 }
