@@ -9,6 +9,7 @@ use App\Http\Controllers\Admin\RoomController;
 use App\Http\Controllers\Admin\StaytypeController;
 use App\Http\Controllers\Admin\AmenitiesController;
 use App\Http\Controllers\Admin\AmenityListController;
+use App\Http\Controllers\Admin\CompanyController;
 
 /*
 |--------------------------------------------------------------------------
@@ -53,6 +54,7 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.'], function () {
 
         // Property routes
         Route::resource('properties-categories', StaytypeController::class);
+        Route::get('company', [CompanyController::class,'index'])->name('company');
 
         // Amenties
         Route::get('amenities/{level}',[AmenitiesController::class,'index'])->name('amenities');       

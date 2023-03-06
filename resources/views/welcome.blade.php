@@ -190,7 +190,7 @@
                 <div class="item">
                   <div class="properti_city properti-slider">
                     <div class="mb-2 properti-thumb">
-                      <a class="thumb-image" href="{{ route('property.detail',1)}}">
+                      <a class="thumb-image" href="{{ route('property.detail',$property->id)}}">
                         <div class="thumb_img bg_img_placeholder feature_property_bg_image_overlay pt-0">
                           <img src="{{url('images/property/'.$property->feature_image)}}" class="img-fluid">
                         </div>

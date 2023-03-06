@@ -1,14 +1,15 @@
 <?php
 
-use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Auth;
 
+use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\PropertyController;
-use App\Http\Controllers\Owner\Auth\OwnerLoginController;
 use App\Http\Controllers\Owner\DashboardController;
+use App\Http\Controllers\Owner\Auth\OwnerLoginController;
 
 /*
 |--------------------------------------------------------------------------

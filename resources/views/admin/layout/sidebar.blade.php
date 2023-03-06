@@ -20,7 +20,16 @@
                         <nav class="sb-sidenav-menu-nested nav">
                             <a class="nav-link" href="{{route('admin.properties-categories.index')}}">Staytype Categories</a>
                                 <a class="nav-link" href="{{route('admin.locations.index')}}">Locations</a>
-                                <a class="nav-link" href="#">Amenities</a>
+                                <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#amenitesCollapseAuth" aria-expanded="true" aria-controls="pagesCollapseAuth">
+                                        Amenities
+                                        <div class="sb-sidenav-collapse-arrow"><i class="fa  fa-angle-down"></i></div>
+                                    </a>
+                                    <div class="collapse" id="amenitesCollapseAuth" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordionPages">
+                                        <nav class="sb-sidenav-menu-nested nav">
+                                            <a class="nav-link" href="">Property Level</a>
+                                            <a class="nav-link" href="">Room Level</a>
+                                        </nav>
+                                    </div>
                         </nav>
                     </div>
 
@@ -31,7 +40,7 @@
                     </a>
                     <div class="collapse" id="collapseLayouts2" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
                         <nav class="sb-sidenav-menu-nested nav">
-                            <a class="nav-link" href="#">Company</a>
+                            <a class="nav-link" href="{{route('admin.company')}}">Company</a>
                             <a class="nav-link" href="#">Site Settings</a>
                         </nav>
                     </div>
