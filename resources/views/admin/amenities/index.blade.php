@@ -15,7 +15,7 @@
                         <th>Name</th>
                         <th>Show In Detail</th>
                         <th>Type</th>
-                        <th>action</th>
+                        <th>Icon</th>
                         <th width="20%">Action</th>
                     </tr>
                 </thead>

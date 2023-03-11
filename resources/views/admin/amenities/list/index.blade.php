@@ -4,7 +4,9 @@
     <div class="card" >
         <div class="card-header d-flex" style="font-size:25px; color:grey">
             <span style="display:flex;"><strong>Manage Amenities List - </strong><p style="font-size: 15px; line-height:42px">{{@$parentname ? $parentname->name : '' }}</p></span>
-            <span class="ms-auto"><a href="{{route('admin.amenities.list.create',['parentid'=>$parentid])}}"  class="btn btn-primary"><span class="glyphicon glyphicon-plus"></span> Add New</a></span>
+            <span class="ms-auto">
+                <a href="{{route('admin.amenities',['level'=>$type])}}"  class="btn btn-primary"><span class="glyphicon glyphicon-plus"></span> Back</a>
+                <a href="{{route('admin.amenities.list.create',['parentid'=>$parentid])}}"  class="btn btn-primary"><span class="glyphicon glyphicon-plus"></span> Add New</a></span>
         </div>
         <div class="card-body">
            @include('admin.layout.message')
