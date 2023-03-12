@@ -10,9 +10,7 @@ use App\Models\Amenities;
 class AmenityListController extends Controller
 {
     public function index(Request $request)
-    {
-    
-       
+    { 
         $lists = Amenitielists::where('amenity_id',$request->parentid)->get();
         $parentid = $request->parentid;
         $parentname = Amenities::where('id',$parentid )->first();
@@ -39,7 +37,6 @@ class AmenityListController extends Controller
 
     public function edit(Request $request)
     {
-     
         $amenitylist = Amenitielists::where(['id'=>$request->id])->first();
     
         if(!$amenitylist){

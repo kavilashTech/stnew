@@ -5,7 +5,6 @@ use App\Http\Controllers\Admin\Auth\LoginController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\LocationController;
 use App\Http\Controllers\Admin\AreasController;
-use App\Http\Controllers\Admin\RoomController;
 use App\Http\Controllers\Admin\StaytypeController;
 use App\Http\Controllers\Admin\AmenitiesController;
 use App\Http\Controllers\Admin\AmenityListController;
@@ -41,12 +40,7 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.'], function () {
         Route::post('{locationId}/areas/create',[AreasController::class,'store'])->name('areas.store');
         Route::delete('{locationId}/areas/delete/{id}',[AreasController::class,'destroy'])->name('areas.delete');
 
-        Route::get('/vacancyupdate/{id}', [RoomController::class,'vacancyupdate'])->name('room.vacancyupdate');
-        Route::get('roomvacancyupdate/{id}',[RoomController::class,'roomvacancyupdate'])->name('room.roomvacancyupdate');
-        Route::get('vacancyupdate',[RoomController::class,'vacancyroomupdate'])->name('room.vacancyroomupdate');
-
-        Route::post('roomavailability',[RoomController::class,'availabilityUpdate'])->name('rooms.availabiltyupdate');
-        Route::post('availabiltybulkupdate', [RoomController::class,'availabiltybulkupdate'])->name('rooms.availabiltybulkupdate');
+        
         // Dashboard related routes
         Route::post('owner/approved',[DashboardController::class,'ownerApprovel'])->name('ownerapprovel');
         Route::post('property/approved',[DashboardController::class,'propertyApprovel'])->name('propertyapprovel');
