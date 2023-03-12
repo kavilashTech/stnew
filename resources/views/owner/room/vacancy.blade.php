@@ -157,75 +157,75 @@ if(isset($room_id)){
     </div>
     {{-- </div> --}}
 @if(isset($html) && $html != '')
-    <div class="row">
-        <div class="col-sm-8 col-lg-8 col-md-8 mb10">
-            <div class="panel">
-                <div class="panel-title">
-                    <strong>{{ __('Single Update')}}</strong>
-                </div>
-                <div class="panel-body">
-                    {!!$html!!}
-                </div>
+<div class="row">
+    <div class="col-sm-8 col-lg-8 col-md-8 mb10">
+        <div class="panel">
+            <div class="panel-title">
+                <strong>{{ __('Single Update')}}</strong>
+            </div>
+            <div class="panel-body">
+                {!!$html!!}
             </div>
         </div>
-        <div class="col-sm-4 col-lg-4 col-md-4 mb10">
-            <div class="panel">
-                <div class="panel-title">
-                    <strong>{{ __('Bulk Update')}}</strong>
-                </div>
-                <div class="panel-body">
-                    <input type = "hidden" value = "{{$room_id}}" class = "blukupdate">
-                    <div class="form-group">
-                        <label>{{ __('From Date')}}</label>
-                        <input type="text" name="start_date" class="form-control has-datepicker start_date" placeholder="{{__('DD-MM-YYYY')}}">
-                    </div>
-
-                    <div class="form-group ">
-                        <label>{{ __('End Date')}}</label>
-                        <input type="text" name="end_date" class="form-control has-datepicker end_date" placeholder="{{__('DD-MM-YYYY')}}">
-                    </div>
-
-                    <div class="form-group ">
-                        <label>{{ __('Enter Vacancy')}}</label>
-                        <input type="text" value="" placeholder="Vacancy" name="available" class="form-control available">
-                    </div>
-
-                    <div class="text-right">
-                        <button class="btn btn-primary bulkupdate" type="button"><i class="fa fa-save"></i> {{__('Save Changes')}}</button>
-                    </div>
-                </div>
+    </div>
+    <div class="col-sm-4 col-lg-4 col-md-4 mb10">
+        <div class="panel">
+            <div class="panel-title">
+                <strong>{{ __('Bulk Update')}}</strong>
             </div>
-        </div>
+            <div class="panel-body">
+                <input type = "hidden" value = "{{$room_id}}" class = "blukupdate">
+                <div class="form-group">
+                    <label>{{ __('From Date')}}</label>
+                    <input type="text" name="start_date" class="form-control has-datepicker start_date" placeholder="{{__('DD-MM-YYYY')}}">
+                </div>
 
-        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Update Vacancy</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        <div class="col-sm-6">
-                            <input type="hidden" class="room_id">
-                            <label>Date </label> <span class="availabilty_date">{{date('y-M-d')}}</span>
-                        </div>
-                        <div class="col-sm-6">
-                            <label>Current Vacancy </label> <span class="availabiltycount">6</span>
-                        </div>
-                        <div class="col-sm-6">
-                            <label>Enter Vacancy </label> <input type="number" name="available" class="roomcount">
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <button type="button" class="btn btn-primary availabiltystore">Save changes</button>
-                    </div>
+                <div class="form-group ">
+                    <label>{{ __('End Date')}}</label>
+                    <input type="text" name="end_date" class="form-control has-datepicker end_date" placeholder="{{__('DD-MM-YYYY')}}">
+                </div>
+
+                <div class="form-group ">
+                    <label>{{ __('Enter Vacancy')}}</label>
+                    <input type="text" value="" placeholder="Vacancy" name="available" class="form-control available">
+                </div>
+
+                <div class="text-right">
+                    <button class="btn btn-primary bulkupdate" type="button"><i class="fa fa-save"></i> {{__('Save Changes')}}</button>
                 </div>
             </div>
         </div>
     </div>
+
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Update Vacancy</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="col-sm-6">
+                        <input type="hidden" class="room_id">
+                        <label>Date </label> <span class="availabilty_date">{{date('y-M-d')}}</span>
+                    </div>
+                    <div class="col-sm-6">
+                        <label>Current Vacancy </label> <span class="availabiltycount">6</span>
+                    </div>
+                    <div class="col-sm-6">
+                        <label>Enter Vacancy </label> <input type="number" name="available" class="roomcount">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary availabiltystore">Save changes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 </div>
 @endif
 
