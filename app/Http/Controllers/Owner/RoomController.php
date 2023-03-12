@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers\Owner;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
@@ -260,7 +260,7 @@ class RoomController extends Controller
     'property' => $property)
                     ;
 
-    return view('admin.room.vacancy', $data);
+    return view('owner.room.vacancy', $data);
 
 
     }
@@ -280,7 +280,7 @@ class RoomController extends Controller
             'property'    => $rows,
             'rows' => $rows);
 
-return view('admin.room.vacancy', $data);
+return view('owner.room.vacancy', $data);
 
 
 

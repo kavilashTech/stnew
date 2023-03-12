@@ -1,6 +1,6 @@
 
-@extends('admin.layout.master')
-@section('head')
+@extends('owner.layout.master')
+@section('dynamic-content')
 <style>
     div#calendar {
         margin: 0px auto;
@@ -124,9 +124,6 @@
         clear: both;
     }
 </style>
-@endsection
-@section('dynamic-content')
-
 
 <?php
  $selected = '';
@@ -135,45 +132,47 @@ if(isset($room_id)){
 }
 
 ?>
+<div class="container-fluid px-4 mt-5">
 <h1>{{$rows[0]->property_title}} </h1>
-<div class="row">
-<div class="col-sm-8 col-lg-8 col-md-8 mb10">
-<div class="panel">
-            <div class="panel-title"><strong>{{ __('Single Update')}}</strong></div>
-            <div class="panel-body">
-            <form method="get" action="#" class="filter-form filter-form-left d-flex justify-content-start">
-                    {{csrf_field()}}
-                    <select name="action" class="form-control rooms_id" {{$selected}}>
-                        <option value="">{{__(" Select Room ")}}</option>
-                        @foreach($property as $data)
-                            <option value="{{ $data->roomid }}"  @if(isset($room_id) and $data->roomid == $room_id) selected @endif>{{$data->name}}</option>
-                        @endforeach
-                    </select>
-                    <button class="btn-info btn btn-icon dungdt-apply-form-btn roomupdate" type="button">{{__('Apply')}}</button>
-                </form>
+    <div class="row">
+        <div class="col-sm-8 col-lg-8 col-md-8 mb10">
+            <div class="panel">
+                <div class="panel-title">
+                    <strong>{{ __('Single Update')}}</strong>
+                </div>
+                <div class="panel-body">
+                    <form method="get" action="#" class="filter-form filter-form-left d-flex justify-content-start">
+                        {{csrf_field()}}
+                        <select name="action" class="form-control rooms_id" {{$selected}}>
+                            <option value="">{{__(" Select Room ")}}</option>
+                            @foreach($property as $data)
+                                <option value="{{ $data->roomid }}"  @if(isset($room_id) and $data->roomid == $room_id) selected @endif>{{$data->name}}</option>
+                            @endforeach
+                        </select>
+                        <button class="btn-info btn btn-icon dungdt-apply-form-btn roomupdate" type="button">{{__('Apply')}}</button>
+                    </form>
+                </div>
             </div>
         </div>
-
-</div>
-
-</div>
+    </div>
+    {{-- </div> --}}
 @if(isset($html) && $html != '')
 <div class="row">
-
-
     <div class="col-sm-8 col-lg-8 col-md-8 mb10">
-
-    <div class="panel">
-            <div class="panel-title"><strong>{{ __('Single Update')}}</strong></div>
+        <div class="panel">
+            <div class="panel-title">
+                <strong>{{ __('Single Update')}}</strong>
+            </div>
             <div class="panel-body">
-            {!!$html!!}
+                {!!$html!!}
             </div>
         </div>
-
     </div>
     <div class="col-sm-4 col-lg-4 col-md-4 mb10">
         <div class="panel">
-            <div class="panel-title"><strong>{{ __('Bulk Update')}}</strong></div>
+            <div class="panel-title">
+                <strong>{{ __('Bulk Update')}}</strong>
+            </div>
             <div class="panel-body">
                 <input type = "hidden" value = "{{$room_id}}" class = "blukupdate">
                 <div class="form-group">
@@ -192,49 +191,45 @@ if(isset($room_id)){
                 </div>
 
                 <div class="text-right">
-                                    <button class="btn btn-primary bulkupdate" type="button"><i class="fa fa-save"></i> {{__('Save Changes')}}</button>
-                                </div>
+                    <button class="btn btn-primary bulkupdate" type="button"><i class="fa fa-save"></i> {{__('Save Changes')}}</button>
+                </div>
             </div>
         </div>
-
     </div>
 
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Update Vacancy</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="col-sm-6">
+                        <input type="hidden" class="room_id">
+                        <label>Date </label> <span class="availabilty_date">{{date('y-M-d')}}</span>
+                    </div>
+                    <div class="col-sm-6">
+                        <label>Current Vacancy </label> <span class="availabiltycount">6</span>
+                    </div>
+                    <div class="col-sm-6">
+                        <label>Enter Vacancy </label> <input type="number" name="available" class="roomcount">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary availabiltystore">Save changes</button>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
-
-
-
-
-<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Update Vacancy</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <div class="col-sm-6">
-                    <input type="hidden" class="room_id">
-                    <label>Date </label> <span class="availabilty_date">{{date('y-M-d')}}</span>
-                </div>
-                <div class="col-sm-6">
-                    <label>Current Vacancy </label> <span class="availabiltycount">6</span>
-                </div>
-                <div class="col-sm-6">
-                    <label>Enter Vacancy </label> <input type="number" name="available" class="roomcount">
-                </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary availabiltystore">Save changes</button>
-            </div>
-        </div>
-    </div>
 </div>
 @endif
-@endsection
-@section('script.body')
+
+@push('custom-script')
 <link rel="stylesheet" href="{{asset('js/daterange/daterangepicker.css')}}">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
     <script src="{{asset('js/daterange/moment.min.js')}}"></script>
@@ -262,18 +257,11 @@ var dateToday = new Date();
             $(this).val(picker.startDate.format('DD-MM-YYYY'));
         });
 
-
-
-
-
     $(document).on("click", ".roomupdate", function() {
         var room_id = $('.rooms_id').find(":selected").val();
         var urls = '{{ url('') }}';
 
-        window.location.href = urls+'/admin/vacancyupdate/'+room_id;
-
-
-
+        window.location.href = urls+'/owner/vacancyupdate/'+room_id;
     })
     $(document).on("click", ".availabiltystore", function() {
 
@@ -290,7 +278,7 @@ var dateToday = new Date();
 
         var ajaxReady = 1;
         $.ajax({
-            url: "{{route('admin.rooms.availabiltyupdate')}}",
+            url: "{{route('owner.rooms.availabiltyupdate')}}",
             data: {
                 roomid: room_id,
                 date: date,
@@ -310,21 +298,12 @@ var dateToday = new Date();
                     location.reload();
                 }
                 console.log(res);
-
-
-
             },
             error: function() {
                 ajaxReady = 1;
             }
         })
-
-
-
-
     })
-
-
 
     $(document).on("click", ".bulkupdate", function() {
 
@@ -342,7 +321,7 @@ return false;
 
 var ajaxReady = 1;
 $.ajax({
-    url: "{{route('admin.rooms.availabiltybulkupdate')}}",
+    url: "{{route('owner.rooms.availabiltybulkupdate')}}",
     data: {
         roomid: room_id,
         start_date: start_date,
@@ -372,23 +351,14 @@ $.ajax({
     }
 })
 
-
-
-
 })
 
-
     $(document).on("click", ".availabiltyupdate", function() {
-
-
         $('.availabilty_date').text($(this).data('date'));
         $('.availabiltycount').text($(this).data('availability'));
         $('.room_id').val($(this).data('room_id'));
-
-
-
     });
 </script>
 
-
+@endpush
 @endsection
