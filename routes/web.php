@@ -11,6 +11,7 @@ use App\Http\Controllers\PropertyController;
 use App\Http\Controllers\Owner\DashboardController;
 use App\Http\Controllers\Owner\Auth\OwnerLoginController;
 use App\Http\Controllers\Owner\RoomController;
+use App\Http\Controllers\Owner\StaytypeController;
 
 /*
 |--------------------------------------------------------------------------
@@ -72,7 +73,6 @@ Route::group(['as' => 'owner.','prefix'=>'owner'], function() {
 
     Route::group(['middleware' => ["auth","web"]],function(){
         Route::get('dashboard',[DashboardController::class,'index'])->name('dashboard');
-
         
         Route::get('/vacancyupdate/{id}', [RoomController::class,'vacancyupdate'])->name('room.vacancyupdate');
         Route::get('roomvacancyupdate/{id}',[RoomController::class,'roomvacancyupdate'])->name('room.roomvacancyupdate');
@@ -80,6 +80,8 @@ Route::group(['as' => 'owner.','prefix'=>'owner'], function() {
 
         Route::post('roomavailability',[RoomController::class,'availabilityUpdate'])->name('rooms.availabiltyupdate');
         Route::post('availabiltybulkupdate', [RoomController::class,'availabiltybulkupdate'])->name('rooms.availabiltybulkupdate');
+
+        Route::resource('staytype',StaytypeController::class);
     });
 });
 

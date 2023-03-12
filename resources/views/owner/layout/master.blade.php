@@ -12,7 +12,7 @@
         <link href="{{ asset('css2/adminstyles.css')}}" rel="stylesheet" />
         <link href="{{ asset('css2/font-awesome.min.css')}}" rel="stylesheet" />
         <link href="{{ asset('css2/custom.css')}}" rel="stylesheet" />
-        
+        @stack('custom-style')
     </head>
     <body class="sb-nav-fixed">
        @include('owner.layout.header')

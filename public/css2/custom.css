@@ -7,4 +7,350 @@
 }
 .sb-sidenav .sb-sidenav-menu .nav .sb-sidenav-menu-heading{
     color:white;
+}fieldset {
+    text-align: center;
+    position: relative;
+    margin-top: 20px;
+}
+
+/* #msform fieldset .form-card {
+    background: rgb(228, 171, 171);
+    border: 1 none;
+    border-radius: 0px;
+    box-shadow: 0 2px 2px 2px rgba(0, 0, 0, 0.2);
+    padding: 20px 40px 30px 40px;
+    box-sizing: border-box;
+    width: 94%;
+    margin: 0 3% 20px 3%; */
+
+    /*stacking fieldsets above each other*/
+    /* position: relative;
+} */
+fieldset .form-card {
+    background: rgb(255, 255, 255);
+    border: 1 none;
+    border-radius: 0px;
+    box-shadow: 0 2px 2px 2px rgba(0, 0, 0, 0.2);
+    padding: 20px 40px 30px 40px;
+    box-sizing: border-box;
+    width: 94%;
+    margin: 0 3% 20px 3%;
+
+    /*stacking fieldsets above each other*/
+    position: relative;
+}
+
+/* #msform fieldset {
+    background: white;
+    border: 0 none;
+    border-radius: 0.5rem;
+    box-sizing: border-box;
+    width: 100%;
+    margin: 0;
+    padding-bottom: 20px; */
+
+    /*stacking fieldsets above each other*/
+    /* position: relative;
+} */
+fieldset {
+    background: white;
+    border: 0 none;
+    border-radius: 0.5rem;
+    box-sizing: border-box;
+    width: 100%;
+    margin: 0;
+    padding-bottom: 20px;
+
+    /*stacking fieldsets above each other*/
+    position: relative;
+}
+
+/*Hide all except first fieldset*/
+fieldset:not(:first-of-type) {
+    display: none;
+}
+
+fieldset .form-card {
+    text-align: left;
+    color: #9E9E9E;
+}
+
+fieldset input, fieldset textarea {
+    padding: 0px 8px 4px 8px;
+    border: none;
+    border-bottom: 1px solid #ccc;
+    border-radius: 0px;
+    margin-bottom: 25px;
+    margin-top: 2px;
+    width: 100%;
+    box-sizing: border-box;
+    font-family: montserrat;
+    color: #2C3E50;
+    font-size: 16px;
+    letter-spacing: 1px;
+}
+
+fieldset input:focus, fieldset textarea:focus {
+    -moz-box-shadow: none !important;
+    -webkit-box-shadow: none !important;
+    box-shadow: none !important;
+    border: none;
+    font-weight: bold;
+    border-bottom: 2px solid skyblue;
+    outline-width: 0;
+}
+
+/*Blue Buttons*/
+fieldset .action-button {
+    width: 100px;
+    background: skyblue;
+    font-weight: bold;
+    color: white;
+    border: 0 none;
+    border-radius: 0px;
+    cursor: pointer;
+    padding: 10px 5px;
+    margin: 10px 5px;
+}
+
+fieldset .action-button-final {
+    width: 100px;
+    background: rgb(27, 94, 18);
+    font-weight: bold;
+    color: white;
+    border: 0 none;
+    border-radius: 0px;
+    cursor: pointer;
+    padding: 10px 5px;
+    margin: 10px 5px;
+}
+
+fieldset .action-button-save {
+    width: 100px;
+    background: rgb(95, 150, 107);
+    font-weight: bold;
+    color: #000;
+    border: 0 none;
+    border-radius: 0px;
+    cursor: pointer;
+    padding: 10px 5px;
+    float:right;
+    margin-right:50px;
+    /* margin: 10px 5px; */
+}
+fieldset .action-button-cancel {
+    width: 100px;
+    background: rgb(226, 226, 226);
+    font-weight: bold;
+    color: #000;
+    border: 0 none;
+    border-radius: 0px;
+    cursor: pointer;
+    padding: 10px 5px;
+    float:right;
+    margin-right:50px;
+    /* margin: 10px 5px; */
+}
+
+fieldset .action-button-save:hover{
+    background: rgb(252, 252, 252);
+    color: rgb(95, 150, 107);
+    border:1px solid rgb(95, 150, 107);
+    
+}
+fieldset .action-button-cancel:hover{
+    background: rgb(252, 252, 252);
+    color: #000;
+    border:1px solid rgb(68, 68, 68);
+    
+}
+
+fieldset .action-button:hover, fieldset .action-button:focus {
+    box-shadow: 0 0 0 2px white, 0 0 0 3px skyblue;
+}
+
+/*Previous Buttons*/
+fieldset .action-button-previous {
+    width: 100px;
+    background: #616161;
+    font-weight: bold;
+    color: white;
+    border: 0 none;
+    border-radius: 0px;
+    cursor: pointer;
+    padding: 10px 5px;
+    margin: 10px 5px;
+}
+
+fieldset .action-button-previous:hover, fieldset .action-button-previous:focus {
+    box-shadow: 0 0 0 2px white, 0 0 0 3px #616161;
+}
+
+/*Dropdown List Exp Date*/
+select.list-dt {
+    border: none;
+    outline: 0;
+    border-bottom: 1px solid #ccc;
+    padding: 2px 5px 3px 5px;
+    margin: 2px;
+    margin-bottom: 25px;
+    font-family: montserrat;
+    color: #2C3E50!important;
+    font-size: 16px;
+    letter-spacing: 1px;
+}
+
+select.list-dt:focus {
+    border-bottom: 2px solid skyblue;
+}
+
+/*The background card*/
+.card {
+    z-index: 0;
+    border: none;
+    border-radius: 0.5rem;
+    position: relative;
+}
+
+/*FieldSet headings*/
+.fs-title {
+    font-size: 25px;
+    color: #2C3E50;
+    margin-bottom: 10px;
+    font-weight: bold;
+    text-align: left;
+}
+
+/*progressbar*/
+#progressbar {
+    margin-bottom: 30px;
+    overflow: hidden;
+    color: lightgrey;
+    text-align: center;
+}
+
+#progressbar .active {
+    color: #000000;
+}
+
+#progressbar li {
+    list-style-type: none;
+    font-size: 12px;
+    width: 14%;
+    float: left;
+    position: relative;
+}
+
+/*Icons in the ProgressBar*/
+#progressbar #basic:before {
+    font-family: FontAwesome;
+    content: "\f023";
+    text-align: center;
+}
+
+#progressbar #media:before {
+    font-family: FontAwesome;
+    content: "\f007";
+    text-align: center;
+}
+#progressbar #Amenities:before {
+    font-family: FontAwesome;
+    content: "\f007";
+    text-align: center;
+}
+
+#progressbar #Media:before {
+    font-family: FontAwesome;
+    content: "\f09d";
+    text-align: center;
+}
+#progressbar #Rooms:before {
+    font-family: FontAwesome;
+    content: "\f09d";
+    text-align: center;
+}
+#progressbar #Worktime:before {
+    font-family: FontAwesome;
+    content: "\f09d";
+    text-align: center;
+}
+#progressbar #Terms:before {
+    font-family: FontAwesome;
+    content: "\f09d";
+    text-align: center;
+}
+#progressbar #Acceptance:before {
+    font-family: FontAwesome;
+    content: "\f09d";
+    text-align: center;
+}
+
+
+#progressbar #confirm:before {
+    font-family: FontAwesome;
+    content: "\f00c";
+    text-align: center;
+}
+
+/*ProgressBar before any progress*/
+#progressbar li:before {
+    width: 50px;
+    height: 50px;
+    line-height: 45px;
+    display: block;
+    font-size: 18px;
+    color: #ffffff;
+    background: lightgray;
+    border-radius: 50%;
+    margin: 0 auto 10px auto;
+    padding: 2px;
+}
+
+/*ProgressBar connectors*/
+#progressbar li:after {
+    content: '';
+    width: 100%;
+    height: 2px;
+    background: lightgray;
+    position: absolute;
+    left: 0;
+    top: 25px;
+    z-index: -1;
+}
+
+/*Color number of the step and the connector before it*/
+#progressbar li.active:before, #progressbar li.active:after {
+    background: #680227;
+}
+
+/*Imaged Radio Buttons*/
+.radio-group {
+    position: relative;
+    margin-bottom: 25px;
+}
+
+.radio {
+    display:inline-block;
+    width: 204;
+    height: 104;
+    border-radius: 0;
+    background: lightblue;
+    box-shadow: 0 2px 2px 2px rgba(0, 0, 0, 0.2);
+    box-sizing: border-box;
+    cursor:pointer;
+    margin: 8px 2px; 
+}
+
+.radio:hover {
+    box-shadow: 2px 2px 2px 2px rgba(0, 0, 0, 0.3);
+}
+
+.radio.selected {
+    box-shadow: 1px 1px 2px 2px rgba(0, 0, 0, 0.1);
+}
+
+/*Fit image in bootstrap div*/
+.fit-image{
+    width: 100%;
+    object-fit: cover;
 }
