@@ -30,6 +30,8 @@
         <script src="{{ asset('js2/adminscripts.js')}} "></script>
         <script src="{{ asset('js2/bootstrap.bundle.min.js')}} "></script>
         <script src="{{ asset('js2/sweetalert.min.js')}} "></script>
+        <script src="{{ asset('js2/jquery.validate.min.js')}} "></script>
+        <script src="{{ asset('js2/additional-methods.min.js')}} "></script>
         <script src="{{ asset('js2/custome.js')}} "></script>
         @stack('custom-script')
         {{-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
