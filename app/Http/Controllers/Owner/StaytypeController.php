@@ -57,7 +57,7 @@ class StaytypeController extends Controller
      */
     public function edit($id)
     {
-        return view('owner.staytype.update');
+        return view('owner.staytype.update',compact('id'));
     }
 
     /**
@@ -69,7 +69,7 @@ class StaytypeController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        // dd($request->input('property_title'));
     }
 
     /**

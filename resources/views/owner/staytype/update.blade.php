@@ -1,4 +1,11 @@
 @extends('owner.layout.master')
+@push('custom-style')
+    <style>
+        .error{
+            color:red;
+        }
+    </style>
+@endpush
 @section('dynamic-content')
 <div class="container-fluid px-4 mt-5">
     <div class="card" >
@@ -22,14 +29,83 @@
                 </div>
                 <div class="card-body">
                     <form id="form1">
-                        {{-- <div class="row">
-                            <div class="col-md-6">
-                                <input type="text" class="form-control">
+                        <div class="row">
+                            <div class="col-md-6 form-group">
+                                <input type="hidden" name="step" value="step1">
+                                <label for="property_title">Property Title<span style="color: red;font-size:18px;"><b>*</b></label>
+                                {{ Form::text("property_title", old("property_title"), ["class" => "form-control ", "placeholder" => "Enter property_title", "id" => "property_title", 'required'=>'true']) }}
+                                @error("property_title")
+                                    <p style="color:red;">{{ $message }}</p>
+                                @enderror
                             </div>
-                        </div> --}}
-                        <h1>Basic</h1>
+                            <div class="col-md-6 form-group">
+                                <label for="short_description">Short Description</label>
+                                {{ Form::text("short_description", old("short_description"), ["class" => "form-control ", "placeholder" => "Enter short_description", "id" => "short_description"]) }}
+                                @error("short_description")
+                                    <p style="color:red;">{{ $message }}</p>
+                                @enderror
+                            </div>
+                            <div class="col-md-6 form-group">
+                                <label for="description">Description</label>
+                                {{ Form::text("description", old("description"), ["class" => "form-control ", "placeholder" => "Enter description", "id" => "description"]) }}
+                                @error("description")
+                                    <p style="color:red;">{{ $message }}</p>
+                                @enderror
+                            </div>
 
-                        <button type = "button" onclick = "changeForm(2)">Save</button>
+                            <div class="col-md-6 form-group">
+                                <label for="address1">Address1</label>
+                                {{ Form::text("address1", old("address1"), ["class" => "form-control ", "placeholder" => "Enter address1", "id" => "address1"]) }}
+                                @error("address1")
+                                    <p style="color:red;">{{ $message }}</p>
+                                @enderror
+                            </div>
+                            <div class="col-md-6 form-group">
+                                <label for="address2">Address2</label>
+                                {{ Form::text("address2", old("address2"), ["class" => "form-control ", "placeholder" => "Enter address2", "id" => "address2"]) }}
+                                @error("address2")
+                                    <p style="color:red;">{{ $message }}</p>
+                                @enderror
+                            </div>
+                            <div class="col-md-6 form-group">
+                                <label for="state">State</label>
+                                {{ Form::text("state", old("state"), ["class" => "form-control ", "placeholder" => "Enter state", "id" => "state"]) }}
+                                @error("state")
+                                    <p style="color:red;">{{ $message }}</p>
+                                @enderror
+                            </div>
+                            <div class="col-md-6 form-group">
+                                <label for="city">City</label>
+                                {{ Form::text("city", old("city"), ["class" => "form-control ", "placeholder" => "Enter city", "id" => "city"]) }}
+                                @error("city")
+                                    <p style="color:red;">{{ $message }}</p>
+                                @enderror
+                            </div>
+                            <div class="col-md-6 form-group">
+                                <label for="mobile1">Mobile1</label>
+                                {{ Form::text("mobile1", old("mobile1"), ["class" => "form-control ", "placeholder" => "Enter mobile1", "id" => "mobile1"]) }}
+                                @error("mobile1")
+                                    <p style="color:red;">{{ $message }}</p>
+                                @enderror
+                            </div>
+                            <div class="col-md-6 form-group">
+                                <label for="pincode">Pincode</label>
+                                {{ Form::text("pincode", old("pincode"), ["class" => "form-control ", "placeholder" => "Enter pincode", "id" => "pincode"]) }}
+                                @error("pincode")
+                                    <p style="color:red;">{{ $message }}</p>
+                                @enderror
+                            </div>
+
+                            <div class="col-md-6 form-group">
+                                <label for="mobile2">Mobile2</label>
+                                {{ Form::text("mobile2", old("mobile2"), ["class" => "form-control ", "placeholder" => "Enter mobile2", "id" => "mobile2"]) }}
+                                @error("mobile2")
+                                    <p style="color:red;">{{ $message }}</p>
+                                @enderror
+                            </div>
+                        </div>
+
+                        <button type = "submit" class="btn btn-primary" onclick = "changeForm(2)">Save</button>
                     </form>
                     <form class="d-none" id="form2">
                         <h1>Media</h1>
@@ -63,13 +139,39 @@
 
 @push('custom-script')
     <script>
+        
         function changeForm(id){
             if(id == 2) {
-                $('#form1').addClass('d-none');
-                $('#form2').addClass('d-block');
-                $('#form2').removeClass('d-none');
+                $("#form1").validate({
+                rules: {
+                    property_title: {
+                        required: true,
+                        maxlength: 50
+                    }
+                },
+                submitHandler: function(form, event) { 
+                    event.preventDefault();
+                    $.ajax({
+                        type: 'patch',
+                        url: "{{route('owner.staytype.update',['staytype'=>$id])}}",
+                        data: $("#form1").serialize(),      
+                        headers:{
+                            'accept':'application-json',
+                            'X-CSRF-TOKEN':  $('meta[name="csrf-token"]').attr('content')
+                        },               
+                        success: function(response) {
+                            
+                        }
+                    });
+                }
+            });
 
-                $('#basic').addClass('active');
+                // $('form1').validate();
+                // $('#form1').addClass('d-none');
+                // $('#form2').addClass('d-block');
+                // $('#form2').removeClass('d-none');
+
+                // $('#basic').addClass('active');
                 
             }else if(id == 3){
                 $('#form2').addClass('d-none');
@@ -109,7 +211,6 @@
                 $('#form6').addClass('d-none');
 
                 $('#Acceptance').addClass('active');
-
             }
         }
     </script>
